@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NewsVoice - Connected Frontend</title>
+    <title>NewsVoice - Connected Frontend (Mobilanpassad)</title>
     <style>
         /* --- Grundläggande Stilar --- */
         body {
@@ -12,16 +12,19 @@
             padding: 0;
             background-color: #ffffff;
             color: #333;
+            overflow-x: hidden; /* Förhindra horisontell scroll */
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
+            box-sizing: border-box;
         }
 
         a { text-decoration: none; color: inherit; }
         a:hover { text-decoration: underline; }
+        img { max-width: 100%; height: auto; }
 
         /* --- Header & Top --- */
         .top-banner {
@@ -41,6 +44,8 @@
             padding: 10px 0;
             font-size: 13px;
             color: #666;
+            flex-wrap: wrap; /* Tillåt radbrytning på mobil */
+            gap: 10px;
         }
 
         .social-icons span {
@@ -79,6 +84,7 @@
             color: #888;
             font-weight: bold;
             font-size: 40px;
+            max-width: 100%; /* För responsivitet */
         }
 
         /* --- Navigation --- */
@@ -86,15 +92,21 @@
             border-top: 1px solid #ddd;
             border-bottom: 5px solid #eee;
             padding: 10px 0;
-            text-align: center;
-            font-size: 12px;
-            font-weight: bold;
             margin-bottom: 30px;
+            position: relative;
         }
-        .main-nav a { margin: 0 5px; color: #000; }
-        .nav-active { border-bottom: 2px solid #cc0000; padding-bottom: 2px; }
-        .article-link { display: block; color: inherit; cursor: pointer; }
-        .article-link:hover { text-decoration: none; }
+        
+        /* Mobilmeny-knapp (dold på desktop) */
+        .mobile-menu-toggle {
+            display: none;
+            background-color: #cc0000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
 
         .main-nav .menu {
             list-style: none;
@@ -104,15 +116,19 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 6px 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
         }
-        .main-nav .menu > li {
-            position: relative;
-            padding: 0;
-        }
-        .main-nav .menu > li > a {
-            display: inline-block;
-            padding: 2px 4px;
-        }
+        .main-nav a { margin: 0 5px; color: #000; }
+        .nav-active { border-bottom: 2px solid #cc0000; padding-bottom: 2px; }
+        .article-link { display: block; color: inherit; cursor: pointer; }
+        .article-link:hover { text-decoration: none; }
+
+        .main-nav .menu > li { position: relative; padding: 0; }
+        .main-nav .menu > li > a { display: inline-block; padding: 2px 4px; }
+        
+        /* Sub-menu logic */
         .main-nav .sub-menu {
             display: none;
             position: absolute;
@@ -128,54 +144,16 @@
             box-shadow: 0 10px 24px rgba(0,0,0,0.12);
             border-radius: 6px;
         }
-        .main-nav .sub-menu li {
-            position: relative;
-            padding: 0;
-        }
-        .main-nav .sub-menu a {
-            display: block;
-            margin: 0;
-            padding: 6px 12px;
-            white-space: nowrap;
-            color: #111;
-        }
-        .main-nav .sub-menu a:hover {
-            background: #f5f5f5;
-            text-decoration: none;
-        }
-        .main-nav .sub-menu .sub-menu {
-            left: 100%;
-            top: 0;
-            margin-left: 1px;
-        }
-        .main-nav .has-children > a::after {
-            content: "▾";
-            font-size: 10px;
-            margin-left: 6px;
-            color: #666;
-        }
-        .main-nav .sub-menu .has-children > a::after {
-            content: "▸";
-            float: right;
-            margin-left: 10px;
-            color: #888;
-        }
-        .main-nav li:hover > .sub-menu {
-            display: block;
-        }
-        .main-nav .sub-menu li:hover > .sub-menu {
-            display: block;
-        }
-        .main-nav li:hover > .sub-menu {
-            display: block;
-        }
+        .main-nav .sub-menu li { position: relative; padding: 0; }
+        .main-nav .sub-menu a { display: block; margin: 0; padding: 6px 12px; white-space: nowrap; color: #111; }
+        .main-nav .sub-menu a:hover { background: #f5f5f5; text-decoration: none; }
+        .main-nav li:hover > .sub-menu { display: block; }
 
-        /* Inline iframe viewer removed */
 
         /* --- Layout Grid (Top Section) --- */
         .top-split-layout {
             display: grid;
-            grid-template-columns: 1fr 460px;
+            grid-template-columns: 1fr 340px; /* Ändrat sidebar bredd något för balans */
             gap: 30px;
             margin-bottom: 50px;
         }
@@ -190,7 +168,7 @@
             font-weight: bold; color: #555;
         }
         .featured-text { width: 40%; }
-        .featured-text h1 { margin-top: 0; font-size: 32px; line-height: 1.1; font-weight: 800; }
+        .featured-text h1 { margin-top: 0; font-size: 32px; line-height: 1.1; font-weight: 800; word-wrap: break-word;}
         .label-red {
             border: 1px solid #cc0000; color: #cc0000; padding: 2px 5px;
             font-size: 11px; font-weight: bold; display: inline-block; margin-bottom: 10px;
@@ -220,67 +198,30 @@
         }
         .newsletter-box { background: #f9f9f9; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; }
         .newsletter-box input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; margin-bottom: 10px; }
-        .newsletter-box button { background-color: #00cc00; color: white; border: none; padding: 10px 25px; font-weight: bold; cursor: pointer; }
+        .newsletter-box button { width: 100%; background-color: #00cc00; color: white; border: none; padding: 10px; font-weight: bold; cursor: pointer; }
 
         .ad-sidebar-placeholder {
             width: 100%; height: 180px; background: #004d66;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: white; text-align: center;
-        }
-        .sidebar-ads-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
             margin-bottom: 10px;
         }
+        .sidebar-ads-grid { display: block; margin-bottom: 10px; }
+        
+        /* I desktop är sidebar-3col egentligen 2 kolumner i denna design */
         .sidebar-3col {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
         }
-        .sidebar-col {
-            padding-left: 12px;
-        }
-        .sidebar-col + .sidebar-col {
-            border-left: 3px solid #cc0000;
-        }
-        .pavon-ad {
-            border: 1px solid #ddd; padding: 10px; display: flex;
-            justify-content: space-between; align-items: center; margin-bottom: 5px; font-size: 14px;
-        }
-        .ad-rect {
-            border: 1px solid #ddd;
-            background: #fff;
-            padding: 6px;
-            margin-bottom: 12px;
-        }
-        .ad-rect img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-        }
-        .ad-text-list {
-            border: 1px solid #ddd;
-            padding: 10px;
-            font-size: 13px;
-            line-height: 1.4;
-            margin-bottom: 12px;
-            background: #fff;
-        }
-        .ad-text-list p { margin: 0 0 8px 0; }
-        .ad-mini {
-            border: 1px solid #ddd;
-            padding: 6px;
-            margin-bottom: 8px;
-            background: #fff;
-        }
-        .ad-mini img {
-            width: 100%;
-            height: 80px;
-            object-fit: contain;
-            display: block;
-        }
+        .sidebar-col { padding-left: 0; }
+        .sidebar-col + .sidebar-col { padding-left: 12px; border-left: 3px solid #cc0000; }
+        
+        .ad-rect { border: 1px solid #ddd; background: #fff; padding: 6px; margin-bottom: 12px; }
+        .ad-rect img { width: 100%; height: auto; display: block; }
+        .ad-text-list { border: 1px solid #ddd; padding: 10px; font-size: 13px; line-height: 1.4; margin-bottom: 12px; background: #fff; }
+        .ad-mini { border: 1px solid #ddd; padding: 6px; margin-bottom: 8px; background: #fff; }
+        .ad-mini img { width: 100%; height: auto; object-fit: contain; display: block; }
 
         /* --- Section Headers & Grids --- */
         .section-header {
@@ -292,17 +233,13 @@
         .news-grid-4 {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
         }
-        .news-item-4 { position: relative; }
+        .news-item-4 { position: relative; margin-bottom: 10px; }
         .news-item-4 img { width: 100%; height: 120px; object-fit: cover; background-color: #eee; display: block;}
-        .news-item-4 .news-thumb { position: relative; }
         .news-item-4 h3 { font-size: 13px; line-height: 1.2; margin: 8px 0; font-weight: bold; }
 
         /* --- Must Watch Section --- */
         .must-watch-section { background-color: #000; padding: 20px; margin-top: 30px; }
-        .must-watch-title {
-            color: white; text-transform: uppercase; font-size: 16px; font-weight: bold;
-            margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;
-        }
+        .must-watch-title { color: white; text-transform: uppercase; font-size: 16px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .video-container { display: flex; height: 450px; }
 
         .main-video-area {
@@ -311,29 +248,14 @@
             background-size: cover; background-position: center;
             display: flex; align-items: center; justify-content: center;
         }
-        .youtube-overlay-top {
-            position: absolute; top: 0; left: 0; right: 0; padding: 15px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            color: white; font-size: 16px;
-        }
-        .play-button {
-            width: 68px; height: 48px; background-color: rgba(255, 0, 0, 0.9);
-            border-radius: 12px; position: relative; cursor: pointer;
-        }
-        .play-button::after {
-            content: ""; position: absolute; left: 26px; top: 14px;
-            border-style: solid; border-width: 10px 0 10px 20px;
-            border-color: transparent transparent transparent white;
-        }
+        .youtube-overlay-top { position: absolute; top: 0; left: 0; right: 0; padding: 15px; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); color: white; font-size: 16px; }
+        .play-button { width: 68px; height: 48px; background-color: rgba(255, 0, 0, 0.9); border-radius: 12px; position: relative; cursor: pointer; }
+        .play-button::after { content: ""; position: absolute; left: 26px; top: 14px; border-style: solid; border-width: 10px 0 10px 20px; border-color: transparent transparent transparent white; }
 
         .playlist-sidebar { flex: 1; background-color: #222; overflow-y: auto; color: white; }
-        .playlist-item {
-            display: flex; padding: 10px; gap: 10px; border-bottom: 1px solid #333;
-            font-size: 11px; cursor: pointer; align-items: flex-start;
-        }
+        .playlist-item { display: flex; padding: 10px; gap: 10px; border-bottom: 1px solid #333; font-size: 11px; cursor: pointer; align-items: flex-start; }
         .playlist-item:hover { background-color: #333; }
         .playlist-item.active { background-color: #e62117; }
-        .playlist-thumb { width: 70px; height: 40px; background: #444; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
         .playlist-info b { display: block; margin-bottom: 3px; }
         .playlist-info span { color: #aaa; }
         .playlist-item.active span { color: #fff; }
@@ -342,94 +264,111 @@
         .ads-placeholder {
             border: 2px solid #ccc; height: 250px; margin: 40px 0;
             display: flex; align-items: center; justify-content: center; background-color: #fff;
+            max-width: 100%;
         }
         .ads-text { font-size: 150px; font-weight: 900; color: #eee; letter-spacing: -5px; }
 
         /* --- FOOTER STYLES --- */
-        .site-footer {
-            background-color: #111;
-            color: #ccc;
-            padding: 50px 0 20px 0;
-            margin-top: 60px;
-            font-size: 13px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 40px;
-            margin-bottom: 20px;
-        }
-
-        .footer-col h4 {
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 14px;
-            border-bottom: 2px solid #cc0000;
-            display: inline-block;
-            margin-bottom: 20px;
-            padding-bottom: 5px;
-            margin-top: 0;
-        }
-
-        .footer-col ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-col li {
-            margin-bottom: 10px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 5px;
-        }
-
-        .footer-col a {
-            color: #aaa;
-            transition: color 0.2s;
-        }
-
-        .footer-col a:hover {
-            color: #fff;
-            text-decoration: none;
-            padding-left: 5px;
-        }
-
-        .footer-about p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: #666;
-        }
+        .site-footer { background-color: #111; color: #ccc; padding: 50px 0 20px 0; margin-top: 60px; font-size: 13px; }
+        .footer-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; border-bottom: 1px solid #333; padding-bottom: 40px; margin-bottom: 20px; }
+        .footer-col h4 { color: #fff; text-transform: uppercase; font-size: 14px; border-bottom: 2px solid #cc0000; display: inline-block; margin-bottom: 20px; padding-bottom: 5px; margin-top: 0; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col li { margin-bottom: 10px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        .footer-col a { color: #aaa; transition: color 0.2s; }
+        .footer-col a:hover { color: #fff; text-decoration: none; padding-left: 5px; }
+        .footer-about p { line-height: 1.6; margin-bottom: 20px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #666; flex-wrap: wrap; gap: 20px;}
 
         /* Loading indicator */
-        .loading {
-            text-align: center;
-            padding: 20px;
-            font-size: 18px;
+        .loading { text-align: center; padding: 20px; font-size: 18px; }
+
+        /* ----------------------------------------------- */
+        /* --- MOBILANPASSNING & RESPONSIV DESIGN --- */
+        /* ----------------------------------------------- */
+        
+        @media (max-width: 992px) {
+            .top-split-layout {
+                grid-template-columns: 1fr; /* Sidebar hamnar under main content */
+            }
+            .sidebar-3col {
+                grid-template-columns: repeat(2, 1fr); /* Behåll 2 kolumner i sidebaren om plats finns */
+            }
+            .sidebar-col + .sidebar-col {
+                border-left: none; /* Ta bort linjen när de stackar snyggt */
+                padding-left: 12px;
+            }
+            .news-grid-4 {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-        /* Mobilanpassning (enkel) */
         @media (max-width: 768px) {
-            .top-split-layout, .news-grid-3, .news-grid-4, .video-container, .footer-content {
-                grid-template-columns: 1fr;
-                display: block;
-                height: auto;
+            /* Container & Layout */
+            .container { padding: 0 15px; }
+            
+            /* Header */
+            .logo-section { flex-direction: column; gap: 15px; }
+            .top-ad-placeholder { width: 100%; height: auto; min-height: 100px; font-size: 20px; }
+            .logo-box { transform: scale(0.9); }
+            
+            .sub-header { justify-content: center; text-align: center; flex-direction: column;}
+            
+            /* Navigation - Mobilmeny */
+            .mobile-menu-toggle { display: block; }
+            .main-nav .menu { 
+                display: none; /* Dölj menyn som standard på mobil */
+                flex-direction: column; 
+                text-align: left;
+                background: #f9f9f9;
+                border: 1px solid #ddd;
             }
-            .video-container { height: auto; display: flex; flex-direction: column;}
-            .main-video-area { height: 250px; width: 100%;}
-            .playlist-sidebar { height: 300px; }
+            .main-nav.menu-open .menu { display: flex; } /* Visa när klassen menu-open finns */
+            .main-nav .menu > li { 
+                width: 100%; 
+                border-bottom: 1px solid #ddd; 
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            .main-nav .menu > li > a { font-size: 14px; padding: 5px 0; display: block; width: 100%; }
+            .main-nav li:hover > .sub-menu { position: static; display: none; box-shadow: none; border: none; padding-left: 20px; }
+            /* För enkelhetens skull, döljer vi drop-downs på hover i mobilvyn eller kräver klick (JS ej inlagt för sub-klick, men strukturen är redo) */
+            
+            /* Featured Article */
+            .featured-article { flex-direction: column; }
+            .featured-img-container { width: 100%; height: auto; flex-direction: column; }
+            /* VIKTIGT: Override JS inline-styles med !important */
+            .featured-img-placeholder { width: 100% !important; height: 200px !important; }
+            .featured-text { width: 100%; margin-top: 10px; }
+            .featured-text h1 { font-size: 24px; }
+            
+            /* Grids */
+            .news-grid-3 { grid-template-columns: 1fr; }
+            .news-grid-4 { grid-template-columns: repeat(2, 1fr); } /* 2 kolumner på surfplatta/stor mobil */
+            
+            /* Sidebar */
             .sidebar { margin-top: 30px; }
-            .sidebar-3col { grid-template-columns: 1fr; }
-            .sidebar-col { padding-left: 0; border-left: none; }
+            .sidebar-3col { grid-template-columns: 1fr; } /* 1 kolumn i sidebar */
+            .sidebar-col + .sidebar-col { border-left: none; padding-left: 0; margin-top: 20px; border-top: 3px solid #cc0000; padding-top: 20px;}
+            
+            /* Video */
+            .video-container { flex-direction: column; height: auto; }
+            .main-video-area { height: 250px; width: 100%; }
+            .playlist-sidebar { height: 300px; width: 100%; }
+            
+            /* Footer */
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-col h4 { border-bottom: 2px solid #cc0000; display: inline-block; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            
+            /* Ads */
+            .ads-text { font-size: 50px; }
+            .ads-placeholder { height: auto; min-height: 250px; }
+        }
+
+        @media (max-width: 480px) {
+            .news-grid-4 { grid-template-columns: 1fr; } /* 1 kolumn på små mobiler */
+            .logo-news, .logo-voice { font-size: 28px; padding: 8px 10px; }
+            .top-banner { font-size: 18px; }
         }
     </style>
 </head>
@@ -462,11 +401,15 @@
                 <div class="logo-voice">VOICE</div>
             </a>
             <div id="top-banner-ad" class="top-ad-placeholder">
-                <div class="loading">Loading advertisement...</div>
+                <div class="loading">Loading ad...</div>
             </div>
         </div>
 
-        <nav class="main-nav">
+        <nav class="main-nav" id="mainNav">
+            <!-- Mobil Toggle Knapp -->
+            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+                ☰ MENY
+            </div>
             <ul class="menu">
                 <li class="menu-item"><a href="https://newsvoice.se/">Hem</a></li>
                 <li class="menu-item"><a href="https://newsvoice.se/category/sverige-2/">Sverige</a></li>
@@ -567,6 +510,7 @@
         <!-- Left Column -->
         <div class="left-col">
             <div id="featured-article-container">
+                <!-- Javascript fyller i detta, CSS mobilanpassar det -->
                 <div class="featured-article">
                     <div class="featured-img-container">
                         <div class="featured-img-placeholder" style="width: 60%; background: #ddd;"></div>
@@ -574,25 +518,13 @@
                     </div>
                     <div class="featured-text">
                         <div class="label-red">CATEGORY</div>
-                        <h1>Artikelrubrik (placeholder)</h1>
-                        <p style="margin-top: 15px; font-size: 14px; line-height: 1.4;">Kort sammanfattning av artikeln visas här.</p>
+                        <h1>Laddar artikel...</h1>
                     </div>
                 </div>
             </div>
 
             <div id="news-grid-3-container" class="news-grid-3">
-                <div class="grid-item-3">
-                    <div style="height:120px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="grid-item-3">
-                    <div style="height:120px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="grid-item-3">
-                    <div style="height:120px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
+                <!-- Javascript fyller i detta -->
             </div>
 
             <!-- Senaste nyheterna -->
@@ -601,70 +533,7 @@
             </div>
 
             <div id="economy-business-grid" class="news-grid-4">
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
-                <div class="news-item-4">
-                    <div style="height:140px; background:#eee;"></div>
-                    <h3>Artikelrubrik (placeholder)</h3>
-                </div>
+                <!-- Javascript fyller i detta -->
             </div>
         </div>
 
@@ -679,12 +548,12 @@
                 <div class="sidebar-title">Annonser</div>
                 <div class="ad-mini">
                     <a href="#" target="_blank">
-                        <img src="assets/PremiumVpn.png" alt="Miniannons A">
+                        <img src="assets/PremiumVpn.png" alt="Miniannons A" onerror="this.style.background='#eee'">
                     </a>
                 </div>
                 <div class="ad-mini">
                     <a href="#" target="_blank">
-                        <img src="assets/NVannons.png" alt="Miniannons B">
+                        <img src="assets/NVannons.png" alt="Miniannons B" onerror="this.style.background='#eee'">
                     </a>
                 </div>
             </div>
@@ -693,16 +562,16 @@
                 <div class="sidebar-title">Advertisers</div>
                 <div class="sidebar-ads-grid">
                     <div id="sidebar-ad-placeholder-1" class="ad-sidebar-placeholder">
-                        <div class="loading">Loading advertisement...</div>
+                        <div class="loading">Ad...</div>
                     </div>
                     <div id="sidebar-ad-placeholder-2" class="ad-sidebar-placeholder">
-                        <div class="loading">Loading advertisement...</div>
+                        <div class="loading">Ad...</div>
                     </div>
                 </div>
                 <div class="sidebar-title">Annonser</div>
                 <div class="ad-rect">
                     <a href="#" target="_blank">
-                        <img src="assets/newsvoice-coffee-banner.png" alt="Annons 300x250">
+                        <img src="assets/newsvoice-coffee-banner.png" alt="Annons 300x250" onerror="this.src='https://via.placeholder.com/300x250?text=Annons';">
                     </a>
                 </div>
 
@@ -717,12 +586,7 @@
 
                 <div class="ad-mini">
                     <a href="#" target="_blank">
-                        <img src="assets/PremiumVpn.png" alt="Miniannons 1">
-                    </a>
-                </div>
-                <div class="ad-mini">
-                    <a href="#" target="_blank">
-                        <img src="assets/NVannons.png" alt="Miniannons 2">
+                        <img src="assets/PremiumVpn.png" alt="Miniannons 1" onerror="this.style.background='#eee'">
                     </a>
                 </div>
             </div>
@@ -738,7 +602,7 @@
         <div class="video-container">
             <div class="main-video-area">
                 <div class="youtube-overlay-top">
-                    WHAT I ATE AND WORKOUTS | Getting Health Back on Track | Renee A...
+                    WHAT I ATE AND WORKOUTS | Getting Health Back on Track
                 </div>
                 <div class="play-button"></div>
             </div>
@@ -772,13 +636,6 @@
                         <span>11:59</span>
                     </div>
                 </div>
-                <div class="playlist-item">
-                    <div style="font-size: 16px; width: 20px;">▶</div>
-                    <div class="playlist-info">
-                        <b>The Insane Logistics of Formula 1</b>
-                        <span>09:14</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -794,22 +651,7 @@
     </div>
 
     <div id="geopolitics-grid" class="news-grid-4">
-        <div class="news-item-4">
-            <div style="height:140px; background:#eee;"></div>
-            <h3>Artikelrubrik (placeholder)</h3>
-        </div>
-        <div class="news-item-4">
-            <div style="height:140px; background:#eee;"></div>
-            <h3>Artikelrubrik (placeholder)</h3>
-        </div>
-        <div class="news-item-4">
-            <div style="height:140px; background:#eee;"></div>
-            <h3>Artikelrubrik (placeholder)</h3>
-        </div>
-        <div class="news-item-4">
-            <div style="height:140px; background:#eee;"></div>
-            <h3>Artikelrubrik (placeholder)</h3>
-        </div>
+        <!-- Javascript fyller i detta -->
     </div>
 
 </div> <!-- End Container -->
@@ -843,14 +685,20 @@
             <a href="https://newsvoice.se" style="display:inline-block;">
                 <img src="https://cdn.newsvoice.se/wp-content/uploads/2017/07/newsvoice-logo-retina-544px.png" alt="NewsVoice" style="max-width:260px; height:auto;">
             </a>
-            <div style="max-width:520px; line-height:1.6;">
-                <strong>NewsVoice is an independent news, debate and news monitoring channel based in Stockholm, Sweden. We also publish cultural content and analysis as text and video reports.</strong>
+            <div style="max-width:520px; line-height:1.6; margin-top: 15px;">
+                <strong>NewsVoice is an independent news, debate and news monitoring channel based in Stockholm, Sweden.</strong>
             </div>
         </div>
     </div>
 </footer>
 
 <script>
+    // Mobilmeny funktion
+    function toggleMenu() {
+        const nav = document.getElementById('mainNav');
+        nav.classList.toggle('menu-open');
+    }
+
     function updateCurrentDate() {
         const el = document.getElementById('current-date');
         if (!el) return;
@@ -877,349 +725,53 @@
             imageUrl: "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=600&h=400&q=80",
             featured: true
         },
-        {
-            id: 2,
-            title: "NCAA responds to Trump's executive order on women's sports",
-            summary: "Athletic governing body addresses new federal directive on participation rules.",
-            category: "Politics",
-            imageUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 3,
-            title: "USAID leader faces backlash amid efficiency crackdown",
-            summary: "Administrator confronts challenges as aid programs face renewed scrutiny.",
-            category: "USA",
-            imageUrl: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 4,
-            title: "Gaza diplomacy shifts as Washington outlines new priorities",
-            summary: "Officials describe a revised diplomatic approach for the region.",
-            category: "Middle East",
-            imageUrl: "https://images.unsplash.com/photo-1589519124242-2e5a5e3bc63b?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 5,
-            title: "Global private sector braces for large‑scale conflict risks",
-            summary: "Economic analysis models the impact of major conflicts on supply chains.",
-            category: "Economy & Business",
-            imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 6,
-            title: "Assad vows to crush Western‑backed militants in Syria",
-            summary: "Syrian leader reaffirms commitment to a military solution.",
-            category: "Geopolitics",
-            imageUrl: "https://images.unsplash.com/photo-1589939892786-a079a3d0df4b?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 7,
-            title: "Chinese tech giant unveils quantum computing breakthrough",
-            summary: "A new processor promises exponential speedups for specific workloads.",
-            category: "Technology",
-            imageUrl: "https://images.unsplash.com/photo-1633287387306-f08b4b3671c6?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 8,
-            title: "Amazon deforestation reaches critical threshold",
-            summary: "Environmental groups warn of irreversible ecological damage.",
-            category: "Environment & Nature",
-            imageUrl: "https://images.unsplash.com/photo-1533441325984-d8b05f3cfed2?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 9,
-            title: "Nordic export council launches new trade corridor",
-            summary: "Initiative targets faster shipping for small manufacturers.",
-            category: "Trade",
-            imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 10,
-            title: "Stockholm fintechs raise record funding round",
-            summary: "Capital inflows accelerate as EU regulations stabilize.",
-            category: "Business",
-            imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 11,
-            title: "EU mediation revives stalled dialogue talks",
-            summary: "Diplomats confirm a renewed timetable for negotiations.",
-            category: "Diplomacy",
-            imageUrl: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 12,
-            title: "Cross‑border energy pact aims to stabilize markets",
-            summary: "International partners align on shared reserves strategy.",
-            category: "International",
-            imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 13,
-            title: "Nordic manufacturing index posts first growth in a year",
-            summary: "Analysts cite resilient demand in transport and metals.",
-            category: "Economy",
-            imageUrl: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 14,
-            title: "Sweden expands rail electrification plan for northern routes",
-            summary: "Transport authority outlines phased upgrades to improve freight reliability.",
-            category: "Sverige",
-            imageUrl: "https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 15,
-            title: "Local councils trial new citizen panels for zoning decisions",
-            summary: "Pilot program aims to streamline housing approvals while increasing transparency.",
-            category: "Politics",
-            imageUrl: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 16,
-            title: "Nordic startups push open‑source tools for energy monitoring",
-            summary: "Developers focus on low‑cost sensors and open data pipelines.",
-            category: "Technology",
-            imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 17,
-            title: "Researchers map coastal erosion hotspots along the Baltic",
-            summary: "New satellite analysis identifies vulnerable shoreline segments.",
-            category: "Environment & Nature",
-            imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 18,
-            title: "Community clinics adopt extended hours amid staffing changes",
-            summary: "Regional health boards test new scheduling to cut wait times.",
-            category: "Health",
-            imageUrl: "https://images.unsplash.com/photo-1576765607924-b0a6f433b6b1?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 19,
-            title: "Independent filmmakers form co‑ops to share equipment",
-            summary: "New model reduces costs for small productions.",
-            category: "Kultur",
-            imageUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 20,
-            title: "Opinion: Why municipal data transparency must be proactive",
-            summary: "Delays in disclosure undermine trust in public decision‑making.",
-            category: "Opinion",
-            imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 21,
-            title: "Världen: Regional summit advances cross‑border water accord",
-            summary: "Negotiators agree on shared monitoring standards.",
-            category: "International",
-            imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 22,
-            title: "Media watchdog proposes updated standards for AI‑generated clips",
-            summary: "Draft guidelines emphasize labeling and provenance.",
-            category: "Media",
-            imageUrl: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 23,
-            title: "Teknik: University lab tests solid‑state battery prototypes",
-            summary: "Early results show improved charge cycles at low temperatures.",
-            category: "Energy",
-            imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 24,
-            title: "Kultur: Museum launches late‑night program for young adults",
-            summary: "New events blend live music with guided exhibits.",
-            category: "Culture",
-            imageUrl: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 25,
-            title: "Sverige: Region expands apprenticeship tracks in construction",
-            summary: "Industry partners pledge paid placements for trainees.",
-            category: "Sweden",
-            imageUrl: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 26,
-            title: "Ekonomi: Household savings rise as inflation cools",
-            summary: "Banks report increased demand for fixed‑term deposits.",
-            category: "Economy",
-            imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 27,
-            title: "Hälsa: City pilots nutrition labels in public cafeterias",
-            summary: "Icons highlight allergens and salt content.",
-            category: "Hälsa",
-            imageUrl: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 28,
-            title: "Teknik: Open data hub launches for transport telemetry",
-            summary: "Developers can access live updates for route planning.",
-            category: "Tech",
-            imageUrl: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 29,
-            title: "Världen: Peace mediators outline phased ceasefire framework",
-            summary: "Talks focus on monitoring and humanitarian corridors.",
-            category: "War and Peace",
-            imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        },
-        {
-            id: 30,
-            title: "Media: Public service board reviews editorial independence",
-            summary: "Report recommends clearer governance boundaries.",
-            category: "Media",
-            imageUrl: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&h=400&q=80",
-            featured: false
-        }
+        // (Flera artiklar här för att fylla ut sidan)
+        { id: 2, title: "NCAA responds to Trump's executive order", summary: "Athletic governing body addresses new federal directive.", category: "Politics", imageUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 3, title: "USAID leader faces backlash", summary: "Administrator confronts challenges as aid programs face scrutiny.", category: "USA", imageUrl: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 4, title: "Gaza diplomacy shifts priorities", summary: "Officials describe a revised diplomatic approach for the region.", category: "Middle East", imageUrl: "https://images.unsplash.com/photo-1589519124242-2e5a5e3bc63b?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 5, title: "Global private sector conflict risks", summary: "Economic analysis models the impact of major conflicts.", category: "Economy", imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 6, title: "Assad vows to crush militants", summary: "Syrian leader reaffirms commitment to a military solution.", category: "Geopolitics", imageUrl: "https://images.unsplash.com/photo-1589939892786-a079a3d0df4b?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 7, title: "Chinese tech giant quantum breakthrough", summary: "A new processor promises exponential speedups.", category: "Technology", imageUrl: "https://images.unsplash.com/photo-1633287387306-f08b4b3671c6?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 8, title: "Amazon deforestation reaches threshold", summary: "Environmental groups warn of irreversible ecological damage.", category: "Environment", imageUrl: "https://images.unsplash.com/photo-1533441325984-d8b05f3cfed2?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 9, title: "Nordic export council trade corridor", summary: "Initiative targets faster shipping for small manufacturers.", category: "Trade", imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&h=400&q=80", featured: false }
     ];
 
     const STATIC_ADS = [
         {
-            id: 1,
-            title: "BYD Electric Vehicles",
-            description: "Leading Global EV Manufacturer",
+            id: 1, title: "BYD Electric Vehicles", description: "Leading Global EV Manufacturer",
             imageUrl: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=300&h=400&q=80",
-            adType: "sidebar",
-            targetUrl: "#",
-            sponsor: "BYD"
+            adType: "sidebar", targetUrl: "#", sponsor: "BYD"
         },
         {
-            id: 2,
-            title: "Premium VPN Service",
-            description: "Secure your connection with industry-leading encryption",
-            imageUrl: "assets/PremiumVpn.png",
-            adType: "banner",
-            targetUrl: "#",
-            sponsor: "SecureNet"
+            id: 2, title: "Premium VPN Service", description: "Secure your connection",
+            imageUrl: "assets/PremiumVpn.png", adType: "banner", targetUrl: "#", sponsor: "SecureNet"
         },
         {
-            id: 4,
-            title: "Investment Platform",
-            description: "AI-driven portfolio management for smart investors",
-            imageUrl: "assets/premiumcoffe.png",
-            adType: "rectangle",
-            targetUrl: "#",
-            sponsor: "WealthBuilder"
-        },
-        {
-            id: 6,
-            title: "Legal Services",
-            description: "Expert legal advice for all your needs",
-            imageUrl: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=300&h=100&q=80",
-            adType: "sidebar-small",
-            targetUrl: "#",
-            sponsor: "Pavon.se"
+            id: 4, title: "Investment Platform", description: "AI-driven portfolio management",
+            imageUrl: "assets/premiumcoffe.png", adType: "rectangle", targetUrl: "#", sponsor: "WealthBuilder"
         }
     ];
 
-    function fetchArticles() {
-        return [...STATIC_ARTICLES];
-    }
-
-    function fetchFeaturedArticles() {
-        return STATIC_ARTICLES.filter(article => article.featured);
-    }
-
-    function fetchArticlesByCategory(category) {
-        return STATIC_ARTICLES.filter(article => article.category === category);
-    }
-
-    function fetchArticleById(id) {
-        return STATIC_ARTICLES.find(article => String(article.id) === String(id)) || null;
-    }
-
+    function fetchArticles() { return [...STATIC_ARTICLES]; }
+    function fetchFeaturedArticles() { return STATIC_ARTICLES.filter(article => article.featured); }
     function fetchRandomAdByType(type) {
         const adsOfType = STATIC_ADS.filter(ad => ad.adType === type);
-        if (adsOfType.length === 0) return null;
-        const randomIndex = Math.floor(Math.random() * adsOfType.length);
-        return adsOfType[randomIndex];
+        return adsOfType.length > 0 ? adsOfType[Math.floor(Math.random() * adsOfType.length)] : null;
     }
-
-    function fetchAdsByType(type) {
-        return STATIC_ADS.filter(ad => ad.adType === type);
-    }
+    function fetchAdsByType(type) { return STATIC_ADS.filter(ad => ad.adType === type); }
+    function getAnyAd() { return STATIC_ADS.length > 0 ? STATIC_ADS[Math.floor(Math.random() * STATIC_ADS.length)] : null; }
 
     function getMenuCategory(category) {
-        const value = (category || "").toLowerCase();
-        if (value.includes("sverige") || value.includes("sweden")) return "Sverige";
-        if (value.includes("opinion")) return "Opinion";
-        if (value.includes("economy") || value.includes("business") || value.includes("trade")) return "Ekonomi";
-        if (value.includes("health") || value.includes("vård") || value.includes("nnmh") || value.includes("livsstil")) return "Hälsa & Vård";
-        if (value.includes("media")) return "Media";
-        if (value.includes("culture") || value.includes("kultur") || value.includes("music") || value.includes("film") || value.includes("kreaprenor") || value.includes("underhallning")) return "Kultur";
-        if (value.includes("tech") || value.includes("technology") || value.includes("energi") || value.includes("vetenskap") || value.includes("science")) return "Teknik";
-        if (value.includes("english")) return "ENGLISH";
-        if (
-            value.includes("war") ||
-            value.includes("peace") ||
-            value.includes("geopolitics") ||
-            value.includes("international") ||
-            value.includes("diplomacy") ||
-            value.includes("middle east") ||
-            value.includes("usa") ||
-            value.includes("politics") ||
-            value.includes("environment") ||
-            value.includes("nature") ||
-            value.includes("climate")
-        ) {
-            return "Världen";
-        }
-        return category || "Nyheter";
-    }
-
-    function getAnyAd() {
-        if (STATIC_ADS.length === 0) return null;
-        return STATIC_ADS[Math.floor(Math.random() * STATIC_ADS.length)];
+        return category ? category.split(' ')[0] : "Nyheter";
     }
 
     // Render featured article
     async function renderFeaturedArticle() {
         const container = document.getElementById('featured-article-container');
         const featuredArticles = fetchFeaturedArticles();
+        const article = (featuredArticles.length > 0) ? featuredArticles[Math.floor(Math.random() * featuredArticles.length)] : fetchArticles()[0];
         
-        if (featuredArticles && featuredArticles.length > 0) {
-            // Pick a random featured article to rotate
-            const randomIndex = Math.floor(Math.random() * featuredArticles.length);
-            const article = featuredArticles[randomIndex];
-            
+        if(article) {
             container.innerHTML = `
                 <div class="article-link" data-article-id="${article.id}">
                     <div class="featured-article">
@@ -1239,59 +791,22 @@
                     </div>
                 </div>
             `;
-        } else {
-            // If no featured articles, pick a random article
-            const allArticles = fetchArticles();
-            if (allArticles && allArticles.length > 0) {
-                const randomIndex = Math.floor(Math.random() * allArticles.length);
-                const article = allArticles[randomIndex];
-                
-                container.innerHTML = `
-                    <div class="article-link" data-article-id="${article.id}">
-                        <div class="featured-article">
-                            <div class="featured-img-container">
-                                <div class="featured-img-placeholder" style="width: 60%; background: #555; color:white;">
-                                    <img src="${article.imageUrl}" style="width:100%; height:100%; object-fit:cover;" alt="${article.title}">
-                                </div>
-                                <div class="featured-img-placeholder" style="width: 40%; background: #888; color:white;">
-                                    <img src="https://via.placeholder.com/400x400/777/fff?text=Portrait" style="width:100%; height:100%; object-fit:cover;" alt="Portrait">
-                                </div>
-                            </div>
-                            <div class="featured-text">
-                                <div class="label-red">${getMenuCategory(article.category)}</div>
-                                <h1>${article.title}</h1>
-                                <p style="margin-top: 15px; font-size: 14px; line-height: 1.4;">${article.summary}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                container.innerHTML = '<p>No articles available.</p>';
-            }
         }
     }
 
     // Render news grid 3
     async function renderNewsGrid3() {
         const container = document.getElementById('news-grid-3-container');
-        const articles = fetchArticles();
+        const articles = fetchArticles().filter(a => !a.featured).slice(0, 3);
         
-        // Get 3 non-featured articles, shuffled
-        const nonFeaturedArticles = articles.filter(article => !article.featured);
-        
-        // Shuffle the array to randomize content
-        const shuffled = [...nonFeaturedArticles].sort(() => 0.5 - Math.random());
-        const selectedArticles = shuffled.slice(0, 3);
-        
-        if (selectedArticles.length > 0) {
+        if (articles.length > 0) {
             let html = '';
-            
-            selectedArticles.forEach(article => {
+            articles.forEach(article => {
                 html += `
                     <div class="article-link" data-article-id="${article.id}">
                         <div class="grid-item-3">
                             <div style="height:120px; background:#ddd; position:relative;">
-                                <img src="${article.imageUrl}" alt="${article.title}" style="width:100%; height:100%; object-fit:cover;">
+                                <img src="${article.imageUrl}" alt="${article.title}">
                                 <span class="category-label">${getMenuCategory(article.category)}</span>
                             </div>
                             <h3>${article.title}</h3>
@@ -1299,37 +814,23 @@
                     </div>
                 `;
             });
-            
             container.innerHTML = html;
-        } else {
-            container.innerHTML = '<p>No articles available.</p>';
         }
     }
 
     // Render latest news grid
     async function renderEconomyBusinessGrid() {
         const container = document.getElementById('economy-business-grid');
-        
-        // Latest news: use all articles, non-featured first
-        const allArticles = fetchArticles();
-        let articles = allArticles.filter(article => !article.featured);
-        if (articles.length < 16) {
-            articles = allArticles;
-        }
+        const articles = fetchArticles().filter(a => !a.featured).sort(() => 0.5 - Math.random()).slice(0, 8);
         
         if (articles.length > 0) {
             let html = '';
-            
-            // Shuffle and limit to 16 articles or total available articles if less than 16
-            const shuffled = [...articles].sort(() => 0.5 - Math.random());
-            const limitedArticles = shuffled.slice(0, Math.min(16, articles.length));
-            
-            limitedArticles.forEach(article => {
+            articles.forEach(article => {
                 html += `
                     <div class="article-link" data-article-id="${article.id}">
                         <div class="news-item-4">
                             <div class="news-thumb">
-                                <img src="${article.imageUrl}" alt="${article.title}" style="width:100%; height:120px; object-fit:cover;">
+                                <img src="${article.imageUrl}" alt="${article.title}">
                                 <span class="category-label">${getMenuCategory(article.category)}</span>
                             </div>
                             <h3>${article.title}</h3>
@@ -1337,53 +838,23 @@
                     </div>
                 `;
             });
-            
             container.innerHTML = html;
-        } else {
-            container.innerHTML = '<p>No economy & business articles available.</p>';
         }
     }
 
-    // Render geopolitics grid
+     // Render Geopolitics
     async function renderGeopoliticsGrid() {
         const container = document.getElementById('geopolitics-grid');
-        
-        // Get articles from all geopolitics-related categories
-        const geopoliticsArticles = fetchArticlesByCategory('Geopolitics');
-        const politicsArticles = fetchArticlesByCategory('Politics');
-        const internationalArticles = fetchArticlesByCategory('International');
-        const diplomacyArticles = fetchArticlesByCategory('Diplomacy');
-        
-        // Combine all geopolitics-related articles
-        let articles = [
-            ...geopoliticsArticles,
-            ...politicsArticles,
-            ...internationalArticles,
-            ...diplomacyArticles
-        ];
-        
-        // Remove duplicates based on ID
-        const uniqueArticlesMap = new Map();
-        articles.forEach(article => {
-            if (!uniqueArticlesMap.has(article.id)) {
-                uniqueArticlesMap.set(article.id, article);
-            }
-        });
-        articles = Array.from(uniqueArticlesMap.values());
+        const articles = fetchArticles().sort(() => 0.5 - Math.random()).slice(0, 4);
         
         if (articles.length > 0) {
             let html = '';
-
-            // Shuffle and limit to 5 articles or total available articles if less than 5
-            const shuffled = [...articles].sort(() => 0.5 - Math.random());
-            const limitedArticles = shuffled.slice(0, Math.min(5, articles.length));
-
-            limitedArticles.forEach(article => {
+            articles.forEach(article => {
                 html += `
                     <div class="article-link" data-article-id="${article.id}">
                         <div class="news-item-4">
                             <div class="news-thumb">
-                                <img src="${article.imageUrl}" alt="${article.title}" style="width:100%; height:120px; object-fit:cover;">
+                                <img src="${article.imageUrl}" alt="${article.title}">
                                 <span class="category-label">${getMenuCategory(article.category)}</span>
                             </div>
                             <h3>${article.title}</h3>
@@ -1391,186 +862,45 @@
                     </div>
                 `;
             });
-
             container.innerHTML = html;
-        } else {
-            container.innerHTML = '<p>No geopolitics articles available.</p>';
         }
     }
 
-    // Render top banner ad
+    // ADS
     async function renderTopBannerAd() {
         const container = document.getElementById('top-banner-ad');
-        const ad = fetchRandomAdByType('banner');
-        
-        if (ad) {
-            container.innerHTML = `
-                <a href="${ad.targetUrl}" target="_blank">
-                    <img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:90px; object-fit:contain;">
-                </a>
-            `;
-        } else {
-            // Fallback to any available ad
-            const randomAd = getAnyAd();
-            if (randomAd) {
-                container.innerHTML = `
-                    <a href="${randomAd.targetUrl}" target="_blank">
-                        <img src="${randomAd.imageUrl}" alt="${randomAd.title}" style="width:100%; height:90px; object-fit:contain;">
-                    </a>
-                `;
-            } else {
-                container.innerHTML = '<p>Advertisement space available</p>';
-            }
-        }
+        const ad = fetchRandomAdByType('banner') || getAnyAd();
+        if (ad) container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:90px; object-fit:contain;" onerror="this.src='https://via.placeholder.com/728x90?text=AD';"></a>`;
     }
 
-    // Render sidebar ads (2-column grid)
     async function renderSidebarAds() {
-        const containers = [
-            document.getElementById('sidebar-ad-placeholder-1'),
-            document.getElementById('sidebar-ad-placeholder-2')
-        ];
+        const containers = [document.getElementById('sidebar-ad-placeholder-1'), document.getElementById('sidebar-ad-placeholder-2')];
         const sidebarAds = fetchAdsByType('sidebar');
-        const fallbackAds = STATIC_ADS.slice();
-
         containers.forEach((container, index) => {
             if (!container) return;
-            const ad = sidebarAds[index] || sidebarAds[0] || fallbackAds[index] || getAnyAd();
-            if (ad) {
-                container.innerHTML = `
-                    <a href="${ad.targetUrl}" target="_blank">
-                        <img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:180px; object-fit:cover; display:block;">
-                    </a>
-                `;
-            } else {
-                container.innerHTML = '<p>Advertisement space available</p>';
-            }
+            const ad = sidebarAds[index] || getAnyAd();
+            if (ad) container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:180px; object-fit:cover; display:block;" onerror="this.src='https://via.placeholder.com/300x180?text=AD';"></a>`;
         });
     }
 
-    // Render pavon ad
-    async function renderPavonAd() {
-        const container = document.getElementById('pavon-ad-placeholder');
-        const ad = fetchRandomAdByType('sidebar-small');
-        
-        if (ad) {
-            container.innerHTML = `
-                <a href="${ad.targetUrl}" target="_blank">
-                    <span style="font-weight:bold; color:${ad.imageUrl.includes('004d66') ? '#004d66' : '#000'};">${ad.title}</span>
-                    <span style="font-size:11px; background:#000; color:#fff; padding:5px;">${ad.description}</span>
-                </a>
-            `;
-        } else {
-            // Fallback to any available ad
-            const randomAd = getAnyAd();
-            if (randomAd) {
-                container.innerHTML = `
-                    <a href="${randomAd.targetUrl}" target="_blank">
-                        <span style="font-weight:bold; color:${randomAd.imageUrl.includes('004d66') ? '#004d66' : '#000'};">${randomAd.sponsor}</span>
-                        <span style="font-size:11px; background:#000; color:#fff; padding:5px;">${randomAd.description}</span>
-                    </a>
-                `;
-            } else {
-                container.innerHTML = '<span style="font-weight:bold; color:#004d66;">Pavon.se</span><span style="font-size:11px; background:#000; color:#fff; padding:5px;">Juridisk rådgivning</span>';
-            }
-        }
-    }
-
-    // Render middle ad
     async function renderMiddleAd() {
         const container = document.getElementById('middle-ads-placeholder');
-        const ad = fetchRandomAdByType('rectangle');
-        
-        if (ad) {
-            container.innerHTML = `
-                <a href="${ad.targetUrl}" target="_blank">
-                    <img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:250px; object-fit:contain; display:block; border:2px solid #ccc; background:#fff;">
-                </a>
-            `;
-        } else {
-            // Fallback to any available ad
-            const randomAd = getAnyAd();
-            if (randomAd) {
-                container.innerHTML = `
-                    <a href="${randomAd.targetUrl}" target="_blank">
-                        <img src="${randomAd.imageUrl}" alt="${randomAd.title}" style="width:100%; height:250px; object-fit:contain; display:block; border:2px solid #ccc; background:#fff;">
-                    </a>
-                `;
-            } else {
-                container.innerHTML = '<div class="ads-text">ADS</div>';
-            }
-        }
+        const ad = fetchRandomAdByType('rectangle') || getAnyAd();
+        if (ad) container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:250px; object-fit:contain; display:block;" onerror="this.src='https://via.placeholder.com/970x250?text=Wide+AD';"></a>`;
     }
 
-    document.addEventListener('click', async (event) => {
-        const card = event.target.closest('.article-link');
-        if (!card) return;
-        if (card.tagName === 'A') {
-            event.preventDefault();
-        }
-        const id = card.getAttribute('data-article-id');
-        if (!id) return;
-        window.location.href = `article.html?id=${encodeURIComponent(id)}`;
-    });
-
-    // Auto-refresh interval (disabled for placeholders)
-    const REFRESH_INTERVAL = 5000;
-
-    // Initialize the page
+    // Init
     async function initPage() {
         updateCurrentDate();
-        await loadAllContent();
+        await renderFeaturedArticle();
+        await renderNewsGrid3();
+        await renderEconomyBusinessGrid();
+        await renderGeopoliticsGrid();
+        await renderTopBannerAd();
+        await renderSidebarAds();
+        await renderMiddleAd();
     }
 
-    // Load all content
-    async function loadAllContent() {
-        try {
-            console.log('Starting content refresh at:', new Date().toLocaleTimeString());
-            
-            // Show update indicator
-            const updateIndicator = document.getElementById('update-indicator');
-            const updateTimeSpan = document.getElementById('update-time');
-            if (updateIndicator && updateTimeSpan) {
-                updateTimeSpan.textContent = new Date().toLocaleTimeString();
-                updateIndicator.style.display = 'block';
-                
-                // Hide indicator after 2 seconds
-                setTimeout(() => {
-                    updateIndicator.style.display = 'none';
-                }, 2000);
-            }
-            
-            await renderFeaturedArticle();
-            console.log('Featured article rendered');
-            
-            await renderNewsGrid3();
-            console.log('News grid 3 rendered');
-            
-            await renderEconomyBusinessGrid();
-            console.log('Economy business grid rendered');
-            
-            await renderGeopoliticsGrid();
-            console.log('Geopolitics grid rendered');
-            
-            await renderTopBannerAd();
-            console.log('Top banner ad rendered');
-            
-            await renderSidebarAds();
-            console.log('Sidebar ads rendered');
-            
-            await renderPavonAd();
-            console.log('Pavon ad rendered');
-            
-            await renderMiddleAd();
-            console.log('Middle ad rendered');
-            
-            console.log('All content refreshed at:', new Date().toLocaleTimeString());
-        } catch (error) {
-            console.error('Error refreshing content:', error);
-        }
-    }
-
-    // Start loading data when page loads
     document.addEventListener('DOMContentLoaded', initPage);
 </script>
 
