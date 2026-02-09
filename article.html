@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsVoice - Connected Frontend</title>
+    <style>
+        /* --- Grundläggande Stilar --- */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        a:hover { text-decoration: underline; }
+
+        /* --- Header & Top --- */
+        .top-banner {
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .social-icons span {
+            margin-right: 5px;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: #cc0000;
+            color: white;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 10px;
+            line-height: 18px;
+            cursor: pointer;
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo-box { display: flex; border: 1px solid #000; text-decoration: none !important;}
+        .logo-box:hover { text-decoration: none; }
+        .logo-news { padding: 10px 15px; font-size: 35px; font-family: serif; }
+        .logo-voice { background-color: #000; color: #fff; padding: 10px 15px; font-size: 35px; font-weight: bold; font-family: serif; }
+
+        .top-ad-placeholder {
+            width: 728px;
+            height: 90px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: bold;
+            font-size: 40px;
+        }
+
+        /* --- Navigation --- */
+        .main-nav {
+            border-top: 1px solid #ddd;
+            border-bottom: 5px solid #eee;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .main-nav a { margin: 0 5px; color: #000; }
+        .nav-active { border-bottom: 2px solid #cc0000; padding-bottom: 2px; }
+        .article-link { display: block; color: inherit; cursor: pointer; }
+        .article-link:hover { text-decoration: none; }
+
+        .main-nav .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 12px;
+        }
+        .main-nav .menu > li {
+            position: relative;
+            padding: 0;
+        }
+        .main-nav .menu > li > a {
+            display: inline-block;
+            padding: 2px 4px;
+        }
+        .main-nav .sub-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            min-width: 220px;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 6px 0;
+            text-align: left;
+            z-index: 1000;
+            list-style: none;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+            border-radius: 6px;
+        }
+        .main-nav .sub-menu li {
+            position: relative;
+            padding: 0;
+        }
+        .main-nav .sub-menu a {
+            display: block;
+            margin: 0;
+            padding: 6px 12px;
+            white-space: nowrap;
+            color: #111;
+        }
+        .main-nav .sub-menu a:hover {
+            background: #f5f5f5;
+            text-decoration: none;
+        }
+        .main-nav .sub-menu .sub-menu {
+            left: 100%;
+            top: 0;
+            margin-left: 1px;
+        }
+        .main-nav .has-children > a::after {
+            content: "▾";
+            font-size: 10px;
+            margin-left: 6px;
+            color: #666;
+        }
+        .main-nav .sub-menu .has-children > a::after {
+            content: "▸";
+            float: right;
+            margin-left: 10px;
+            color: #888;
+        }
+        .main-nav li:hover > .sub-menu {
+            display: block;
+        }
+        .main-nav .sub-menu li:hover > .sub-menu {
+            display: block;
+        }
+        .main-nav li:hover > .sub-menu {
+            display: block;
+        }
+
+        /* Inline iframe viewer removed */
+
+        /* --- Layout Grid (Top Section) --- */
+        .top-split-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Article Layout */
+        .article {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+        .article-category {
+            border: 1px solid #cc0000;
+            color: #cc0000;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .kicker {
+            border: 1px solid #cc0000;
+            color: #cc0000;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .article-title {
+            margin: 0 0 8px;
+            font-size: 36px;
+            line-height: 1.1;
+            font-weight: 800;
+        }
+        .article-dek {
+            font-size: 16px;
+            color: #666;
+            margin: 0 0 14px;
+        }
+        .article-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .article-hero {
+            border: 1px solid #ddd;
+            background: #eee;
+            margin-bottom: 16px;
+            height: 320px;
+            overflow: hidden;
+        }
+        .article-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .article-body p {
+            margin: 0 0 12px;
+            line-height: 1.7;
+        }
+
+        /* Sidebar Styles */
+        .sidebar-title {
+            font-size: 16px; font-weight: bold;
+            border-bottom: 3px solid #cc0000; padding-bottom: 5px; margin-bottom: 15px;
+        }
+        .newsletter-box { background: #f9f9f9; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; }
+        .newsletter-box input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; margin-bottom: 10px; }
+        .newsletter-box button { background-color: #00cc00; color: white; border: none; padding: 10px 25px; font-weight: bold; cursor: pointer; }
+
+        .ad-sidebar-placeholder {
+            width: 100%; height: 400px; background: #004d66; margin-bottom: 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
+        }
+        .pavon-ad {
+            border: 1px solid #ddd; padding: 10px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 5px; font-size: 14px;
+        }
+
+        /* Removed section grids for article page */
+        .ads-text { font-size: 150px; font-weight: 900; color: #eee; letter-spacing: -5px; }
+
+        /* --- FOOTER STYLES --- */
+        .site-footer {
+            background-color: #111;
+            color: #ccc;
+            padding: 50px 0 20px 0;
+            margin-top: 60px;
+            font-size: 13px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 14px;
+            border-bottom: 2px solid #cc0000;
+            display: inline-block;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 5px;
+        }
+
+        .footer-col a {
+            color: #aaa;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+            text-decoration: none;
+            padding-left: 5px;
+        }
+
+        .footer-about p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Loading indicator */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        /* Mobilanpassning (enkel) */
+        @media (max-width: 768px) {
+            .top-split-layout, .footer-content {
+                grid-template-columns: 1fr;
+                display: block;
+                height: auto;
+            }
+            .article-hero { height: 220px; }
+            .sidebar { margin-top: 30px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div id="site-top">
+        <div class="top-banner">
+            Public Service på riktigt
+        </div>
+
+        <div class="sub-header">
+            <div id="current-date">Lördag, Februari 7, 2026</div>
+            <div class="social-icons">
+                <span>f</span> <span>t</span> <span>y</span> <span>vk</span> <span>tg</span>
+            </div>
+            <div>
+                <a href="https://sasser.net/annonsformat/">Annonsera</a> | <a href="https://newsvoice.se/donera/">Donera</a> | <a href="https://newsvoice.se/kontakt/">Kontakt</a>
+            </div>
+        </div>
+
+        <div class="logo-section">
+            <a href="#" class="logo-box">
+                <div class="logo-news">NEWS</div>
+                <div class="logo-voice">VOICE</div>
+            </a>
+            <div id="top-banner-ad" class="top-ad-placeholder">
+                <div class="loading">Loading advertisement...</div>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <ul class="menu">
+                <li class="menu-item"><a href="https://newsvoice.se/">Hem</a></li>
+                <li class="menu-item"><a href="https://newsvoice.se/category/sverige-2/">Sverige</a></li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/varlden/">Världen</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/varlden/">Världen</a></li>
+                        <li><a href="https://newsvoice.se/category/in-english/brics-bri-articles/">BRICS &amp; BRI</a></li>
+                        <li class="has-children">
+                            <a href="https://newsvoice.se/category/varlden/asien/">Asien</a>
+                            <ul class="sub-menu">
+                                <li><a href="https://newsvoice.se/category/varlden/kina-artiklar/">Kina</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://newsvoice.se/category/varlden/afrika-2/">Afrika</a></li>
+                        <li><a href="https://newsvoice.se/category/klimatet/">Klimat &amp; Miljö</a></li>
+                        <li><a href="https://newsvoice.se/category/krig-overvakning/">Krig &amp; Fred</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item"><a href="https://newsvoice.se/category/opinion-artiklar/">Opinion</a></li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/ekonomi-artiklar/">Ekonomi</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/ekonomi-artiklar/">Ekonomi</a></li>
+                        <li><a href="https://newsvoice.se/category/foretagande/">Företagande</a></li>
+                        <li><a href="https://newsvoice.se/category/juridik-artiklar/">Juridik</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/halsa-artiklar/">Hälsa &amp; Vård</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/halsa-artiklar/">Hälsa</a></li>
+                        <li><a href="https://newsvoice.se/category/halsa-artiklar/nnmh/">NNMH</a></li>
+                        <li><a href="https://newsvoice.se/category/livsstil/">Livsstil</a></li>
+                        <li><a href="https://newsvoice.se/category/livsstil/resor/">Resor</a></li>
+                        <li><a href="https://newsvoice.se/category/sjukvard2/">Vårdindustrin</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/media/">Media</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/media/">Media</a></li>
+                        <li><a href="https://newsvoice.se/category/newsmill-artiklar/?filter_by=random_posts">Newsmill arkiv 2008-2013</a></li>
+                        <li><a href="https://newsvoice.se/category/media/dsm-artiklar/">DSM</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/kultur/">Kultur</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/kultur/">Kultur</a></li>
+                        <li><a href="https://newsvoice.se/category/kultur/musik/">Musik</a></li>
+                        <li><a href="https://newsvoice.se/category/kultur/film/">Film</a></li>
+                        <li><a href="https://newsvoice.se/category/kreaprenor-artiklar/">Kreaprenör</a></li>
+                        <li><a href="https://newsvoice.se/category/kultur/utvandrarna-artiklar/">Utvandrarna</a></li>
+                        <li><a href="https://newsvoice.se/category/underhallning/">Underhållning</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/energi/">Teknik</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/energi/">Teknik</a></li>
+                        <li><a href="https://newsvoice.se/category/energi/bilar-artiklar/">Bilar</a></li>
+                        <li><a href="https://newsvoice.se/category/energi/rymdindustrin/">Rymdfart</a></li>
+                        <li><a href="https://newsvoice.se/category/vetenskap-tecknologi/">Vetenskap</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="#">NewsVoice</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/donera/">Donera eller sponsra</a></li>
+                        <li><a href="https://newsvoice.se/redaktionen/">Redaktionen</a></li>
+                        <li><a href="https://newsvoice.se/kontakt/">Kontakt</a></li>
+                        <li><a href="https://newsvoice.se/newsvoice-sociala-kanaler/">Våra sociala kanaler</a></li>
+                        <li><a href="https://newsvoice.se/newsvoice-avstand-extremism/">Policy för innehåll</a></li>
+                        <li><a href="https://newsvoice.se/personuppgiftspolicy-gdpr/">Personuppgiftspolicy</a></li>
+                        <li><a href="https://newsvoice.se/newsvoice-etiska-publicitetsregler/">Etiska publicitetsregler</a></li>
+                        <li><a href="https://newsvoice.se/kommentarsregler/">Kommentarsregler</a></li>
+                        <li><a href="https://newsvoice.se/klaga-pa-eller-tipsa-newsvoice-om-forbattringar/">Klaga på NewsVoice</a></li>
+                        <li><a href="https://newsvoice.se/newsvoice-sv-enkat/">Läsarenkät</a></li>
+                        <li><a href="https://newsvoice.se/skriv-pa-newsvoice-2/">Skriv för NewsVoice</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/english/">ENGLISH</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/about-newsvoice/">About NewsVoice</a></li>
+                        <li><a href="https://newsvoice.se/torbjorn-sassersson-the-editor/">The founder</a></li>
+                        <li><a href="https://newsvoice.se/donate/">Donate</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- CONTENT PART 1 -->
+    <div class="top-split-layout">
+
+        <!-- Left Column -->
+        <div class="left-col">
+            <article class="article">
+                <div class="article-category">Kategori (placeholder)</div>
+                <div class="kicker">REGION | KATEGORI</div>
+                <h1 class="article-title">Malaysia to Boost Trade with BRICS Countries in 2025</h1>
+                <p class="article-dek">Field office director Ana Suri said regional coordination has reached an “unprecedented” level.</p>
+                <div class="article-meta">Taylor Penley • Publicerad 28 januari 2025, 10:19</div>
+                <div class="article-hero">
+                    <img src="https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&w=1200&h=630&q=80" alt="Kuala Lumpur skyline">
+                </div>
+                <div class="article-body">
+                    <p>Malaysias handelsdepartement har presenterat en strategi för att öka export och investeringar mot BRICS‑länderna under 2025. Planen omfattar nya branschspecifika arbetsgrupper, förenklade tullprocesser och en serie investeringsforum med fokus på tillverkning, logistik och digitala tjänster.</p>
+                    <p>Enligt regeringen ska insatserna bidra till att bredda landets exportportfölj och stärka långsiktiga partnerskap. Branschorganisationer välkomnar inriktningen men efterfrågar en tydlig tidslinje för implementering samt satsningar på kompetensutveckling.</p>
+                    <p>En andra fas ska innehålla finansieringslösningar för exportbolag, tillsammans med utbildningssatsningar inom handel och digitalisering.</p>
+                </div>
+            </article>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-title">Get our newsletter</div>
+            <div class="newsletter-box">
+                <input type="email" placeholder="Your mail address">
+                <button>Go</button>
+            </div>
+
+            <div class="sidebar-title">Advertisers</div>
+            <div id="sidebar-ad-placeholder" class="ad-sidebar-placeholder">
+                <div class="loading">Loading advertisement...</div>
+            </div>
+
+            <div id="pavon-ad-placeholder" class="pavon-ad">
+                <div class="loading">Loading advertisement...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT PART 2 removed for article view -->
+
+</div> <!-- End Container -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-col footer-about">
+                <h4>Public Service på riktigt</h4>
+                <p>Du läser en av Sveriges mest modiga tidningar. <br>Stöd vårt dagliga arbete med en <a href="https://newsvoice.se/donera/">donation</a>.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Annonsera</h4>
+                <p>Vill du nå hundratusentals samhällsintresserade svenskar?<br>Kontakta vår annonssäljare <a href="mailto:anna@sasser.net">anna@sasser.net</a><br>Läs mer om <a href="https://sasser.net/annonsformat/">annonsering</a>.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p>Kontakta redaktionen, tipsa oss eller bli skribent.<br><a href="mailto: redaktionen@newsvoice.se">redaktionen@newsvoice.se</a></p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Utgivare</h4>
+                <p>Ansvarig utgivare:<br>Torbjörn Sassersson.<br>NewsVoice grundades 2011.<br>Innehållet på denna sida är skyddat enligt lagen om upphovsrätt.</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="border-top:1px solid #333; padding-top:20px; margin-top:20px;">
+            <a href="https://newsvoice.se" style="display:inline-block;">
+                <img src="https://cdn.newsvoice.se/wp-content/uploads/2017/07/newsvoice-logo-retina-544px.png" alt="NewsVoice" style="max-width:260px; height:auto;">
+            </a>
+            <div style="max-width:520px; line-height:1.6;">
+                <strong>NewsVoice is an independent news, debate and news monitoring channel based in Stockholm, Sweden. We also publish cultural content and analysis as text and video reports.</strong>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function updateCurrentDate() {
+        const el = document.getElementById('current-date');
+        if (!el) return;
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        el.textContent = now.toLocaleDateString('sv-SE', options);
+    }
+
+    document.addEventListener('DOMContentLoaded', updateCurrentDate);
+</script>
+
+</body>
+</html>

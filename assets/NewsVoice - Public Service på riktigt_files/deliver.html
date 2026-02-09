@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { width: 300px; height: 250px; overflow: hidden; position: relative;  }
+    .banner-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .banner-link:hover .banner-image {
+      transform: scale(1.02);
+      opacity: 0.95;
+    }
+    @keyframes banner-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
+  50% { box-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.8); }
+}
+html, body {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+.banner-link {
+  width: calc(100% - 20px) !important;
+  height: calc(100% - 20px) !important;
+  animation: banner-glow 2s ease-in-out infinite;
+}
+.banner-image {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+  </style>
+<script src="deliver_data/fingerprint.min.iife.js"></script><script src="deliver_data/fingerprint-client.min.js"></script></head>
+<body>
+  <a href="https://track.mediaintelliview.com/api/v1/banners/click/019c102b-df25-70f4-83cb-ca2dd39fc656?tenantId=019b0dce-8ab9-70a8-9a39-f22107c6ce23&amp;portalId=019bc6ac-3ffe-748f-9c60-c693a2f8b205&amp;format=300x250" target="_blank" rel="noopener" class="banner-link" data-banner-id="019c102b-df25-70f4-83cb-ca2dd39fc656">
+    <img src="deliver_data/fb43bc8fdc2a43c095fcf4fd50b660f5.gif" alt="Banner" class="banner-image" loading="eager">
+  </a>
+  <a href="https://pixgaming.com/" target="_blank" rel="noopener noreferrer" class="tenant-logo-link" style="position:absolute;top:5px;left:5px;z-index:10;display:block;"><img src="deliver_data/a8a197cf346148c09c72ca309f9302ae.png" alt="" class="tenant-logo" style="max-height:30px;width:auto;"></a>
+  <script>
+  (function(){
+    var s=document.createElement('script');
+    s.src='https://pixel.mediamathrdrt.com/scripts/portais_newsvoice.js';
+    s.id='portais_newsvoice';
+    s.async=true;
+    s.crossOrigin='anonymous';
+    document.body.appendChild(s);
+  })();
+  </script><script src="deliver_data/portais_newsvoice.js" id="portais_newsvoice" async="" crossorigin="anonymous"></script>
+<script>
+  (function(){
+    var DELAY = 20000;
+    var lastPageUrl = '';
+    function doRefresh(pageUrl, isNewPage) {
+      var url = window.location.href.split('?')[0];
+      var params = new URLSearchParams(window.location.search);
+      params.set('_t', Date.now());
+      if (isNewPage) {
+        params.delete('_cid');
+      } else if (!params.has('_cid') && window.__MIV_CID__) {
+        params.set('_cid', window.__MIV_CID__);
+      }
+      params.set('pageUrl', pageUrl || document.referrer || '');
+      window.location.href = url + '?' + params.toString();
+    }
+    function getPageUrlAndRefresh() {
+      var done = false;
+      function onMsg(e) {
+        if (done) return;
+        try {
+          var d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+          if (d && d.type === 'MIV_FP_RESPONSE' && d.pageUrl) {
+            done = true;
+            window.removeEventListener('message', onMsg);
+            var currentUrl = d.pageUrl;
+            var isNewPage = lastPageUrl && lastPageUrl !== currentUrl;
+            lastPageUrl = currentUrl;
+            window.__MIV_PAGE_URL__ = currentUrl;
+            doRefresh(currentUrl, isNewPage);
+          }
+        } catch(ex) {}
+      }
+      window.addEventListener('message', onMsg);
+      try { window.parent.postMessage({type:'MIV_FP_REQUEST'}, '*'); } catch(ex) {}
+      setTimeout(function() {
+        if (!done) {
+          done = true;
+          window.removeEventListener('message', onMsg);
+          var fb = window.__MIV_PAGE_URL__ || document.referrer || '';
+          var isNewPage = lastPageUrl && lastPageUrl !== fb;
+          if (fb) lastPageUrl = fb;
+          doRefresh(fb, isNewPage);
+        }
+      }, 500);
+    }
+    setTimeout(getPageUrlAndRefresh, DELAY);
+  })();
+</script><script>
+(function(){
+  var CID='868d1b13-0303-43a2-b8c3-e6e5bbdb94d8',PAGE='https://newsvoice.se/',PORTAL='019bc6ac-3ffe-748f-9c60-c693a2f8b205',META={"portalId":"019bc6ac-3ffe-748f-9c60-c693a2f8b205","bannerId":"019c102b-df25-70f4-83cb-ca2dd39fc656","tenantId":"019b0dce-8ab9-70a8-9a39-f22107c6ce23"},
+      FPS='https://fp.mediaintelliview.com/',BMS='https://track.mediaintelliview.com/',IS_REFRESH=true,CLIENT_JS_SUFFIX='.min',FP_COLLECTED=false;
+  // Store correlationId for auto-refresh to reuse
+  window.__MIV_CID__=CID;
+  // Flag indicating if fingerprint already collected (HttpOnly cookie exists)
+  // CASE 1 (cookie present) and CASE 2 (refresh with tempFp) = true (skip collection)
+  // CASE 3 (first request, no cookie) = false (needs collection)
+  window.__MIV_FP_COLLECTED__=FP_COLLECTED;
+  function load(src,cb){
+    var s=document.createElement('script');
+    s.src=src;s.onload=cb;s.onerror=function(){console.error('Failed to load:',src)};document.head.appendChild(s);
+  }
+  load(FPS+'/js/fingerprint.min.iife.js',function(){
+    load(FPS+'/js/fingerprint-client'+CLIENT_JS_SUFFIX+'.js',function(){
+      setTimeout(function(){
+        if(typeof FingerprintClient!=='undefined'){
+          FingerprintClient.forPortal(PORTAL)
+            .withFingerprintServiceUrl(FPS)
+            .withBannerManagementUrl(BMS)
+            .withCorrelationId(CID)
+            .withPageUrl(PAGE)
+            .withMetadata(META)
+            .collect().catch(function(e){console.error('Fingerprint collect error:',e)});
+        }
+      },100);
+    });
+  });
+})();
+</script>
+
+</body></html>

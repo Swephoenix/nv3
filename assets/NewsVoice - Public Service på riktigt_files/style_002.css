@@ -1,0 +1,102 @@
+/* 
+ Theme Name:  Child Aeon News
+ Theme URI:    
+ Description:  Nyadagbladet child theme from Aeon News theme
+ Author:       Aeon Media
+ Author URI:   
+ Template:     aeon-news
+ Version:      1.5
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+
+ /* == Add your own styles below this line ==
+--------------------------------------------*/
+
+
+.sticky-nav {
+    transform: translatey(-100px);
+    -moz-transition: all .3s ease!important;
+    -webkit-transition: all .3s ease!important;
+    transition: all .3s ease!important;
+    display:none;
+}
+
+.sticky-nav.elementor-sticky--active{
+    display:block;
+}
+.elementor-sticky--effects.sticky-nav{
+height: auto!important;
+transform: translatey(0px);
+}
+
+.elementor-sticky--effects.default-header {
+display: none!important;
+}
+
+.mobile-sticky-nav {
+transform: translatey(-100px);
+-moz-transition: all .3s ease!important;
+-webkit-transition: all .3s ease!important;
+transition: all .3s ease!important;
+}
+.elementor-sticky--effects.mobile-sticky-nav{
+height: auto!important;
+transform: translatey(0px);
+}
+.elementor-sticky--effects.mobile-header{
+    display: none!important;
+}
+
+.widget{
+    margin-bottom: 20px; 
+    font-style: normal;
+}
+.nyd-target iframe {
+	position: initial !important;
+}
+.nyd-target .content-video {
+	 position: relative;
+	 padding-top: 0; 
+     padding-bottom: 0;
+	 height: auto;
+	 overflow: hidden;
+}
+.widget .recentcomments a{
+	font-size:14px;
+}
+
+.comment-list li {
+	list-style: none;
+	border-bottom: 1px solid #e4d4d4;
+	padding: 10px;
+}
+.comment-author img {
+	border-radius: 50%;
+	width: 50px;
+	margin: 0 20px 10px 0;
+}
+.children{
+	border-top: 1px solid aliceblue;
+}
+.comment-content p, .comment-metadata a, .comment-author b, .logged-in-as{
+	font-size:15px;
+}
+.comment-form label{
+	font-size:14px;
+}
+.comment-reply-title{
+	font-size:17px;
+}
+
+.widget_search::before {
+	position: absolute;
+	content: none !important;
+	font-family: fontAwesome;
+	font-size: 20px;
+	color: #DD5944;
+	right: 12px;
+	top: 28%;
+}
+.single-title-area-rht {
+    width: 85% !important;
+}
