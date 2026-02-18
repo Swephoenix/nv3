@@ -16,7 +16,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 0 20px;
             box-sizing: border-box;
@@ -215,13 +215,19 @@
             gap: 16px;
         }
         .sidebar-col { padding-left: 0; }
-        .sidebar-col + .sidebar-col { padding-left: 12px; border-left: 3px solid #cc0000; }
+        .sidebar-col + .sidebar-col { padding-left: 12px; border-left: 1px solid #ddd; }
         
         .ad-rect { border: 1px solid #ddd; background: #fff; padding: 6px; margin-bottom: 12px; }
         .ad-rect img { width: 100%; height: auto; display: block; }
         .ad-text-list { border: 1px solid #ddd; padding: 10px; font-size: 13px; line-height: 1.4; margin-bottom: 12px; background: #fff; }
         .ad-mini { border: 1px solid #ddd; padding: 6px; margin-bottom: 8px; background: #fff; }
         .ad-mini img { width: 100%; height: auto; object-fit: contain; display: block; }
+        .x-feed-box {
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 6px;
+            margin-bottom: 12px;
+        }
 
         /* --- Section Headers & Grids --- */
         .section-header {
@@ -238,7 +244,17 @@
         .news-item-4 h3 { font-size: 13px; line-height: 1.2; margin: 8px 0; font-weight: bold; }
 
         /* --- Must Watch Section --- */
-        .must-watch-section { background-color: #000; padding: 20px; margin-top: 30px; }
+        .must-watch-section {
+            background-color: #000;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: calc(100% - 370px);
+            box-sizing: border-box;
+        }
+        .first-column-width {
+            max-width: calc(100% - 370px);
+            box-sizing: border-box;
+        }
         .must-watch-title { color: white; text-transform: uppercase; font-size: 16px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .video-container { display: flex; height: 450px; }
 
@@ -263,21 +279,23 @@
         /* ADS Banner */
         .ads-placeholder {
             border: 2px solid #ccc; height: 250px; margin: 40px 0;
-            display: flex; align-items: center; justify-content: center; background-color: #fff;
+            display: flex; align-items: center; justify-content: center; background-color: #f5f5f5;
             max-width: 100%;
+            overflow: hidden;
         }
         .ads-text { font-size: 150px; font-weight: 900; color: #eee; letter-spacing: -5px; }
 
         /* --- FOOTER STYLES --- */
         .site-footer { background-color: #111; color: #ccc; padding: 50px 0 20px 0; margin-top: 60px; font-size: 13px; }
         .footer-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; border-bottom: 1px solid #333; padding-bottom: 40px; margin-bottom: 20px; }
-        .footer-col h4 { color: #fff; text-transform: uppercase; font-size: 14px; border-bottom: 2px solid #cc0000; display: inline-block; margin-bottom: 20px; padding-bottom: 5px; margin-top: 0; }
+        .footer-col h4 { color: #fff; text-transform: uppercase; font-size: 14px; border-bottom: 2px solid #cc0000; display: inline-block; margin-bottom: 8px; padding-bottom: 5px; margin-top: 0; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
         .footer-col li { margin-bottom: 10px; border-bottom: 1px solid #222; padding-bottom: 5px; }
         .footer-col a { color: #aaa; transition: color 0.2s; }
         .footer-col a:hover { color: #fff; text-decoration: none; padding-left: 5px; }
         .footer-about p { line-height: 1.6; margin-bottom: 20px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #666; flex-wrap: wrap; gap: 20px;}
+        .footer-about h4 { margin-bottom: 8px; }
+        .footer-col p { margin-top: 0; }
 
         /* Loading indicator */
         .loading { text-align: center; padding: 20px; font-size: 18px; }
@@ -289,6 +307,12 @@
         @media (max-width: 992px) {
             .top-split-layout {
                 grid-template-columns: 1fr; /* Sidebar hamnar under main content */
+            }
+            .must-watch-section {
+                max-width: 100%;
+            }
+            .first-column-width {
+                max-width: 100%;
             }
             .sidebar-3col {
                 grid-template-columns: repeat(2, 1fr); /* Behåll 2 kolumner i sidebaren om plats finns */
@@ -358,7 +382,6 @@
             /* Footer */
             .footer-content { grid-template-columns: 1fr; text-align: center; }
             .footer-col h4 { border-bottom: 2px solid #cc0000; display: inline-block; }
-            .footer-bottom { flex-direction: column; text-align: center; }
             
             /* Ads */
             .ads-text { font-size: 50px; }
@@ -529,7 +552,7 @@
 
             <!-- Senaste nyheterna -->
             <div class="section-header">
-                <h2>Senaste nyheterna</h2>
+                <h2>Redaktionens utvalda</h2>
             </div>
 
             <div id="economy-business-grid" class="news-grid-4">
@@ -544,6 +567,13 @@
                 <div class="newsletter-box">
                     <input type="email" placeholder="Din e-postadress">
                     <button>Skicka</button>
+                </div>
+                <div class="sidebar-title">NewsVoice på X</div>
+                <div class="x-feed-box">
+                    <a class="twitter-timeline"
+                       href="https://x.com/newsvoicemag">
+                    Tweets by @newsvoicemag
+                    </a>
                 </div>
                 <div class="sidebar-title">Annonser</div>
                 <div class="ad-mini">
@@ -589,6 +619,7 @@
                         <img src="assets/PremiumVpn.png" alt="Miniannons 1" onerror="this.style.background='#eee'">
                     </a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -640,18 +671,24 @@
         </div>
     </div>
 
-    <!-- Ads Placeholder -->
-    <div id="middle-ads-placeholder" class="ads-placeholder">
-        <div class="loading">Laddar annons...</div>
+    <!-- Annons under videosektionen -->
+    <div class="first-column-width">
+        <div id="middle-ads-placeholder" class="ads-placeholder">
+            <a href="#" target="_blank" style="display:block; width:100%;">
+                <img src="assets/NVannons.png" alt="Annons" style="width:100%; height:250px; object-fit:cover; display:block;" onerror="this.src='https://via.placeholder.com/970x250?text=Bred+annons';">
+            </a>
+        </div>
     </div>
 
     <!-- Världen -->
-    <div class="section-header">
-        <h2>Världen</h2>
-    </div>
+    <div class="first-column-width">
+        <div class="section-header">
+            <h2>Världen</h2>
+        </div>
 
-    <div id="geopolitics-grid" class="news-grid-4">
-        <!-- Javascript fyller i detta -->
+        <div id="geopolitics-grid" class="news-grid-4">
+            <!-- Javascript fyller i detta -->
+        </div>
     </div>
 
 </div> <!-- End Container -->
@@ -681,14 +718,6 @@
             </div>
         </div>
 
-        <div class="footer-bottom" style="border-top:1px solid #333; padding-top:20px; margin-top:20px;">
-            <a href="https://newsvoice.se" style="display:inline-block;">
-                <img src="https://cdn.newsvoice.se/wp-content/uploads/2017/07/newsvoice-logo-retina-544px.png" alt="NewsVoice" style="max-width:260px; height:auto;">
-            </a>
-            <div style="max-width:520px; line-height:1.6; margin-top: 15px;">
-                <strong>NewsVoice är en oberoende kanal för nyheter, debatt och nyhetsbevakning med bas i Stockholm.</strong>
-            </div>
-        </div>
     </div>
 </footer>
 
@@ -748,7 +777,7 @@
         },
         {
             id: 4, title: "Investeringsplattform", description: "AI-driven portföljhantering",
-            imageUrl: "assets/premiumcoffe.png", adType: "rectangle", targetUrl: "#", sponsor: "WealthBuilder"
+            imageUrl: "assets/NVannons.png", adType: "rectangle", targetUrl: "#", sponsor: "WealthBuilder"
         }
     ];
 
@@ -898,11 +927,11 @@
         await renderGeopoliticsGrid();
         await renderTopBannerAd();
         await renderSidebarAds();
-        await renderMiddleAd();
     }
 
     document.addEventListener('DOMContentLoaded', initPage);
 </script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
 </html>

@@ -15,7 +15,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -240,6 +240,45 @@
             color: #666;
             margin-bottom: 16px;
         }
+        .article-share {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .article-share-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 700;
+            margin-right: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .share-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+        .share-btn:hover {
+            text-decoration: none;
+            transform: translateY(-1px);
+            opacity: 0.9;
+        }
+        .share-facebook { background: #1877f2; }
+        .share-x { background: #111; }
+        .share-linkedin { background: #0a66c2; }
+        .share-wechat { background: #07c160; }
+        .share-weibo { background: #e6162d; }
+        .share-douyin { background: #000000; }
+        .share-toutiao { background: #ff2d55; }
         .article-hero {
             border: 1px solid #ddd;
             background: #eee;
@@ -276,6 +315,55 @@
             border: 1px solid #ddd; padding: 10px; display: flex;
             justify-content: space-between; align-items: center; margin-bottom: 5px; font-size: 14px;
         }
+        .news-timeline {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 14px 14px 8px;
+            margin-top: 14px;
+        }
+        .news-timeline-list {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 0 18px;
+            border-left: 2px solid #d9d9d9;
+        }
+        .news-timeline-item {
+            position: relative;
+            padding: 0 0 14px 12px;
+        }
+        .news-timeline-item:last-child {
+            padding-bottom: 2px;
+        }
+        .news-timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cc0000;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #cc0000;
+        }
+        .news-timeline-date {
+            display: block;
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .news-timeline-link {
+            font-size: 13px;
+            line-height: 1.35;
+            color: #111;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .news-timeline-link:hover {
+            text-decoration: underline;
+        }
 
         /* Removed section grids for article page */
         .ads-text { font-size: 150px; font-weight: 900; color: #eee; letter-spacing: -5px; }
@@ -304,7 +392,7 @@
             font-size: 14px;
             border-bottom: 2px solid #cc0000;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             padding-bottom: 5px;
             margin-top: 0;
         }
@@ -336,13 +424,11 @@
             line-height: 1.6;
             margin-bottom: 20px;
         }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: #666;
+        .footer-about h4 {
+            margin-bottom: 8px;
+        }
+        .footer-col p {
+            margin-top: 0;
         }
 
         /* Loading indicator */
@@ -354,10 +440,18 @@
 
         /* Mobilanpassning (enkel) */
         @media (max-width: 768px) {
-            .top-split-layout, .footer-content {
+            .top-split-layout {
                 grid-template-columns: 1fr;
                 display: block;
                 height: auto;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-col h4 {
+                border-bottom: 2px solid #cc0000;
+                display: inline-block;
             }
             .article-hero { height: 220px; }
             .sidebar { margin-top: 30px; }
@@ -506,6 +600,16 @@
                 <h1 class="article-title">Malaysia vill öka handeln med BRICS-länderna under 2025</h1>
                 <p class="article-dek">Fältdirektören Ana Suri säger att den regionala samordningen har nått en “tidigare osedd” nivå.</p>
                 <div class="article-meta">Taylor Penley • Publicerad 28 januari 2025, 10:19</div>
+                <div class="article-share" aria-label="Dela artikeln">
+                    <span class="article-share-label">Dela</span>
+                    <a class="share-btn share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://newsvoice.se/" target="_blank" rel="noopener noreferrer" aria-label="Dela på Facebook">f</a>
+                    <a class="share-btn share-x" href="https://x.com/intent/tweet?url=https://newsvoice.se/&text=Malaysia%20vill%20%C3%B6ka%20handeln%20med%20BRICS-l%C3%A4nderna%20under%202025" target="_blank" rel="noopener noreferrer" aria-label="Dela på X">x</a>
+                    <a class="share-btn share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https://newsvoice.se/" target="_blank" rel="noopener noreferrer" aria-label="Dela på LinkedIn">in</a>
+                    <a class="share-btn share-wechat" href="https://newsvoice.se/" target="_blank" rel="noopener noreferrer" aria-label="Dela via WeChat">wc</a>
+                    <a class="share-btn share-weibo" href="https://service.weibo.com/share/share.php?url=https://newsvoice.se/&title=Malaysia%20vill%20%C3%B6ka%20handeln%20med%20BRICS-l%C3%A4nderna%20under%202025" target="_blank" rel="noopener noreferrer" aria-label="Dela på Weibo">wb</a>
+                    <a class="share-btn share-douyin" href="https://www.douyin.com/" target="_blank" rel="noopener noreferrer" aria-label="Dela via Douyin">dy</a>
+                    <a class="share-btn share-toutiao" href="https://www.toutiao.com/" target="_blank" rel="noopener noreferrer" aria-label="Dela via Toutiao">tt</a>
+                </div>
                 <div class="article-hero">
                     <img src="assets/Malaysia.jpg" alt="Kuala Lumpurs stadssilhuett">
                 </div>
@@ -532,6 +636,44 @@
 
             <div id="pavon-ad-placeholder" class="pavon-ad">
                 <div class="loading">Laddar annons...</div>
+            </div>
+
+            <div class="sidebar-title">Senaste nytt</div>
+            <div class="news-timeline">
+                <ul class="news-timeline-list">
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">18 feb 2026</span>
+                        <a class="news-timeline-link" href="#">BRICS-länder enas om ny betalningsinfrastruktur</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">18 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Malaysia presenterar nytt exportpaket mot Asien</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">17 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Indien och Brasilien stärker samarbete inom energi</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">17 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Ny rapport: BRI-korridorer ökar regional handel</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">16 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Sydafrika öppnar för fler investeringar i logistik</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">16 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Ryssland och Kina diskuterar gemensamma industriprojekt</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">15 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Förenklade tullregler föreslås för BRICS-handeln</a>
+                    </li>
+                    <li class="news-timeline-item">
+                        <span class="news-timeline-date">15 feb 2026</span>
+                        <a class="news-timeline-link" href="#">Analys: BRICS &amp; BRI får större betydelse 2026</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -562,15 +704,6 @@
             <div class="footer-col">
                 <h4>Utgivare</h4>
                 <p>Ansvarig utgivare:<br>Torbjörn Sassersson.<br>NewsVoice grundades 2011.<br>Innehållet på denna sida är skyddat enligt lagen om upphovsrätt.</p>
-            </div>
-        </div>
-
-        <div class="footer-bottom" style="border-top:1px solid #333; padding-top:20px; margin-top:20px;">
-            <a href="https://newsvoice.se" style="display:inline-block;">
-                <img src="https://cdn.newsvoice.se/wp-content/uploads/2017/07/newsvoice-logo-retina-544px.png" alt="NewsVoice" style="max-width:260px; height:auto;">
-            </a>
-            <div style="max-width:520px; line-height:1.6;">
-                <strong>NewsVoice är en oberoende kanal för nyheter, debatt och nyhetsbevakning med bas i Stockholm. Vi publicerar även kulturinnehåll och analyser i text och video.</strong>
             </div>
         </div>
     </div>
