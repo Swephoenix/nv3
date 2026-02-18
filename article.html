@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NewsVoice - Connected Frontend</title>
+    <title>NewsVoice - Kopplad frontend</title>
     <style>
         /* --- Grundläggande Stilar --- */
         body {
@@ -185,6 +185,22 @@
             border-bottom: 1px solid #ddd;
             padding-bottom: 24px;
             margin-bottom: 24px;
+        }
+        .breadcrumbs {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .breadcrumbs a {
+            color: #666;
+            text-decoration: none;
+        }
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumbs .sep {
+            margin: 0 6px;
+            color: #999;
         }
         .article-category {
             border: 1px solid #cc0000;
@@ -373,7 +389,7 @@
                 <div class="logo-voice">VOICE</div>
             </a>
             <div id="top-banner-ad" class="top-ad-placeholder">
-                <div class="loading">Loading advertisement...</div>
+                <div class="loading">Laddar annons...</div>
             </div>
         </div>
 
@@ -461,11 +477,11 @@
                     </ul>
                 </li>
                 <li class="menu-item has-children">
-                    <a href="https://newsvoice.se/english/">ENGLISH</a>
+                    <a href="https://newsvoice.se/english/">Engelska</a>
                     <ul class="sub-menu">
-                        <li><a href="https://newsvoice.se/about-newsvoice/">About NewsVoice</a></li>
-                        <li><a href="https://newsvoice.se/torbjorn-sassersson-the-editor/">The founder</a></li>
-                        <li><a href="https://newsvoice.se/donate/">Donate</a></li>
+                        <li><a href="https://newsvoice.se/about-newsvoice/">Om NewsVoice</a></li>
+                        <li><a href="https://newsvoice.se/torbjorn-sassersson-the-editor/">Grundaren</a></li>
+                        <li><a href="https://newsvoice.se/donate/">Donera</a></li>
                     </ul>
                 </li>
             </ul>
@@ -478,13 +494,20 @@
         <!-- Left Column -->
         <div class="left-col">
             <article class="article">
-                <div class="article-category">Kategori (placeholder)</div>
-                <div class="kicker">REGION | KATEGORI</div>
-                <h1 class="article-title">Malaysia to Boost Trade with BRICS Countries in 2025</h1>
-                <p class="article-dek">Field office director Ana Suri said regional coordination has reached an “unprecedented” level.</p>
+                <nav class="breadcrumbs" aria-label="Brödsmulor">
+                    <a href="https://newsvoice.se/">Hem</a>
+                    <span class="sep">›</span>
+                    <a href="https://newsvoice.se/category/varlden/">Världen</a>
+                    <span class="sep">›</span>
+                    <a href="https://newsvoice.se/category/in-english/brics-bri-articles/">BRICS &amp; BRI</a>
+                </nav>
+                <div class="article-category">BRICS &amp; BRI</div>
+                <div class="kicker">Brics &amp; BRI</div>
+                <h1 class="article-title">Malaysia vill öka handeln med BRICS-länderna under 2025</h1>
+                <p class="article-dek">Fältdirektören Ana Suri säger att den regionala samordningen har nått en “tidigare osedd” nivå.</p>
                 <div class="article-meta">Taylor Penley • Publicerad 28 januari 2025, 10:19</div>
                 <div class="article-hero">
-                    <img src="https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&w=1200&h=630&q=80" alt="Kuala Lumpur skyline">
+                    <img src="assets/Malaysia.jpg" alt="Kuala Lumpurs stadssilhuett">
                 </div>
                 <div class="article-body">
                     <p>Malaysias handelsdepartement har presenterat en strategi för att öka export och investeringar mot BRICS‑länderna under 2025. Planen omfattar nya branschspecifika arbetsgrupper, förenklade tullprocesser och en serie investeringsforum med fokus på tillverkning, logistik och digitala tjänster.</p>
@@ -496,19 +519,19 @@
 
         <!-- Right Sidebar -->
         <div class="sidebar">
-            <div class="sidebar-title">Get our newsletter</div>
+            <div class="sidebar-title">Få vårt nyhetsbrev</div>
             <div class="newsletter-box">
-                <input type="email" placeholder="Your mail address">
-                <button>Go</button>
+                <input type="email" placeholder="Din e-postadress">
+                <button>Skicka</button>
             </div>
 
-            <div class="sidebar-title">Advertisers</div>
+            <div class="sidebar-title">Annonsörer</div>
             <div id="sidebar-ad-placeholder" class="ad-sidebar-placeholder">
-                <div class="loading">Loading advertisement...</div>
+                <div class="loading">Laddar annons...</div>
             </div>
 
             <div id="pavon-ad-placeholder" class="pavon-ad">
-                <div class="loading">Loading advertisement...</div>
+                <div class="loading">Laddar annons...</div>
             </div>
         </div>
     </div>
@@ -547,7 +570,7 @@
                 <img src="https://cdn.newsvoice.se/wp-content/uploads/2017/07/newsvoice-logo-retina-544px.png" alt="NewsVoice" style="max-width:260px; height:auto;">
             </a>
             <div style="max-width:520px; line-height:1.6;">
-                <strong>NewsVoice is an independent news, debate and news monitoring channel based in Stockholm, Sweden. We also publish cultural content and analysis as text and video reports.</strong>
+                <strong>NewsVoice är en oberoende kanal för nyheter, debatt och nyhetsbevakning med bas i Stockholm. Vi publicerar även kulturinnehåll och analyser i text och video.</strong>
             </div>
         </div>
     </div>
