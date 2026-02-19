@@ -12,6 +12,7 @@
             padding: 0;
             background-color: #ffffff;
             color: #333;
+            overflow-x: hidden;
         }
 
         .container {
@@ -22,6 +23,7 @@
 
         a { text-decoration: none; color: inherit; }
         a:hover { text-decoration: underline; }
+        img { max-width: 100%; height: auto; }
 
         /* --- Header & Top --- */
         .top-banner {
@@ -41,6 +43,8 @@
             padding: 10px 0;
             font-size: 13px;
             color: #666;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .social-icons span {
@@ -79,6 +83,7 @@
             color: #888;
             font-weight: bold;
             font-size: 40px;
+            max-width: 100%;
         }
 
         /* --- Navigation --- */
@@ -445,6 +450,56 @@
                 display: block;
                 height: auto;
             }
+            .container {
+                padding: 0 15px;
+            }
+            .logo-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .top-ad-placeholder {
+                width: 100%;
+                height: auto;
+                min-height: 100px;
+                font-size: 20px;
+            }
+            .sub-header {
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+            }
+            .main-nav .menu {
+                justify-content: flex-start;
+                gap: 8px;
+            }
+            .main-nav .menu > li {
+                width: 100%;
+                border-bottom: 1px solid #eee;
+                padding: 6px 0;
+            }
+            .main-nav .menu > li > a {
+                display: block;
+                font-size: 14px;
+            }
+            .main-nav .sub-menu {
+                position: static;
+                display: block;
+                min-width: 0;
+                box-shadow: none;
+                border: none;
+                padding-left: 12px;
+                border-radius: 0;
+            }
+            .main-nav .sub-menu .sub-menu {
+                margin-left: 0;
+            }
+            .article-title {
+                font-size: 28px;
+            }
+            .article-share {
+                flex-wrap: wrap;
+                row-gap: 10px;
+            }
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -455,6 +510,12 @@
             }
             .article-hero { height: 220px; }
             .sidebar { margin-top: 30px; }
+        }
+        @media (max-width: 480px) {
+            .logo-news, .logo-voice { font-size: 28px; padding: 8px 10px; }
+            .top-banner { font-size: 18px; }
+            .article-title { font-size: 24px; }
+            .news-timeline-link { font-size: 12px; }
         }
     </style>
 </head>
@@ -591,32 +652,31 @@
                 <nav class="breadcrumbs" aria-label="Brödsmulor">
                     <a href="https://newsvoice.se/">Hem</a>
                     <span class="sep">›</span>
-                    <a href="https://newsvoice.se/category/varlden/">Världen</a>
-                    <span class="sep">›</span>
-                    <a href="https://newsvoice.se/category/in-english/brics-bri-articles/">BRICS &amp; BRI</a>
+                    <a href="https://newsvoice.se/category/opinion-artiklar/">Opinion</a>
                 </nav>
-                <div class="article-category">BRICS &amp; BRI</div>
-                <div class="kicker">Brics &amp; BRI</div>
-                <h1 class="article-title">Malaysia vill öka handeln med BRICS-länderna under 2025</h1>
-                <p class="article-dek">Fältdirektören Ana Suri säger att den regionala samordningen har nått en “tidigare osedd” nivå.</p>
-                <div class="article-meta">Taylor Penley • Publicerad 28 januari 2025, 10:19</div>
+                <div class="article-category">Opinion</div>
+                <div class="kicker">In Memoriam</div>
+                <h1 class="article-title">Johan Galtung in memorian</h1>
+                <p class="article-dek">En fiktiv minnesartikel om en av fredsforskningens mest inflytelserika röster och hans betydelse för fredsinriktad journalistik.</p>
+                <div class="article-meta">Redaktionen • Publicerad 19 februari 2026, 09:30</div>
                 <div class="article-share" aria-label="Dela artikeln">
                     <span class="article-share-label">Dela</span>
                     <a class="share-btn share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://newsvoice.se/" target="_blank" rel="noopener noreferrer" aria-label="Dela på Facebook">f</a>
-                    <a class="share-btn share-x" href="https://x.com/intent/tweet?url=https://newsvoice.se/&text=Malaysia%20vill%20%C3%B6ka%20handeln%20med%20BRICS-l%C3%A4nderna%20under%202025" target="_blank" rel="noopener noreferrer" aria-label="Dela på X">x</a>
+                    <a class="share-btn share-x" href="https://x.com/intent/tweet?url=https://newsvoice.se/&text=Johan%20Galtung%20in%20memorian" target="_blank" rel="noopener noreferrer" aria-label="Dela på X">x</a>
                     <a class="share-btn share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https://newsvoice.se/" target="_blank" rel="noopener noreferrer" aria-label="Dela på LinkedIn">in</a>
                     <a class="share-btn share-wechat" href="https://newsvoice.se/" target="_blank" rel="noopener noreferrer" aria-label="Dela via WeChat">wc</a>
-                    <a class="share-btn share-weibo" href="https://service.weibo.com/share/share.php?url=https://newsvoice.se/&title=Malaysia%20vill%20%C3%B6ka%20handeln%20med%20BRICS-l%C3%A4nderna%20under%202025" target="_blank" rel="noopener noreferrer" aria-label="Dela på Weibo">wb</a>
+                    <a class="share-btn share-weibo" href="https://service.weibo.com/share/share.php?url=https://newsvoice.se/&title=Johan%20Galtung%20in%20memorian" target="_blank" rel="noopener noreferrer" aria-label="Dela på Weibo">wb</a>
                     <a class="share-btn share-douyin" href="https://www.douyin.com/" target="_blank" rel="noopener noreferrer" aria-label="Dela via Douyin">dy</a>
                     <a class="share-btn share-toutiao" href="https://www.toutiao.com/" target="_blank" rel="noopener noreferrer" aria-label="Dela via Toutiao">tt</a>
                 </div>
                 <div class="article-hero">
-                    <img src="assets/Malaysia.jpg" alt="Kuala Lumpurs stadssilhuett">
+                    <img src="assets/JohanGaltung" alt="Johan Galtung">
                 </div>
                 <div class="article-body">
-                    <p>Malaysias handelsdepartement har presenterat en strategi för att öka export och investeringar mot BRICS‑länderna under 2025. Planen omfattar nya branschspecifika arbetsgrupper, förenklade tullprocesser och en serie investeringsforum med fokus på tillverkning, logistik och digitala tjänster.</p>
-                    <p>Enligt regeringen ska insatserna bidra till att bredda landets exportportfölj och stärka långsiktiga partnerskap. Branschorganisationer välkomnar inriktningen men efterfrågar en tydlig tidslinje för implementering samt satsningar på kompetensutveckling.</p>
-                    <p>En andra fas ska innehålla finansieringslösningar för exportbolag, tillsammans med utbildningssatsningar inom handel och digitalisering.</p>
+                    <p>I denna fiktiva minnesartikel hedras Johan Galtung som en banbrytande röst för fred, dialog och konfliktlösning. Hans idéer om strukturellt våld och positiv fred påverkade inte bara forskningen, utan också hur redaktioner världen över började rapportera om krig och diplomati.</p>
+                    <p>Galtung betonade att journalistik inte enbart ska beskriva våldets yta, utan också förklara orsaker, maktstrukturer och möjliga vägar till försoning. Den hållningen gav upphov till ett mer ansvarsfullt berättande där människors livsvillkor och långsiktiga fredsprocesser fick större utrymme.</p>
+                    <p>För många reportrar blev hans perspektiv ett etiskt ramverk: att ställa svåra frågor, undvika avhumanisering och synliggöra lösningar. I en tid präglad av snabba rubriker och polarisering framstår den ambitionen som mer relevant än någonsin.</p>
+                    <p>Som symbol för fredsbevarande journalistik lämnar Johan Galtung efter sig ett arv av intellektuellt mod och mänsklig värdighet. Denna text är fiktiv, men hyllningen till hans idéer om fredlig samhällsutveckling är djupt uppriktig.</p>
                 </div>
             </article>
         </div>
