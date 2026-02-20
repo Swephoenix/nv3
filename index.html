@@ -202,6 +202,26 @@
             font-size: 16px; font-weight: bold;
             border-bottom: 3px solid #cc0000; padding-bottom: 5px; margin-bottom: 15px;
         }
+        .sidebar-layout-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            grid-column: 1 / -1;
+        }
+        .layout-btn {
+            border: 1px solid #bbb;
+            background: #fff;
+            color: #222;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 10px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .layout-btn.active {
+            border-color: #cc0000;
+            color: #cc0000;
+        }
         .newsletter-box { background: #f9f9f9; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; }
         .newsletter-box input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; margin-bottom: 10px; }
         .newsletter-box button { width: 100%; background-color: #00cc00; color: white; border: none; padding: 10px; font-weight: bold; cursor: pointer; }
@@ -237,6 +257,86 @@
         .x-feed-box iframe {
             width: 100% !important;
             max-width: 100% !important;
+        }
+        .sidebar.sidebar-layout-sample {
+            display: block;
+        }
+        .sidebar.sidebar-layout-sample .sidebar-col + .sidebar-col {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 22px;
+            border-top: none;
+            padding-top: 0;
+        }
+        .sidebar.sidebar-layout-sample .sidebar-title {
+            font-size: 24px;
+            border-bottom: none;
+            margin-bottom: 10px;
+            padding-bottom: 0;
+            line-height: 1.05;
+            letter-spacing: -0.2px;
+        }
+        .sidebar.sidebar-layout-sample .sidebar-title::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 8px;
+            background: #cc0000;
+            margin-top: 8px;
+        }
+        .sidebar.sidebar-layout-sample #sidebar-x-title,
+        .sidebar.sidebar-layout-sample .x-feed-box,
+        .sidebar.sidebar-layout-sample .ad-rect,
+        .sidebar.sidebar-layout-sample .ad-text-list {
+            display: none;
+        }
+        .sidebar.sidebar-layout-sample .newsletter-box {
+            background: #000;
+            border: 1px solid #111;
+            padding: 12px;
+            margin-bottom: 0;
+        }
+        .sidebar.sidebar-layout-sample .newsletter-box input {
+            background: #efefef;
+            border: 1px solid #8c8c8c;
+            color: #111;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .sidebar.sidebar-layout-sample .newsletter-box button {
+            width: 110px;
+            font-size: 22px;
+            line-height: 1;
+            padding: 8px 16px 10px;
+            background: #05c620;
+            color: #fff;
+            font-weight: 800;
+        }
+        .sidebar.sidebar-layout-sample .sidebar-ads-grid {
+            margin-bottom: 12px;
+        }
+        .sidebar.sidebar-layout-sample #sidebar-ad-placeholder-1 {
+            height: auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 0;
+        }
+        .sidebar.sidebar-layout-sample #sidebar-ad-placeholder-1 img {
+            width: 100%;
+            height: auto !important;
+            max-height: none !important;
+            object-fit: cover !important;
+        }
+        .sidebar.sidebar-layout-sample #sidebar-ad-placeholder-2 {
+            display: none;
+        }
+        .sidebar.sidebar-layout-sample .ad-mini {
+            padding: 0;
+        }
+        .sidebar.sidebar-layout-sample .ad-mini img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         /* --- Section Headers & Grids --- */
@@ -407,6 +507,8 @@
             .sidebar { margin-top: 30px; }
             .sidebar-3col { grid-template-columns: 1fr; } /* 1 kolumn i sidebar */
             .sidebar-col + .sidebar-col { border-left: none; padding-left: 0; margin-top: 20px; border-top: 3px solid #cc0000; padding-top: 20px;}
+            .sidebar.sidebar-layout-sample .sidebar-title { font-size: 22px; }
+            .sidebar.sidebar-layout-sample .newsletter-box button { font-size: 20px; }
             
             /* Video */
             .video-container { flex-direction: column; height: auto; }
@@ -594,14 +696,18 @@
         </div>
 
         <!-- Right Sidebar -->
-        <div class="sidebar sidebar-3col">
+        <div class="sidebar sidebar-3col" id="right-sidebar">
+            <div class="sidebar-layout-controls">
+                <button type="button" class="layout-btn active" data-layout="current" onclick="setSidebarLayout('current')">Version 1</button>
+                <button type="button" class="layout-btn" data-layout="sample" onclick="setSidebarLayout('sample')">Version 2</button>
+            </div>
             <div class="sidebar-col">
-                <div class="sidebar-title">Få vårt nyhetsbrev</div>
+                <div class="sidebar-title" id="sidebar-newsletter-title">Få vårt nyhetsbrev</div>
                 <div class="newsletter-box">
-                    <input type="email" placeholder="Din e-postadress">
-                    <button>Skicka</button>
+                    <input id="newsletter-email-input" type="email" placeholder="Din e-postadress">
+                    <button id="newsletter-submit-btn">Skicka</button>
                 </div>
-                <div class="sidebar-title">NewsVoice på X</div>
+                <div class="sidebar-title" id="sidebar-x-title">NewsVoice på X</div>
                 <div class="x-feed-box">
                     <a class="twitter-timeline"
                        href="https://x.com/newsvoicemag">
@@ -618,12 +724,12 @@
             </div>
 
             <div class="sidebar-col">
-                <div class="sidebar-title">Annonser</div>
+                <div class="sidebar-title" id="sidebar-advertisers-title">Annonser</div>
                 <div class="sidebar-ads-grid">
-                    <div id="sidebar-ad-placeholder-1" class="ad-sidebar-placeholder">
+                    <div id="sidebar-ad-placeholder-1" class="ad-sidebar-placeholder js-sidebar-ad-slot" data-ad-index="0">
                         <div class="loading">Annons...</div>
                     </div>
-                    <div id="sidebar-ad-placeholder-2" class="ad-sidebar-placeholder">
+                    <div id="sidebar-ad-placeholder-2" class="ad-sidebar-placeholder js-sidebar-ad-slot" data-ad-index="1">
                         <div class="loading">Annons...</div>
                     </div>
                 </div>
@@ -639,6 +745,11 @@
                 <div class="ad-mini">
                     <a href="#" target="_blank">
                         <img src="assets/PremiumVpn.png" alt="Miniannons 1" onerror="this.style.background='#eee'">
+                    </a>
+                </div>
+                <div class="ad-mini">
+                    <a href="#" target="_blank">
+                        <img src="assets/PremiumVpn.png" alt="Miniannons 2" onerror="this.style.background='#eee'">
                     </a>
                 </div>
 
@@ -756,6 +867,48 @@
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         el.textContent = now.toLocaleDateString('sv-SE', options);
+    }
+
+    const SIDEBAR_LAYOUT_KEY = 'nv_sidebar_layout_mode';
+
+    function setSidebarLayout(layout) {
+        const sidebar = document.getElementById('right-sidebar');
+        if (!sidebar) return;
+
+        const normalized = layout === 'sample' ? 'sample' : 'current';
+        sidebar.classList.toggle('sidebar-layout-sample', normalized === 'sample');
+
+        document.querySelectorAll('.layout-btn').forEach((button) => {
+            const isActive = button.dataset.layout === normalized;
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        const newsletterTitle = document.getElementById('sidebar-newsletter-title');
+        const advertisersTitle = document.getElementById('sidebar-advertisers-title');
+        const newsletterInput = document.getElementById('newsletter-email-input');
+        const newsletterButton = document.getElementById('newsletter-submit-btn');
+
+        if (newsletterTitle) newsletterTitle.textContent = normalized === 'sample' ? 'Get our newsletter' : 'Få vårt nyhetsbrev';
+        if (advertisersTitle) advertisersTitle.textContent = normalized === 'sample' ? 'Advertisers' : 'Annonser';
+        if (newsletterInput) newsletterInput.placeholder = normalized === 'sample' ? 'Your mail address' : 'Din e-postadress';
+        if (newsletterButton) newsletterButton.textContent = normalized === 'sample' ? 'Go' : 'Skicka';
+
+        try {
+            localStorage.setItem(SIDEBAR_LAYOUT_KEY, normalized);
+        } catch (err) {
+            // Ignore storage issues in restricted browser contexts.
+        }
+    }
+
+    function initSidebarLayout() {
+        let preferredLayout = 'current';
+        try {
+            preferredLayout = localStorage.getItem(SIDEBAR_LAYOUT_KEY) || 'current';
+        } catch (err) {
+            preferredLayout = 'current';
+        }
+        setSidebarLayout(preferredLayout);
     }
 
     // Static data (no backend needed)
@@ -925,12 +1078,18 @@
     }
 
     async function renderSidebarAds() {
-        const containers = [document.getElementById('sidebar-ad-placeholder-1'), document.getElementById('sidebar-ad-placeholder-2')];
+        const containers = Array.from(document.querySelectorAll('.js-sidebar-ad-slot'));
         const sidebarAds = fetchAdsByType('sidebar');
         containers.forEach((container, index) => {
             if (!container) return;
-            const ad = sidebarAds[index] || getAnyAd();
-            if (ad) container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:180px; object-fit:cover; display:block;" onerror="this.src='https://via.placeholder.com/300x180?text=ANNONS';"></a>`;
+            const adIndex = Number(container.dataset.adIndex);
+            const resolvedIndex = Number.isNaN(adIndex) ? index : adIndex;
+            const fallbackHeight = 180;
+            const fallbackWidth = 300;
+            const ad = sidebarAds[resolvedIndex] || getAnyAd();
+            if (ad) {
+                container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:${fallbackHeight}px; object-fit:cover; display:block;" onerror="this.src='https://via.placeholder.com/${fallbackWidth}x${fallbackHeight}?text=ANNONS';"></a>`;
+            }
         });
     }
 
@@ -943,6 +1102,7 @@
     // Init
     async function initPage() {
         updateCurrentDate();
+        initSidebarLayout();
         await renderFeaturedArticle();
         await renderNewsGrid3();
         await renderEconomyBusinessGrid();
