@@ -160,6 +160,17 @@
 
         .main-nav .menu > li { position: relative; padding: 0; }
         .main-nav .menu > li > a { display: inline-block; padding: 2px 4px; }
+        .submenu-toggle {
+            display: none;
+            border: 0;
+            background: transparent;
+            color: #666;
+            font-size: 14px;
+            line-height: 1;
+            padding: 4px 6px;
+            cursor: pointer;
+        }
+        .submenu-toggle:hover { color: #cc0000; }
         
         /* Sub-menu logic */
         .main-nav .sub-menu {
@@ -547,7 +558,33 @@
                 box-sizing: border-box;
             }
             .main-nav .menu > li > a { font-size: 14px; padding: 5px 0; display: block; width: 100%; }
+            .submenu-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 32px;
+                min-height: 32px;
+                margin-left: auto;
+            }
+            .main-nav .menu > li.has-children {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+            .main-nav .menu > li.has-children > a {
+                width: auto;
+                flex: 1 1 auto;
+            }
             .main-nav li:hover > .sub-menu { position: static; display: none; box-shadow: none; border: none; padding-left: 20px; }
+            .main-nav .menu > li.is-open > .sub-menu,
+            .main-nav .sub-menu li.is-open > .sub-menu {
+                display: block;
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding-left: 20px;
+                width: 100%;
+            }
             /* För enkelhetens skull, döljer vi drop-downs på hover i mobilvyn eller kräver klick (JS ej inlagt för sub-klick, men strukturen är redo) */
             
             /* Featured Article */
@@ -948,6 +985,36 @@
         nav.classList.toggle('menu-open');
     }
 
+    function setupMobileSubmenus() {
+        const nav = document.getElementById('mainNav');
+        if (!nav) return;
+
+        nav.querySelectorAll('.submenu-toggle').forEach((button) => button.remove());
+
+        nav.querySelectorAll('.has-children').forEach((item) => {
+            const link = item.querySelector(':scope > a');
+            const submenu = item.querySelector(':scope > .sub-menu');
+            if (!link || !submenu) return;
+
+            item.classList.remove('is-open');
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'submenu-toggle';
+            button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('aria-label', `Visa undermeny för ${link.textContent.trim()}`);
+            button.textContent = '+';
+
+            button.addEventListener('click', () => {
+                const isOpen = item.classList.toggle('is-open');
+                button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                button.textContent = isOpen ? '−' : '+';
+            });
+
+            link.insertAdjacentElement('afterend', button);
+        });
+    }
+
     function updateCurrentDate() {
         const el = document.getElementById('current-date');
         if (!el) return;
@@ -1171,6 +1238,7 @@
     // Init
     async function initPage() {
         updateCurrentDate();
+        setupMobileSubmenus();
         initSidebarLayout();
         await renderFeaturedArticle();
         await renderNewsGrid3();
