@@ -6,6 +6,10 @@
     <title>NewsVoice - Kopplad frontend</title>
     <style>
         /* --- Grundläggande Stilar --- */
+        :root {
+            --article-heading-font: Georgia, "Times New Roman", Times, serif;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
@@ -233,8 +237,8 @@
             margin: 0 0 8px;
             font-size: 36px;
             line-height: 1.1;
-            font-weight: 800;
-            font-family: Georgia, "Times New Roman", Times, serif;
+            font-weight: 700;
+            font-family: var(--article-heading-font);
         }
         .article-dek {
             font-size: 16px;
@@ -289,7 +293,7 @@
             border: 1px solid #ddd;
             background: #eee;
             margin-bottom: 16px;
-            height: 320px;
+            aspect-ratio: 1200 / 675;
             overflow: hidden;
         }
         .article-hero img {
@@ -509,7 +513,6 @@
                 border-bottom: 2px solid #cc0000;
                 display: inline-block;
             }
-            .article-hero { height: 220px; }
             .sidebar { margin-top: 30px; }
         }
         @media (max-width: 480px) {

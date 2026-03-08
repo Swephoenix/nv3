@@ -6,6 +6,10 @@
     <title>NewsVoice - Kopplad frontend (mobilanpassad)</title>
     <style>
         /* --- Grundläggande Stilar --- */
+        :root {
+            --article-heading-font: Georgia, "Times New Roman", Times, serif;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
@@ -53,12 +57,49 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
+            gap: 18px;
+        }
+        .logo-cluster {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         .logo-box { display: flex; border: 1px solid #000; text-decoration: none !important;}
         .logo-box:hover { text-decoration: none; }
         .logo-news { padding: 10px 15px; font-size: 35px; font-family: serif; }
         .logo-voice { background-color: #000; color: #fff; padding: 10px 15px; font-size: 35px; font-weight: bold; font-family: serif; }
+        .social-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border: 1px solid #d9d9d9;
+            background: linear-gradient(180deg, #fafafa 0%, #f1f1f1 100%);
+        }
+        .social-link {
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d0d0d0;
+            background: #fff;
+            color: #111;
+            text-decoration: none !important;
+            transition: transform 120ms ease, border-color 120ms ease;
+        }
+        .social-link:hover {
+            transform: translateY(-1px);
+            border-color: #cc0000;
+        }
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            display: block;
+        }
 
         .top-slot-placeholder {
             width: 728px;
@@ -78,7 +119,7 @@
             border-top: 1px solid #ddd;
             border-bottom: 5px solid #eee;
             padding: 10px 0;
-            margin-bottom: 30px;
+            margin-bottom: 12px;
             position: relative;
         }
         
@@ -110,6 +151,12 @@
         .nav-active { border-bottom: 2px solid #cc0000; padding-bottom: 2px; }
         .article-link { display: block; color: inherit; cursor: pointer; }
         .article-link:hover { text-decoration: none; }
+        .article-link h1,
+        .article-link h2,
+        .article-link h3 {
+            font-family: var(--article-heading-font);
+            font-weight: 700;
+        }
 
         .main-nav .menu > li { position: relative; padding: 0; }
         .main-nav .menu > li > a { display: inline-block; padding: 2px 4px; }
@@ -142,6 +189,7 @@
             grid-template-columns: 1fr 340px; /* Ändrat sidebar bredd något för balans */
             gap: 30px;
             margin-bottom: 50px;
+            align-items: start;
         }
 
         /* Featured Article */
@@ -158,9 +206,9 @@
             margin-top: 0;
             font-size: 32px;
             line-height: 1.1;
-            font-weight: 800;
+            font-weight: 700;
             word-wrap: break-word;
-            font-family: Georgia, "Times New Roman", Times, serif;
+            font-family: var(--article-heading-font);
         }
         .label-red {
             border: 1px solid #cc0000; color: #cc0000; padding: 2px 5px;
@@ -181,7 +229,7 @@
             font-size: 14px;
             margin-top: 10px;
             line-height: 1.3;
-            font-family: Georgia, "Times New Roman", Times, serif;
+            font-family: var(--article-heading-font);
             font-weight: 700;
         }
         .category-label {
@@ -194,7 +242,7 @@
             letter-spacing: 0.3px;
             padding: 3px 7px 7px;
             box-shadow: inset 0 -4px 0 #cc0000;
-            position: absolute; right: 8px; bottom: 8px; z-index: 1;
+            position: absolute; right: 0; bottom: 0; z-index: 1;
         }
 
         /* Sidebar Styles */
@@ -207,8 +255,11 @@
             gap: 8px;
             margin-bottom: 14px;
             grid-column: 1 / -1;
+            align-self: start;
+            width: 100%;
         }
         .layout-btn {
+            flex: 1 1 0;
             border: 1px solid #bbb;
             background: #fff;
             color: #222;
@@ -217,6 +268,8 @@
             padding: 6px 10px;
             cursor: pointer;
             line-height: 1;
+            min-height: 36px;
+            white-space: nowrap;
         }
         .layout-btn.active {
             border-color: #cc0000;
@@ -226,19 +279,13 @@
         .newsletter-box input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; margin-bottom: 10px; }
         .newsletter-box button { width: 100%; background-color: #00cc00; color: white; border: none; padding: 10px; font-weight: bold; cursor: pointer; }
 
-        .ad-sidebar-placeholder {
-            width: 100%; height: 180px; background: #004d66;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: white; text-align: center;
-            margin-bottom: 10px;
-        }
-        .sidebar-ads-grid { display: block; margin-bottom: 10px; }
-        
         /* I desktop är sidebar-3col egentligen 2 kolumner i denna design */
         .sidebar-3col {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
+            align-content: start;
+            align-items: start;
         }
         .sidebar-col { padding-left: 0; }
         .sidebar-col + .sidebar-col { padding-left: 12px; border-left: 1px solid #ddd; }
@@ -248,15 +295,39 @@
         .ad-text-list { border: 1px solid #ddd; padding: 10px; font-size: 13px; line-height: 1.4; margin-bottom: 12px; background: #fff; }
         .ad-mini { border: 1px solid #ddd; padding: 6px; margin-bottom: 8px; background: #fff; }
         .ad-mini img { width: 100%; height: auto; object-fit: contain; display: block; }
-        .x-feed-box {
+        .sidebar-media-card {
             border: 1px solid #ddd;
             background: #fff;
-            padding: 6px;
+            padding: 8px;
             margin-bottom: 12px;
         }
-        .x-feed-box iframe {
-            width: 100% !important;
-            max-width: 100% !important;
+        .sidebar-media-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .sidebar-logo-stack {
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+        .sidebar-logo-stack a {
+            display: block;
+        }
+        .sidebar-logo-stack a + a,
+        .sidebar-logo-stack hr {
+            margin-top: 10px;
+        }
+        .sidebar-logo-stack hr {
+            border: 0;
+            border-top: 1px solid #e2e2e2;
+        }
+        .sidebar-logo-stack img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
         }
         .sidebar.sidebar-layout-sample {
             display: block;
@@ -284,8 +355,6 @@
             background: #cc0000;
             margin-top: 8px;
         }
-        .sidebar.sidebar-layout-sample #sidebar-x-title,
-        .sidebar.sidebar-layout-sample .x-feed-box,
         .sidebar.sidebar-layout-sample .ad-rect,
         .sidebar.sidebar-layout-sample .ad-text-list {
             display: none;
@@ -312,24 +381,6 @@
             color: #fff;
             font-weight: 800;
         }
-        .sidebar.sidebar-layout-sample .sidebar-ads-grid {
-            margin-bottom: 12px;
-        }
-        .sidebar.sidebar-layout-sample #sidebar-ad-placeholder-1 {
-            height: auto;
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 0;
-        }
-        .sidebar.sidebar-layout-sample #sidebar-ad-placeholder-1 img {
-            width: 100%;
-            height: auto !important;
-            max-height: none !important;
-            object-fit: cover !important;
-        }
-        .sidebar.sidebar-layout-sample #sidebar-ad-placeholder-2 {
-            display: none;
-        }
         .sidebar.sidebar-layout-sample .ad-mini {
             padding: 0;
         }
@@ -344,6 +395,9 @@
             border-bottom: 4px solid #cc0000; margin-bottom: 15px;
             padding-bottom: 2px; margin-top: 40px;
         }
+        .section-header--top {
+            margin-top: 4px;
+        }
         .section-header h2 { margin: 0; font-size: 16px; text-transform: uppercase; font-weight: 800; }
 
         .news-grid-4 {
@@ -357,7 +411,7 @@
             line-height: 1.2;
             margin: 8px 0;
             font-weight: 700;
-            font-family: Georgia, "Times New Roman", Times, serif;
+            font-family: var(--article-heading-font);
         }
 
         /* --- Must Watch Section --- */
@@ -371,6 +425,10 @@
         .first-column-width {
             max-width: calc(100% - 370px);
             box-sizing: border-box;
+        }
+        .left-col .must-watch-section,
+        .left-col .first-column-width {
+            max-width: 100%;
         }
         .must-watch-title { color: white; text-transform: uppercase; font-size: 16px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .video-container { display: flex; height: 450px; }
@@ -466,6 +524,7 @@
             
             /* Header */
             .logo-section { flex-direction: column; gap: 15px; }
+            .logo-cluster { justify-content: center; }
             .top-slot-placeholder { width: 100%; height: auto; min-height: 100px; font-size: 20px; }
             .logo-box { transform: scale(0.9); }
             
@@ -554,10 +613,26 @@
         </div>
 
         <div class="logo-section">
-            <a href="#" class="logo-box">
-                <div class="logo-news">NEWS</div>
-                <div class="logo-voice">VOICE</div>
-            </a>
+            <div class="logo-cluster">
+                <a href="#" class="logo-box">
+                    <div class="logo-news">NEWS</div>
+                    <div class="logo-voice">VOICE</div>
+                </a>
+                <div class="social-box" aria-label="Sociala medier">
+                    <a class="social-link" href="https://www.facebook.com/NewsVoice.se" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6H16.8V4.8c-.3 0-.9-.1-1.8-.1-3 0-4.9 1.8-4.9 5.1V11H7.2v3h2.9v8h3.4z"/></svg>
+                    </a>
+                    <a class="social-link" href="https://www.youtube.com/@newsvoice" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12.1s0-3.2-.4-4.7c-.2-.8-.8-1.5-1.6-1.7C19.5 5.3 12 5.3 12 5.3s-7.5 0-9 .4c-.8.2-1.4.9-1.6 1.7C1 8.9 1 12.1 1 12.1s0 3.2.4 4.7c.2.8.8 1.5 1.6 1.7 1.5.4 9 .4 9 .4s7.5 0 9-.4c.8-.2 1.4-.9 1.6-1.7.4-1.5.4-4.7.4-4.7zM9.6 15.8V8.4l6.2 3.7-6.2 3.7z"/></svg>
+                    </a>
+                    <a class="social-link" href="https://x.com/newsvoicemag" target="_blank" rel="noopener noreferrer" aria-label="X">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-6.4L6.5 22H3.4l7.3-8.4L1 2h6.4l4.4 5.8L18.9 2zm-1.1 18h1.7L6.5 3.9H4.7L17.8 20z"/></svg>
+                    </a>
+                    <a class="social-link" href="https://t.me/newsvoice" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.6 18.3 19c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.5-.2L6.8 13.2l-4.4-1.4c-1-.3-1-.9.2-1.4L20 3.7c.8-.3 1.7.2 1.5.9z"/></svg>
+                    </a>
+                </div>
+            </div>
             <div id="top-banner-slot" class="top-slot-placeholder">
                 <div class="loading">Laddar annons...</div>
             </div>
@@ -667,6 +742,9 @@
 
         <!-- Left Column -->
         <div class="left-col">
+            <div class="section-header section-header--top">
+                <h2>Senaste</h2>
+            </div>
             <div id="featured-article-container">
                 <!-- Javascript fyller i detta, CSS mobilanpassar det -->
                 <div class="featured-article">
@@ -693,6 +771,70 @@
             <div id="economy-business-grid" class="news-grid-4">
                 <!-- Javascript fyller i detta -->
             </div>
+            <!-- Must Watch Section -->
+            <div class="must-watch-section">
+                <div class="must-watch-title">Måste ses</div>
+
+                <div class="video-container">
+                    <div class="main-video-area">
+                        <div class="youtube-overlay-top">
+                            Vad jag åt och träningspass | Tillbaka på hälsospåret
+                        </div>
+                        <div class="play-button"></div>
+                    </div>
+
+                    <div class="playlist-sidebar">
+                        <div class="playlist-item active">
+                            <div style="font-size: 16px; width: 20px;">▶</div>
+                            <div class="playlist-info">
+                                <b>Vad jag åt och träningspass | Tillbaka på hälsospåret</b>
+                                <span>16:51</span>
+                            </div>
+                        </div>
+                        <div class="playlist-item">
+                            <div style="font-size: 16px; width: 20px;">▶</div>
+                            <div class="playlist-info">
+                                <b>Italienska inomhusmästerskapen 2019 | Stavhopp damer | HD</b>
+                                <span>10:20</span>
+                            </div>
+                        </div>
+                        <div class="playlist-item">
+                            <div style="font-size: 16px; width: 20px;">▶</div>
+                            <div class="playlist-info">
+                                <b>Cyklar på de bästa vägarna i Storbritannien</b>
+                                <span>10:08</span>
+                            </div>
+                        </div>
+                        <div class="playlist-item">
+                            <div style="font-size: 16px; width: 20px;">▶</div>
+                            <div class="playlist-info">
+                                <b>Hel träningsvecka | Måndag till fredag-rutin</b>
+                                <span>11:59</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annons under videosektionen -->
+            <div class="first-column-width">
+                <div id="middle-ads-placeholder" class="ads-placeholder ads-placeholder--wide">
+                    <a href="#" target="_blank">
+                        <img src="assets/NVannons.png" alt="Annonspaket i NewsVoice" onerror="this.src='https://via.placeholder.com/970x250?text=Bred+annons';">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Världen -->
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Världen</h2>
+                </div>
+
+                <div id="geopolitics-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
         </div>
 
         <!-- Right Sidebar -->
@@ -707,11 +849,9 @@
                     <input id="newsletter-email-input" type="email" placeholder="Din e-postadress">
                     <button id="newsletter-submit-btn">Skicka</button>
                 </div>
-                <div class="sidebar-title" id="sidebar-x-title">NewsVoice på X</div>
-                <div class="x-feed-box">
-                    <a class="twitter-timeline"
-                       href="https://x.com/newsvoicemag">
-                    Tweets by @newsvoicemag
+                <div class="sidebar-media-card">
+                    <a href="https://buymeacoffee.com/newsvoice" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/buymeacofee.jpg" alt="Buy me a coffee - Stöd NewsVoice">
                     </a>
                 </div>
                 <div class="ad-rect">
@@ -721,106 +861,51 @@
                         </div>
                     </a>
                 </div>
+                <div class="sidebar-title">Annonsera i NewsVoice</div>
+                <div class="sidebar-media-card">
+                    <a href="https://newsvoice.se/2026/01/annonsera-i-newsvoice-2/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/annonsera-i-newsvoice.jpg" alt="Annonspaket i NewsVoice">
+                    </a>
+                </div>
+                <div class="sidebar-title">Partnerloggor</div>
+                <div class="sidebar-logo-stack">
+                    <a href="https://www.vaken.se/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/vaken-logo.jpg" alt="Vaken.se">
+                    </a>
+                    <hr>
+                    <a href="https://www.chinadaily.com.cn/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/logo-ChinaDaily.com_.cn_.jpg" alt="China Daily">
+                    </a>
+                    <hr>
+                    <a href="https://tvbrics.com/en/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/logo-TV-BRICS.png" alt="TV BRICS">
+                    </a>
+                </div>
             </div>
 
             <div class="sidebar-col">
                 <div class="sidebar-title" id="sidebar-advertisers-title">Annonser</div>
-                <div class="sidebar-ads-grid">
-                    <div id="sidebar-ad-placeholder-1" class="ad-sidebar-placeholder js-sidebar-ad-slot" data-ad-index="0">
-                        <div class="loading">Annons...</div>
-                    </div>
-                    <div id="sidebar-ad-placeholder-2" class="ad-sidebar-placeholder js-sidebar-ad-slot" data-ad-index="1">
-                        <div class="loading">Annons...</div>
-                    </div>
-                </div>
-                <div class="ad-text-list">
-                    <p>De bästa sidorna för <a href="#" target="_blank">Casino utan svensk licens</a>.</p>
-                    <p><a href="#" target="_blank">Dieseltrim Bilverkstad</a> - allbilverkstad.</p>
-                    <p><a href="#" target="_blank">Irradia</a> - medicinsk laser.</p>
-                    <hr>
-                    <p>Spela online casino hos <a href="#" target="_blank">Snabbare</a> med svensk licens.</p>
-                    <p>Lär dig mer om casino utan licens på <a href="#" target="_blank">Goplay</a>.</p>
-                </div>
-
-                <div class="ad-mini">
-                    <a href="#" target="_blank">
-                        <img src="assets/PremiumVpn.png" alt="Miniannons 1" onerror="this.style.background='#eee'">
+                <div class="sidebar-media-card">
+                    <a href="https://goplay.se/casinon/utan-licens/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/goplay.jpg" alt="Goplay">
                     </a>
                 </div>
-                <div class="ad-mini">
-                    <a href="#" target="_blank">
-                        <img src="assets/PremiumVpn.png" alt="Miniannons 2" onerror="this.style.background='#eee'">
+                <div class="sidebar-media-card">
+                    <a href="https://casinogringos.se/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/kasnogringos.png" alt="Casino Gringos">
                     </a>
                 </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- CONTENT PART 2 -->
-
-    <!-- Must Watch Section -->
-    <div class="must-watch-section">
-        <div class="must-watch-title">Måste ses</div>
-
-        <div class="video-container">
-            <div class="main-video-area">
-                <div class="youtube-overlay-top">
-                    Vad jag åt och träningspass | Tillbaka på hälsospåret
+                <div class="sidebar-media-card">
+                    <a href="https://ambitionsverige.se/" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/AmbitionSverige.jpg" alt="Ambition Sverige">
+                    </a>
                 </div>
-                <div class="play-button"></div>
-            </div>
-
-            <div class="playlist-sidebar">
-                <div class="playlist-item active">
-                    <div style="font-size: 16px; width: 20px;">▶</div>
-                    <div class="playlist-info">
-                        <b>Vad jag åt och träningspass | Tillbaka på hälsospåret</b>
-                        <span>16:51</span>
-                    </div>
-                </div>
-                <div class="playlist-item">
-                    <div style="font-size: 16px; width: 20px;">▶</div>
-                    <div class="playlist-info">
-                        <b>Italienska inomhusmästerskapen 2019 | Stavhopp damer | HD</b>
-                        <span>10:20</span>
-                    </div>
-                </div>
-                <div class="playlist-item">
-                    <div style="font-size: 16px; width: 20px;">▶</div>
-                    <div class="playlist-info">
-                        <b>Cyklar på de bästa vägarna i Storbritannien</b>
-                        <span>10:08</span>
-                    </div>
-                </div>
-                <div class="playlist-item">
-                    <div style="font-size: 16px; width: 20px;">▶</div>
-                    <div class="playlist-info">
-                        <b>Hel träningsvecka | Måndag till fredag-rutin</b>
-                        <span>11:59</span>
-                    </div>
+                <div class="sidebar-media-card">
+                    <a href="https://depositphotos.com/se" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/NewsVoice - Public Service på riktigt_files/Depositphotos-Logo-300px.png" alt="Depositphotos">
+                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Annons under videosektionen -->
-    <div class="first-column-width">
-        <div id="middle-ads-placeholder" class="ads-placeholder ads-placeholder--wide">
-            <a href="#" target="_blank">
-                <img src="assets/smspool.png" alt="Annons" onerror="this.src='https://via.placeholder.com/970x250?text=Bred+annons';">
-            </a>
-        </div>
-    </div>
-
-    <!-- Världen -->
-    <div class="first-column-width">
-        <div class="section-header">
-            <h2>Världen</h2>
-        </div>
-
-        <div id="geopolitics-grid" class="news-grid-4">
-            <!-- Javascript fyller i detta -->
         </div>
     </div>
 
@@ -918,7 +1003,7 @@
             title: "Malaysia vill öka handeln med BRICS-länderna under 2025",
             summary: "Kuala Lumpur presenterar en flerårig satsning för att öka exporten och fördjupa investeringarna med BRICS-partner.",
             category: "Ekonomi & Handel",
-            imageUrl: "https://images.unsplash.com/photo-1506466010722-395aa2bef877?auto=format&fit=crop&w=1200&h=630&q=80",
+            imageUrl: "assets/Malaysia.jpg",
             featured: true
         },
         {
@@ -926,33 +1011,28 @@
             title: "Zelenskyj tydliggör sina fredsvillkor, Trumps sändebud säger nej",
             summary: "Ukrainas president redogör för sina krav samtidigt som Trumplägret signalerar skepsis.",
             category: "Krig och Fred",
-            imageUrl: "https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=600&h=400&q=80",
+            imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Hegseth-Rubio-Trump-Vance-960x492.jpg",
             featured: true
         },
         // (Flera artiklar här för att fylla ut sidan)
-        { id: 2, title: "NCAA svarar på Trumps presidentorder", summary: "Idrottsorganisationen kommenterar det nya federala direktivet.", category: "Politik", imageUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 3, title: "USAID-chef möter stark kritik", summary: "Ledningen pressas när biståndsprogram granskas hårdare.", category: "USA", imageUrl: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 4, title: "Gazadiplomatin byter prioriteringar", summary: "Företrädare beskriver en reviderad diplomatisk linje för regionen.", category: "Mellanöstern", imageUrl: "https://images.unsplash.com/photo-1589519124242-2e5a5e3bc63b?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 5, title: "Globala risker vid privata konflikter", summary: "Ekonomisk analys modellerar effekterna av större konflikter.", category: "Ekonomi", imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 6, title: "Assad lovar att slå ner militanta grupper", summary: "Syriens ledare bekräftar fortsatt fokus på en militär lösning.", category: "Geopolitik", imageUrl: "https://images.unsplash.com/photo-1589939892786-a079a3d0df4b?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 7, title: "Kinesiskt teknikbolag med kvantgenombrott", summary: "En ny processor väntas ge kraftigt högre beräkningshastighet.", category: "Teknik", imageUrl: "https://images.unsplash.com/photo-1633287387306-f08b4b3671c6?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
+        { id: 2, title: "NCAA svarar på Trumps presidentorder", summary: "Idrottsorganisationen kommenterar det nya federala direktivet.", category: "Politik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/university-class-960x492.jpg", featured: false },
+        { id: 3, title: "USAID-chef möter stark kritik", summary: "Ledningen pressas när biståndsprogram granskas hårdare.", category: "USA", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Donald_Trump_greenland-960x492.jpg", featured: false },
+        { id: 4, title: "Gazadiplomatin byter prioriteringar", summary: "Företrädare beskriver en reviderad diplomatisk linje för regionen.", category: "Mellanöstern", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Jared-Kushner-New-Gaza-960x492.jpg", featured: false },
+        { id: 5, title: "Globala risker vid privata konflikter", summary: "Ekonomisk analys modellerar effekterna av större konflikter.", category: "Ekonomi", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/secret-room-telephone-crestock-862x600.jpg", featured: false },
+        { id: 6, title: "Assad lovar att slå ner militanta grupper", summary: "Syriens ledare bekräftar fortsatt fokus på en militär lösning.", category: "Geopolitik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/US-military-force-Photo-US-Navy.jpg", featured: false },
+        { id: 7, title: "Kinesiskt teknikbolag med kvantgenombrott", summary: "En ny processor väntas ge kraftigt högre beräkningshastighet.", category: "Teknik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/luxeed-960x492.jpg", featured: false },
         { id: 8, title: "Avskogningen i Amazonas når kritisk nivå", summary: "Miljöorganisationer varnar för irreversibla ekologiska skador.", category: "Miljö", imageUrl: "https://images.unsplash.com/photo-1533441325984-d8b05f3cfed2?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 9, title: "Nordiskt exportråd öppnar ny handelskorridor", summary: "Initiativet ska ge snabbare transporter för mindre tillverkare.", category: "Handel", imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&h=400&q=80", featured: false }
+        { id: 9, title: "Nordiskt exportråd öppnar ny handelskorridor", summary: "Initiativet ska ge snabbare transporter för mindre tillverkare.", category: "Handel", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Canada-China-900x491.jpg", featured: false }
     ];
 
     const STATIC_ADS = [
         {
-            id: 1, title: "BYD elfordon", description: "Ledande global tillverkare av elfordon",
-            imageUrl: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=300&h=400&q=80",
-            adType: "sidebar", targetUrl: "#", sponsor: "BYD"
-        },
-        {
-            id: 2, title: "Premium VPN-tjänst", description: "Säkra din anslutning",
+            id: 2, title: "Premium VPN-tjänst", description: "Sakra din anslutning",
             imageUrl: "assets/PremiumVpn.png", adType: "banner", targetUrl: "#", sponsor: "SecureNet"
         },
         {
-            id: 4, title: "Investeringsplattform", description: "AI-driven portföljhantering",
-            imageUrl: "assets/smspool.png", adType: "rectangle", targetUrl: "#", sponsor: "WealthBuilder"
+            id: 4, title: "Annonspaket i NewsVoice", description: "Na nya kunder och ditt foretag stodjer samtidigt NewsVoice",
+            imageUrl: "assets/NVannons.png", adType: "rectangle", targetUrl: "#", sponsor: "NewsVoice", fit: "contain"
         }
     ];
 
@@ -1077,26 +1157,13 @@
         if (ad) container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:90px; object-fit:contain;" onerror="this.src='https://via.placeholder.com/728x90?text=ANNONS';"></a>`;
     }
 
-    async function renderSidebarAds() {
-        const containers = Array.from(document.querySelectorAll('.js-sidebar-ad-slot'));
-        const sidebarAds = fetchAdsByType('sidebar');
-        containers.forEach((container, index) => {
-            if (!container) return;
-            const adIndex = Number(container.dataset.adIndex);
-            const resolvedIndex = Number.isNaN(adIndex) ? index : adIndex;
-            const fallbackHeight = 180;
-            const fallbackWidth = 300;
-            const ad = sidebarAds[resolvedIndex] || getAnyAd();
-            if (ad) {
-                container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:${fallbackHeight}px; object-fit:cover; display:block;" onerror="this.src='https://via.placeholder.com/${fallbackWidth}x${fallbackHeight}?text=ANNONS';"></a>`;
-            }
-        });
-    }
-
     async function renderMiddleAd() {
         const container = document.getElementById('middle-ads-placeholder');
         const ad = fetchRandomAdByType('rectangle') || getAnyAd();
-        if (ad) container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:250px; object-fit:contain; display:block;" onerror="this.src='https://via.placeholder.com/970x250?text=Bred+annons';"></a>`;
+        if (ad) {
+            const imageFit = ad.fit === 'cover' ? 'cover' : 'contain';
+            container.innerHTML = `<a href="${ad.targetUrl}"><img src="${ad.imageUrl}" alt="${ad.title}" style="width:100%; height:250px; object-fit:${imageFit}; display:block;" onerror="this.src='https://via.placeholder.com/970x250?text=Bred+annons';"></a>`;
+        }
     }
 
     // Init
@@ -1108,7 +1175,7 @@
         await renderEconomyBusinessGrid();
         await renderGeopoliticsGrid();
         await renderTopBannerSlot();
-        await renderSidebarAds();
+        await renderMiddleAd();
     }
 
     document.addEventListener('DOMContentLoaded', initPage);
