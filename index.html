@@ -19,11 +19,109 @@
             overflow-x: hidden; /* Förhindra horisontell scroll */
         }
 
+        body.splash-active {
+            overflow: hidden;
+        }
+
         .container {
             max-width: 1320px;
             margin: 0 auto;
             padding: 0 20px;
             box-sizing: border-box;
+        }
+
+        .splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at top, rgba(204, 0, 0, 0.35), transparent 42%),
+                rgba(0, 0, 0, 0.92);
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 320ms ease, visibility 320ms ease;
+        }
+
+        .splash-screen.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-screen__panel {
+            position: relative;
+            width: min(1100px, 100%);
+            max-height: min(84vh, 900px);
+            aspect-ratio: 16 / 9;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+        }
+
+        .splash-screen__video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .splash-screen__meta {
+            position: absolute;
+            inset: auto 0 0 0;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 24px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.76), transparent);
+            color: #fff;
+        }
+
+        .splash-screen__actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .splash-screen__skip {
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 120ms ease, border-color 120ms ease;
+        }
+
+        .splash-screen__skip:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .splash-screen__start {
+            display: none;
+            border: 1px solid #fff;
+            background: #fff;
+            color: #111;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .splash-screen.needs-user-start .splash-screen__start {
+            display: inline-flex;
         }
 
         a { text-decoration: none; color: inherit; }
@@ -91,10 +189,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            height: 90px;
-            padding: 0 12px;
-            border: 1px solid #d9d9d9;
-            background: linear-gradient(180deg, #fafafa 0%, #f1f1f1 100%);
+            height: auto;
+            padding: 0;
+            border: none;
+            background: transparent;
             box-sizing: border-box;
             flex: 0 0 auto;
         }
@@ -106,6 +204,7 @@
             justify-content: center;
             border: 1px solid #d0d0d0;
             background: #fff;
+            border-radius: 50%;
             color: #111;
             text-decoration: none !important;
             transition: transform 120ms ease, border-color 120ms ease;
@@ -164,7 +263,7 @@
             justify-content: center;
             gap: 6px 12px;
             text-align: center;
-            font-size: 12px;
+            font-size: 14.4px;
             font-weight: bold;
         }
         .main-nav a { margin: 0 5px; color: #000; }
@@ -255,7 +354,13 @@
             padding-top: 20px;
         }
         .grid-item-3 { position: relative; }
-        .grid-item-3 img { width: 100%; height: 120px; background: #eee; object-fit: cover; display: block; }
+        .grid-item-3-thumb {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #ddd;
+            overflow: hidden;
+        }
+        .grid-item-3 img { width: 100%; height: 100%; background: #eee; object-fit: cover; display: block; }
         .grid-item-3 h3 {
             font-size: 14px;
             margin-top: 10px;
@@ -264,14 +369,14 @@
             font-weight: 700;
         }
         .category-label {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.88);
             border: 1px solid #bdbdbd;
             color: #000;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            padding: 3px 7px 7px;
+            padding: 4px 9px 8px;
             box-shadow: inset 0 -4px 0 #cc0000;
             position: absolute; right: 0; bottom: 0; z-index: 1;
         }
@@ -280,31 +385,6 @@
         .sidebar-title {
             font-size: 16px; font-weight: bold;
             border-bottom: 3px solid #cc0000; padding-bottom: 5px; margin-bottom: 15px;
-        }
-        .sidebar-layout-controls {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 14px;
-            grid-column: 1 / -1;
-            align-self: start;
-            width: 100%;
-        }
-        .layout-btn {
-            flex: 1 1 0;
-            border: 1px solid #bbb;
-            background: #fff;
-            color: #222;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 10px;
-            cursor: pointer;
-            line-height: 1;
-            min-height: 36px;
-            white-space: nowrap;
-        }
-        .layout-btn.active {
-            border-color: #cc0000;
-            color: #cc0000;
         }
         .newsletter-box { background: #f9f9f9; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; }
         .newsletter-box input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; margin-bottom: 10px; }
@@ -360,66 +440,6 @@
             display: block;
             object-fit: contain;
         }
-        .sidebar.sidebar-layout-sample {
-            display: block;
-        }
-        .sidebar.sidebar-layout-sample .sidebar-col + .sidebar-col {
-            border-left: none;
-            padding-left: 0;
-            margin-top: 22px;
-            border-top: none;
-            padding-top: 0;
-        }
-        .sidebar.sidebar-layout-sample .sidebar-title {
-            font-size: 24px;
-            border-bottom: none;
-            margin-bottom: 10px;
-            padding-bottom: 0;
-            line-height: 1.05;
-            letter-spacing: -0.2px;
-        }
-        .sidebar.sidebar-layout-sample .sidebar-title::after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 8px;
-            background: #cc0000;
-            margin-top: 8px;
-        }
-        .sidebar.sidebar-layout-sample .ad-rect,
-        .sidebar.sidebar-layout-sample .ad-text-list {
-            display: none;
-        }
-        .sidebar.sidebar-layout-sample .newsletter-box {
-            background: #000;
-            border: 1px solid #111;
-            padding: 12px;
-            margin-bottom: 0;
-        }
-        .sidebar.sidebar-layout-sample .newsletter-box input {
-            background: #efefef;
-            border: 1px solid #8c8c8c;
-            color: #111;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .sidebar.sidebar-layout-sample .newsletter-box button {
-            width: 110px;
-            font-size: 22px;
-            line-height: 1;
-            padding: 8px 16px 10px;
-            background: #05c620;
-            color: #fff;
-            font-weight: 800;
-        }
-        .sidebar.sidebar-layout-sample .ad-mini {
-            padding: 0;
-        }
-        .sidebar.sidebar-layout-sample .ad-mini img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
 
         /* --- Section Headers & Grids --- */
         .section-header {
@@ -439,9 +459,9 @@
         .news-thumb { position: relative; }
         .news-item-4 h3 {
             font-size: 13px;
-            line-height: 1.2;
+            line-height: 1.44;
             margin: 8px 0;
-            font-weight: 700;
+            font-weight: 800;
             font-family: var(--article-heading-font);
         }
 
@@ -581,7 +601,7 @@
                 padding: 10px;
                 box-sizing: border-box;
             }
-            .main-nav .menu > li > a { font-size: 14px; padding: 5px 0; display: block; width: 100%; }
+            .main-nav .menu > li > a { font-size: 16.8px; padding: 5px 0; display: block; width: 100%; }
             .submenu-toggle {
                 display: inline-flex;
                 align-items: center;
@@ -627,9 +647,6 @@
             .sidebar { margin-top: 30px; }
             .sidebar-3col { grid-template-columns: 1fr; } /* 1 kolumn i sidebar */
             .sidebar-col + .sidebar-col { border-left: none; padding-left: 0; margin-top: 20px; border-top: 3px solid #cc0000; padding-top: 20px;}
-            .sidebar.sidebar-layout-sample .sidebar-title { font-size: 22px; }
-            .sidebar.sidebar-layout-sample .newsletter-box button { font-size: 20px; }
-            
             /* Video */
             .video-container { flex-direction: column; height: auto; }
             .main-video-area { height: 250px; width: 100%; }
@@ -651,9 +668,47 @@
             .logo-news, .logo-voice { font-size: 28px; padding: 8px 10px; }
             .top-banner { font-size: 18px; }
         }
+
+        @media (max-width: 700px) {
+            .splash-screen {
+                padding: 12px;
+            }
+
+            .splash-screen__panel {
+                width: 100%;
+                max-height: none;
+                aspect-ratio: 9 / 16;
+                border-radius: 18px;
+            }
+
+            .splash-screen__meta {
+                align-items: start;
+                flex-direction: column;
+                padding: 18px;
+            }
+        }
     </style>
 </head>
-<body>
+<body class="splash-active">
+<div id="splash-screen" class="splash-screen" aria-label="Introduktionsvideo">
+    <div class="splash-screen__panel">
+        <video
+            id="entry-splash-video"
+            class="splash-screen__video"
+            autoplay
+            playsinline
+            preload="auto"
+        >
+            <source src="b_Animate_this_ad.mp4" type="video/mp4">
+        </video>
+        <div class="splash-screen__meta">
+            <div class="splash-screen__actions">
+                <button id="splash-start-button" class="splash-screen__start" type="button">Starta med ljud</button>
+                <button id="splash-skip-button" class="splash-screen__skip" type="button">Hoppa över</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="update-indicator" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; z-index: 1000; display: none;">
     Uppdaterades: <span id="update-time"></span>
 </div>
@@ -680,16 +735,16 @@
                     <div class="logo-voice">VOICE</div>
                 </a>
                 <div class="social-box" aria-label="Sociala medier">
-                    <a class="social-link" href="https://www.facebook.com/NewsVoice.se" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <a class="social-link" href="https://www.facebook.com/profile.php?id=61587364922060" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6H16.8V4.8c-.3 0-.9-.1-1.8-.1-3 0-4.9 1.8-4.9 5.1V11H7.2v3h2.9v8h3.4z"/></svg>
                     </a>
-                    <a class="social-link" href="https://www.youtube.com/@newsvoice" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <a class="social-link" href="https://www.youtube.com/@NewsVoiceTV" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12.1s0-3.2-.4-4.7c-.2-.8-.8-1.5-1.6-1.7C19.5 5.3 12 5.3 12 5.3s-7.5 0-9 .4c-.8.2-1.4.9-1.6 1.7C1 8.9 1 12.1 1 12.1s0 3.2.4 4.7c.2.8.8 1.5 1.6 1.7 1.5.4 9 .4 9 .4s7.5 0 9-.4c.8-.2 1.4-.9 1.6-1.7.4-1.5.4-4.7.4-4.7zM9.6 15.8V8.4l6.2 3.7-6.2 3.7z"/></svg>
                     </a>
                     <a class="social-link" href="https://x.com/newsvoicemag" target="_blank" rel="noopener noreferrer" aria-label="X">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-6.4L6.5 22H3.4l7.3-8.4L1 2h6.4l4.4 5.8L18.9 2zm-1.1 18h1.7L6.5 3.9H4.7L17.8 20z"/></svg>
                     </a>
-                    <a class="social-link" href="https://t.me/newsvoice" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                    <a class="social-link" href="https://t.me/newsvoicepublic" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.6 18.3 19c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.5-.2L6.8 13.2l-4.4-1.4c-1-.3-1-.9.2-1.4L20 3.7c.8-.3 1.7.2 1.5.9z"/></svg>
                     </a>
                 </div>
@@ -710,7 +765,6 @@
                 <li class="menu-item has-children">
                     <a href="https://newsvoice.se/category/varlden/">Världen</a>
                     <ul class="sub-menu">
-                        <li><a href="https://newsvoice.se/category/varlden/">Världen</a></li>
                         <li><a href="https://newsvoice.se/category/in-english/brics-bri-articles/">BRICS &amp; BRI</a></li>
                         <li class="has-children">
                             <a href="https://newsvoice.se/category/varlden/asien/">Asien</a>
@@ -836,7 +890,7 @@
             </div>
             <!-- Must Watch Section -->
             <div class="must-watch-section">
-                <div class="must-watch-title">Måste ses</div>
+                <div class="must-watch-title">NewsVoice Video - Reportage och omvärld</div>
 
                 <div class="video-container">
                     <div class="main-video-area">
@@ -902,10 +956,6 @@
 
         <!-- Right Sidebar -->
         <div class="sidebar sidebar-3col" id="right-sidebar">
-            <div class="sidebar-layout-controls">
-                <button type="button" class="layout-btn active" data-layout="current" onclick="setSidebarLayout('current')">Version 1</button>
-                <button type="button" class="layout-btn" data-layout="sample" onclick="setSidebarLayout('sample')">Version 2</button>
-            </div>
             <div class="sidebar-col">
                 <div class="sidebar-title" id="sidebar-newsletter-title">Få vårt nyhetsbrev</div>
                 <div class="newsletter-box">
@@ -930,7 +980,7 @@
                         <img src="assets/NewsVoice - Public Service på riktigt_files/annonsera-i-newsvoice.jpg" alt="Annonspaket i NewsVoice">
                     </a>
                 </div>
-                <div class="sidebar-title">Partnerloggor</div>
+                <div class="sidebar-title">Mediapartners</div>
                 <div class="sidebar-logo-stack">
                     <a href="https://www.vaken.se/" target="_blank" rel="noopener noreferrer">
                         <img src="assets/NewsVoice - Public Service på riktigt_files/vaken-logo.jpg" alt="Vaken.se">
@@ -1047,46 +1097,53 @@
         el.textContent = now.toLocaleDateString('sv-SE', options);
     }
 
-    const SIDEBAR_LAYOUT_KEY = 'nv_sidebar_layout_mode';
+    function setupSplashScreen() {
+        const splash = document.getElementById('splash-screen');
+        const video = document.getElementById('entry-splash-video');
+        const skipButton = document.getElementById('splash-skip-button');
+        const startButton = document.getElementById('splash-start-button');
+        if (!splash || !video) {
+            document.body.classList.remove('splash-active');
+            return;
+        }
 
-    function setSidebarLayout(layout) {
-        const sidebar = document.getElementById('right-sidebar');
-        if (!sidebar) return;
+        let isClosed = false;
+        video.muted = false;
+        video.volume = 1;
 
-        const normalized = layout === 'sample' ? 'sample' : 'current';
-        sidebar.classList.toggle('sidebar-layout-sample', normalized === 'sample');
+        function closeSplash() {
+            if (isClosed) return;
+            isClosed = true;
+            splash.classList.add('is-hidden');
+            document.body.classList.remove('splash-active');
+            splash.setAttribute('aria-hidden', 'true');
+            window.setTimeout(() => splash.remove(), 360);
+        }
 
-        document.querySelectorAll('.layout-btn').forEach((button) => {
-            const isActive = button.dataset.layout === normalized;
-            button.classList.toggle('active', isActive);
-            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        function playWithSound() {
+            splash.classList.remove('needs-user-start');
+            video.muted = false;
+            const playAttempt = video.play();
+            if (playAttempt && typeof playAttempt.catch === 'function') {
+                playAttempt.catch(() => {
+                    splash.classList.add('needs-user-start');
+                });
+            }
+        }
+
+        skipButton?.addEventListener('click', closeSplash);
+        startButton?.addEventListener('click', playWithSound);
+        splash.addEventListener('click', (event) => {
+            if (event.target === splash) closeSplash();
         });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeSplash();
+        }, { once: true });
 
-        const newsletterTitle = document.getElementById('sidebar-newsletter-title');
-        const advertisersTitle = document.getElementById('sidebar-advertisers-title');
-        const newsletterInput = document.getElementById('newsletter-email-input');
-        const newsletterButton = document.getElementById('newsletter-submit-btn');
+        video.addEventListener('ended', closeSplash, { once: true });
+        video.addEventListener('error', closeSplash, { once: true });
 
-        if (newsletterTitle) newsletterTitle.textContent = normalized === 'sample' ? 'Get our newsletter' : 'Få vårt nyhetsbrev';
-        if (advertisersTitle) advertisersTitle.textContent = normalized === 'sample' ? 'Advertisers' : 'Annonser';
-        if (newsletterInput) newsletterInput.placeholder = normalized === 'sample' ? 'Your mail address' : 'Din e-postadress';
-        if (newsletterButton) newsletterButton.textContent = normalized === 'sample' ? 'Go' : 'Skicka';
-
-        try {
-            localStorage.setItem(SIDEBAR_LAYOUT_KEY, normalized);
-        } catch (err) {
-            // Ignore storage issues in restricted browser contexts.
-        }
-    }
-
-    function initSidebarLayout() {
-        let preferredLayout = 'current';
-        try {
-            preferredLayout = localStorage.getItem(SIDEBAR_LAYOUT_KEY) || 'current';
-        } catch (err) {
-            preferredLayout = 'current';
-        }
-        setSidebarLayout(preferredLayout);
+        playWithSound();
     }
 
     // Static data (no backend needed)
@@ -1182,7 +1239,7 @@
                 html += `
                     <div class="article-link" data-article-id="${article.id}">
                         <div class="grid-item-3">
-                            <div style="height:120px; background:#ddd; position:relative;">
+                            <div class="grid-item-3-thumb">
                                 <img src="${article.imageUrl}" alt="${article.title}">
                                 <span class="category-label">${getMenuCategory(article.category)}</span>
                             </div>
@@ -1261,9 +1318,9 @@
 
     // Init
     async function initPage() {
+        setupSplashScreen();
         updateCurrentDate();
         setupMobileSubmenus();
-        initSidebarLayout();
         await renderFeaturedArticle();
         await renderNewsGrid3();
         await renderEconomyBusinessGrid();
