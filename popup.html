@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsvoice Popup</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: #111;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: overlayFade 500ms ease-out both;
+  }
+
+  .popup {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #000 45%, transparent),
+                url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1600') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    transform-origin: center;
+    animation: popupScale 900ms cubic-bezier(0.18, 0.82, 0.22, 1) both;
+  }
+
+  .content {
+    padding: 80px;
+    color: #fff;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo {
+    display: inline-block;
+    background: #fff;
+    color: #000;
+    padding: 10px 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: revealUp 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .reveal-delay-1 { animation-delay: 140ms; }
+  .reveal-delay-2 { animation-delay: 300ms; }
+  .reveal-delay-3 { animation-delay: 460ms; }
+
+  h1 {
+    font-size: 56px;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+  }
+
+  .cta {
+    margin-top: 40px;
+    display: inline-block;
+    padding: 15px 30px;
+    background: #d6b37a;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    animation: revealUp 500ms ease-out 120ms forwards;
+  }
+
+  @keyframes overlayFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes popupScale {
+    from {
+      transform: scale(1.04);
+      filter: saturate(0.92) brightness(0.9);
+    }
+    to {
+      transform: scale(1);
+      filter: saturate(1) brightness(1);
+    }
+  }
+
+  @keyframes revealUp {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .overlay,
+    .popup,
+    .close,
+    .reveal {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay">
+  <div class="popup">
+    <div class="close" onclick="closePopup()">×</div>
+
+    <div class="content">
+      <div class="logo reveal reveal-delay-1">NEWS VOICE</div>
+
+      <h1 class="reveal reveal-delay-2">
+        Den som vill veta<br>
+        läser Newsvoice.se
+      </h1>
+
+      <a href="https://newsvoice.se" class="cta reveal reveal-delay-3">
+        Gå till Newsvoice
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function closePopup() {
+  document.getElementById('overlay').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
