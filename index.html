@@ -506,6 +506,14 @@
             margin-top: 4px;
         }
         .section-header h2 { margin: 0; font-size: 16px; text-transform: uppercase; font-weight: 800; }
+        .section-subtitle {
+            margin: 8px 0 0;
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 700;
+        }
 
         .news-grid-4 {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
@@ -847,16 +855,10 @@
                 <li class="menu-item has-children">
                     <a href="https://newsvoice.se/category/varlden/">Världen</a>
                     <ul class="sub-menu">
-                        <li><a href="https://newsvoice.se/category/in-english/brics-bri-articles/">BRICS &amp; BRI</a></li>
-                        <li class="has-children">
-                            <a href="https://newsvoice.se/category/varlden/asien/">Asien</a>
-                            <ul class="sub-menu">
-                                <li><a href="https://newsvoice.se/category/varlden/kina-artiklar/">Kina</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="https://newsvoice.se/category/varlden/afrika-2/">Afrika</a></li>
-                        <li><a href="https://newsvoice.se/category/klimatet/">Klimat &amp; Miljö</a></li>
-                        <li><a href="https://newsvoice.se/category/krig-overvakning/">Krig &amp; Fred</a></li>
+                        <li><a href="https://newsvoice.se/category/usa/">USA</a></li>
+                        <li><a href="https://newsvoice.se/category/mellanostern/">Mellanöstern</a></li>
+                        <li><a href="https://newsvoice.se/category/krig-overvakning/">Krig och fred</a></li>
+                        <li><a href="https://newsvoice.se/category/klimatet/">Natur, miljö och klimat</a></li>
                     </ul>
                 </li>
                 <li class="menu-item"><a href="https://newsvoice.se/category/opinion-artiklar/">Opinion</a></li>
@@ -904,6 +906,13 @@
                         <li><a href="https://newsvoice.se/category/energi/bilar-artiklar/">Bilar</a></li>
                         <li><a href="https://newsvoice.se/category/energi/rymdindustrin/">Rymdfart</a></li>
                         <li><a href="https://newsvoice.se/category/vetenskap-tecknologi/">Vetenskap</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-children">
+                    <a href="https://newsvoice.se/category/vardagstips/">Vardagstips</a>
+                    <ul class="sub-menu">
+                        <li><a href="https://newsvoice.se/category/diy/">DIY / gör det själv</a></li>
+                        <li><a href="https://newsvoice.se/category/prepping/">Prepping</a></li>
                     </ul>
                 </li>
                 <li class="menu-item has-children">
@@ -970,9 +979,91 @@
             <div id="economy-business-grid" class="news-grid-4">
                 <!-- Javascript fyller i detta -->
             </div>
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Sverige</h2>
+                </div>
+                <div id="sverige-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Världen</h2>
+                </div>
+                <div id="varlden-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Opinion</h2>
+                </div>
+                <div id="opinion-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Ekonomi</h2>
+                </div>
+                <div id="ekonomi-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Hälsa &amp; Vård</h2>
+                </div>
+                <div id="halsa-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Media</h2>
+                </div>
+                <div id="media-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Kultur</h2>
+                </div>
+                <div id="kultur-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Teknik</h2>
+                </div>
+                <div id="teknik-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Vardagstips</h2>
+                    <p class="section-subtitle">Prepping, DIY</p>
+                </div>
+                <div id="vardagstips-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
             <!-- Must Watch Section -->
             <div class="must-watch-section">
-                <div class="must-watch-title">NewsVoice Video - Reportage och omvärld</div>
+                <div class="must-watch-title">Video / NewsVoice TV</div>
 
                 <div class="video-container">
                     <div class="main-video-area">
@@ -1015,23 +1106,21 @@
                 </div>
             </div>
 
-            <!-- Annons under videosektionen -->
+            <div class="first-column-width">
+                <div class="section-header">
+                    <h2>Engelska</h2>
+                </div>
+                <div id="engelska-grid" class="news-grid-4">
+                    <!-- Javascript fyller i detta -->
+                </div>
+            </div>
+
+            <!-- Annons under sektionerna -->
             <div class="first-column-width">
                 <div id="middle-ads-placeholder" class="ads-placeholder ads-placeholder--wide">
                     <a href="#" target="_blank">
                         <img src="assets/NVannons.png" alt="Annonspaket i NewsVoice" onerror="this.src='https://via.placeholder.com/970x250?text=Bred+annons';">
                     </a>
-                </div>
-            </div>
-
-            <!-- Världen -->
-            <div class="first-column-width">
-                <div class="section-header">
-                    <h2>Världen</h2>
-                </div>
-
-                <div id="geopolitics-grid" class="news-grid-4">
-                    <!-- Javascript fyller i detta -->
                 </div>
             </div>
         </div>
@@ -1263,30 +1352,55 @@
     // Static data (no backend needed)
     const STATIC_ARTICLES = [
         {
-            id: 101,
-            title: "Malaysia vill öka handeln med BRICS-länderna under 2025",
-            summary: "Kuala Lumpur presenterar en flerårig satsning för att öka exporten och fördjupa investeringarna med BRICS-partner.",
-            category: "Ekonomi & Handel",
-            imageUrl: "assets/Malaysia.jpg",
-            featured: false
-        },
-        {
             id: 1,
-            title: "Israels och USA:s krig mot Iran: Vad som har hänt och hur konflikten trappats upp",
+            title: "Israels och USA:s upptrappning mot Iran förändrar maktbalansen i Mellanöstern",
             summary: "En sammanfattande genomgång av hur angrepp, motangrepp, regional press och stormaktspolitik har fört konflikten mellan Israel, USA och Iran in i en farligare fas.",
             category: "Krig och Fred",
             imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Iran-armada-1170x600.jpg",
             featured: true
         },
-        // (Flera artiklar här för att fylla ut sidan)
-        { id: 2, title: "NCAA svarar på Trumps presidentorder", summary: "Idrottsorganisationen kommenterar det nya federala direktivet.", category: "Politik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/university-class-960x492.jpg", featured: false },
-        { id: 3, title: "USAID-chef möter stark kritik", summary: "Ledningen pressas när biståndsprogram granskas hårdare.", category: "USA", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Donald_Trump_greenland-960x492.jpg", featured: false },
-        { id: 4, title: "Gazadiplomatin byter prioriteringar", summary: "Företrädare beskriver en reviderad diplomatisk linje för regionen.", category: "Mellanöstern", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Jared-Kushner-New-Gaza-960x492.jpg", featured: false },
-        { id: 5, title: "Globala risker vid privata konflikter", summary: "Ekonomisk analys modellerar effekterna av större konflikter.", category: "Ekonomi", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/secret-room-telephone-crestock-862x600.jpg", featured: false },
-        { id: 6, title: "Assad lovar att slå ner militanta grupper", summary: "Syriens ledare bekräftar fortsatt fokus på en militär lösning.", category: "Geopolitik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/US-military-force-Photo-US-Navy.jpg", featured: false },
-        { id: 7, title: "Kinesiskt teknikbolag med kvantgenombrott", summary: "En ny processor väntas ge kraftigt högre beräkningshastighet.", category: "Teknik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/luxeed-960x492.jpg", featured: false },
-        { id: 8, title: "Avskogningen i Amazonas når kritisk nivå", summary: "Miljöorganisationer varnar för irreversibla ekologiska skador.", category: "Miljö", imageUrl: "https://images.unsplash.com/photo-1533441325984-d8b05f3cfed2?auto=format&fit=crop&w=600&h=400&q=80", featured: false },
-        { id: 9, title: "Nordiskt exportråd öppnar ny handelskorridor", summary: "Initiativet ska ge snabbare transporter för mindre tillverkare.", category: "Handel", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Canada-China-900x491.jpg", featured: false }
+        { id: 101, title: "Kommuner pressas av växande kostnader för äldreomsorg och skola", summary: "Flera svenska kommuner flaggar för hårdare prioriteringar i årets budgetarbete.", category: "Sverige", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Carl-Bildt_Mark-Carney-900x491.jpg", featured: false },
+        { id: 102, title: "Ny svensk beredskapsplan ska stärka livsmedelsförsörjningen", summary: "Myndigheter och producenter tar fram åtgärder för ökad nationell motståndskraft.", category: "Sverige", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Depositphotos_construction-worker-960x492.jpg", featured: false },
+        { id: 103, title: "Regioner varnar för längre vårdköer efter ny sparrunda", summary: "Trycket ökar på akutsjukhus och primärvård när kostnaderna stiger.", category: "Sverige", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/intravenost-e1769588724538-960x492.jpg", featured: false },
+        { id: 104, title: "Nordiskt säkerhetssamarbete fördjupas i Arktis", summary: "Svenska och nordiska företrädare lyfter logistik, energi och försvar i norr.", category: "Sverige", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Military-Arctic-Foto-Arktisoutdoor.co_.uk_-900x506.jpg", featured: false },
+        { id: 105, title: "Biståndsmyndighet i USA pressas efter växande intern kritik", summary: "Ledningen pressas när biståndsprogram granskas hårdare.", category: "USA", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Maduro-Trump-960x492.jpg", featured: false },
+        { id: 106, title: "Nytt federalt direktiv skakar amerikansk universitetsidrott", summary: "Idrottsorganisationen kommenterar det nya federala direktivet.", category: "USA", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Hegseth-Rubio-Trump-Vance-960x492.jpg", featured: false },
+        { id: 107, title: "Ny kurs i Gaza sätter press på USA:s diplomati i regionen", summary: "Företrädare beskriver en reviderad diplomatisk linje för regionen.", category: "Mellanöstern", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Jared-Kushner-New-Gaza-960x492.jpg", featured: false },
+        { id: 108, title: "Syrien signalerar hårdare säkerhetslinje efter nya angrepp", summary: "Syriens ledare bekräftar fortsatt fokus på en militär lösning.", category: "Världen", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Iran-revolution-2025-960x492.jpg", featured: false },
+        { id: 109, title: "Malaysia trappar upp BRICS-handeln med ny flerårsplan för export och investeringar", summary: "Kuala Lumpur presenterar en flerårig satsning för att öka exporten och fördjupa investeringarna med BRICS-partner.", category: "Världen", imageUrl: "assets/Malaysia.jpg", featured: false },
+        { id: 110, title: "Rysk diplomat varnar för ny farlig fas i stormaktskonflikten", summary: "Uttalandet kommer samtidigt som militära markeringar ökar i flera regioner.", category: "Världen", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Maria-Zakharova-Moscow-960x492.jpg", featured: false },
+        { id: 111, title: "Opinion: Europas ledare underskattar följderna av det nya säkerhetsläget", summary: "Ett växande antal bedömare menar att besluten tas utan tydlig långsiktig strategi.", category: "Opinion", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Caitlin-Johnstone-AI-edited-960x492.jpg", featured: false },
+        { id: 112, title: "Debatt: När geopolitik blir inrikespolitik förändras hela medielandskapet", summary: "En analys av hur konflikter och informationskrig spiller över i svensk offentlighet.", category: "Opinion", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/George-Galloway-5mars-2024-960x492.jpg", featured: false },
+        { id: 113, title: "Analys: regionala konflikter kan snabbt slå mot energi, handel och valutor", summary: "Ekonomisk analys modellerar effekterna av större konflikter.", category: "Opinion", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Jack-F-Matlock-Jr-960x492.jpg", featured: false },
+        { id: 114, title: "Krönika: teknokratisk styrning växer i skuggan av kriserna", summary: "Allt fler beslut flyttas från väljare och parlament till permanenta expertstrukturer.", category: "Opinion", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Mark-Bullen-depixled-960x492.jpg", featured: false },
+        { id: 115, title: "Ny nordisk handelskorridor ska korta ledtider för mindre exportföretag", summary: "Initiativet ska ge snabbare transporter för mindre tillverkare.", category: "Ekonomi", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Canada-China-900x491.jpg", featured: false },
+        { id: 116, title: "Industriföretag flyttar investeringar när energipriserna fortsätter svänga", summary: "Nya kalkyler visar att osäkerheten påverkar långsiktiga etableringsbeslut.", category: "Ekonomi", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/4Air-960x492.jpg", featured: false },
+        { id: 117, title: "Exportbolag varnar för dyrare försäkringar i oroliga handelsleder", summary: "Ökade riskpremier pressar redan små marginaler inom sjöfart och logistik.", category: "Ekonomi", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Depositphotos_solarstorm-900x515.jpg", featured: false },
+        { id: 118, title: "Ny kapitalflykt från tillväxtmarknader väcker oro på valutamarknaden", summary: "Investerare söker sig till säkrare tillgångar när den geopolitiska osäkerheten ökar.", category: "Ekonomi", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/secret-room-telephone-crestock-862x600.jpg", featured: false },
+        { id: 119, title: "Läkare efterlyser bredare debatt om övermedicinering i primärvården", summary: "Flera vårdprofessioner vill se mer fokus på orsaker, livsstil och förebyggande insatser.", category: "Hälsa & Vård", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/vaccination-historia-960x492.jpg", featured: false },
+        { id: 120, title: "Ny studie granskar effekterna av rödljusbehandling vid långvarig smärta", summary: "Forskare och terapeuter pekar på ett växande intresse för komplementära metoder.", category: "Hälsa & Vård", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/rodljusterapi-1-960x492.jpg", featured: false },
+        { id: 121, title: "Sjukvården pressas när fler patienter söker intravenös näringsterapi", summary: "Efterfrågan ökar samtidigt som debatten om evidens och regelverk hårdnar.", category: "Hälsa & Vård", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/intravenost-e1769588724538-768x453.jpg", featured: false },
+        { id: 122, title: "Kostdebatten fortsätter efter ny rapport om ultraprocessade livsmedel", summary: "Experter vill se tydligare märkning och mer oberoende forskning om effekterna.", category: "Hälsa & Vård", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/havremjolk-900x507.jpg", featured: false },
+        { id: 123, title: "Mediehus skär ned samtidigt som alternativa plattformar växer", summary: "Nya vanor och minskade annonsintäkter förändrar villkoren för journalistiken.", category: "Media", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/internetfrihet-csno-960x492.jpg", featured: false },
+        { id: 124, title: "Yttrandefriheten på nätet prövas när nya regler införs i flera länder", summary: "Teknikbolag och redaktioner förbereder sig för hårdare tillsyn och större ansvar.", category: "Media", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/google-assistant-960x492.jpg", featured: false },
+        { id: 125, title: "Analys: oberoende publicister vinner mark i takt med publikens misstro", summary: "Fler läsare söker fördjupning och tydliga perspektiv utanför de stora redaktionerna.", category: "Media", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/David-Pyne-Rattansi-960x492.jpg", featured: false },
+        { id: 126, title: "Ny tv-satsning vill samla reportage, intervjuer och geopolitisk analys", summary: "Producenter ser ökat intresse för längre format med eget redaktionellt uttryck.", category: "Media", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/tridactyl-Paloma-960x492.jpg", featured: false },
+        { id: 127, title: "Dokumentärvågen fortsätter när publiken söker längre berättelser om samtiden", summary: "Flera producenter vittnar om ett ökat intresse för fördjupande format.", category: "Kultur", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Agnes-aged-to-2026.jpg", featured: false },
+        { id: 128, title: "Kulturdebatt om AI-bearbetade porträtt delar konstvärlden", summary: "Frågor om autenticitet, upphovsrätt och uttryck står i centrum för diskussionen.", category: "Kultur", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Caitlin-Johnstone-AI-edited-1170x600.jpg", featured: false },
+        { id: 129, title: "Nya musik- och scenprojekt växer fram utanför storstädernas institutioner", summary: "Fristående kulturaktörer hittar egna publiker genom digitala plattformar och turnéer.", category: "Kultur", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/George-Galloway-5mars-2024-1170x600.jpg", featured: false },
+        { id: 130, title: "Filmfestivaler lyfter berättelser om övervakning, makt och identitet", summary: "Teman om kontroll och frihet sätter tonen för årets internationella urval.", category: "Kultur", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Mark-Bullen-depixled-1170x600.jpg", featured: false },
+        { id: 131, title: "Kinesisk chiputvecklare visar upp genombrott inom kvantnära beräkningar", summary: "En ny processor väntas ge kraftigt högre beräkningshastighet.", category: "Teknik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/JUNI-cas.cn_-960x492.jpg", featured: false },
+        { id: 132, title: "Ny debatt om AI-assistenter och integritet tar fart i Europa", summary: "Utvecklingen går snabbare än lagstiftningen och väcker frågor om dataskydd.", category: "Teknik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/google-assistant-960x492.jpg", featured: false },
+        { id: 133, title: "Experter varnar för rymdskrot när kommersiella uppskjutningar ökar", summary: "Fler satelliter i omloppsbana höjer risken för störningar och kedjekollisioner.", category: "Teknik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/space-debris-900x475.jpg", featured: false },
+        { id: 134, title: "Ny cybersäkerhetsplattform riktar in sig på självständiga journalister", summary: "Verktyg för skyddad kommunikation och anonym research blir allt viktigare.", category: "Teknik", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/laptopman-SAROS-960x492.jpg", featured: false },
+        { id: 135, title: "Prepping i vardagen: så bygger du ett robust hemmalager utan överköp", summary: "Små, praktiska steg kan göra hushållet mer motståndskraftigt vid störningar.", category: "Vardagstips", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Depositphotos_construction-worker-1170x600.jpg", featured: false },
+        { id: 136, title: "DIY-guide: enklare energisnåla förbättringar som sänker kostnaderna hemma", summary: "Från tätning till smart belysning - flera åtgärder går att göra utan stora investeringar.", category: "Vardagstips", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/4Air-1170x600.jpg", featured: false },
+        { id: 137, title: "Fem saker att ordna innan nästa avbrott i el eller internet", summary: "Beredskap i hemmet handlar ofta mer om rutiner än om dyr utrustning.", category: "Vardagstips", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/internetfrihet-csno-900x462.jpg", featured: false },
+        { id: 138, title: "Så planerar du ett enklare förråd för vatten, värme och kommunikation", summary: "Med rätt prioritering kan ett litet lager göra stor skillnad i vardagen.", category: "Vardagstips", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Depositphotos_solarstorm-1170x669.jpg", featured: false },
+        { id: 139, title: "English Edition: Nordic logistics shift as new regional trade routes emerge", summary: "Analysts say smaller exporters may benefit first from the proposed transport corridor.", category: "Engelska", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Canada-China-1170x638.jpg", featured: false },
+        { id: 140, title: "English Edition: Pressure grows on US foreign policy after latest regional escalation", summary: "Observers point to a widening gap between official rhetoric and strategic outcomes.", category: "Engelska", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/Jack-F-Matlock-Jr-1170x600.jpg", featured: false },
+        { id: 141, title: "English Edition: Independent media gains ground as trust in legacy outlets erodes", summary: "Audience behavior is shifting toward long-form analysis, interviews and alternative reporting.", category: "Engelska", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/newsvoice-logo-retina-544px.png", featured: false },
+        { id: 142, title: "English Edition: New health debate questions the long-term effects of processed diets", summary: "Researchers call for more independent studies and better public information.", category: "Engelska", imageUrl: "assets/NewsVoice - Public Service på riktigt_files/havremjolk-1170x659.jpg", featured: false }
     ];
 
     const STATIC_ADS = [
@@ -1311,6 +1425,63 @@
 
     function getMenuCategory(category) {
         return category ? category.split(' ')[0] : "Nyheter";
+    }
+
+    const SECTION_CONFIG = {
+        sverige: { categories: ['Sverige'] },
+        varlden: { categories: ['USA', 'Mellanöstern', 'Världen'] },
+        opinion: { categories: ['Opinion'] },
+        ekonomi: { categories: ['Ekonomi'] },
+        halsa: { categories: ['Hälsa & Vård'] },
+        media: { categories: ['Media'] },
+        kultur: { categories: ['Kultur'] },
+        teknik: { categories: ['Teknik'] },
+        vardagstips: { categories: ['Vardagstips'] },
+        engelska: { categories: ['Engelska'] }
+    };
+
+    function shuffleArticles(articles) {
+        return [...articles].sort(() => 0.5 - Math.random());
+    }
+
+    function getSectionArticles(sectionKey) {
+        const config = SECTION_CONFIG[sectionKey];
+        const allArticles = fetchArticles().filter(article => !article.featured);
+        if (!config) {
+            return shuffleArticles(allArticles).slice(0, 4);
+        }
+
+        const matched = allArticles.filter(article => config.categories.includes(article.category));
+        const fallback = allArticles.filter(article => !matched.includes(article));
+        return [...shuffleArticles(matched), ...shuffleArticles(fallback)].slice(0, 4);
+    }
+
+    function buildNewsGridHtml(articles) {
+        let html = '';
+        articles.forEach(article => {
+            html += `
+                <div class="article-link" data-article-id="${article.id}">
+                    <div class="news-item-4">
+                        <div class="news-thumb">
+                            <img src="${article.imageUrl}" alt="${article.title}">
+                            <span class="category-label">${getMenuCategory(article.category)}</span>
+                        </div>
+                        <h3>${article.title}</h3>
+                    </div>
+                </div>
+            `;
+        });
+        return html;
+    }
+
+    async function renderSectionGrid(containerId, sectionKey) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        const articles = getSectionArticles(sectionKey);
+        if (articles.length > 0) {
+            container.innerHTML = buildNewsGridHtml(articles);
+        }
     }
 
     // Render featured article
@@ -1369,48 +1540,10 @@
     // Render latest news grid
     async function renderEconomyBusinessGrid() {
         const container = document.getElementById('economy-business-grid');
-        const articles = fetchArticles().filter(a => !a.featured).sort(() => 0.5 - Math.random()).slice(0, 8);
+        const articles = fetchArticles().filter(a => !a.featured).sort(() => 0.5 - Math.random()).slice(0, 4);
         
         if (articles.length > 0) {
-            let html = '';
-            articles.forEach(article => {
-                html += `
-                    <div class="article-link" data-article-id="${article.id}">
-                        <div class="news-item-4">
-                            <div class="news-thumb">
-                                <img src="${article.imageUrl}" alt="${article.title}">
-                                <span class="category-label">${getMenuCategory(article.category)}</span>
-                            </div>
-                            <h3>${article.title}</h3>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-    }
-
-     // Render Geopolitics
-    async function renderGeopoliticsGrid() {
-        const container = document.getElementById('geopolitics-grid');
-        const articles = fetchArticles().sort(() => 0.5 - Math.random()).slice(0, 4);
-        
-        if (articles.length > 0) {
-            let html = '';
-            articles.forEach(article => {
-                html += `
-                    <div class="article-link" data-article-id="${article.id}">
-                        <div class="news-item-4">
-                            <div class="news-thumb">
-                                <img src="${article.imageUrl}" alt="${article.title}">
-                                <span class="category-label">${getMenuCategory(article.category)}</span>
-                            </div>
-                            <h3>${article.title}</h3>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+            container.innerHTML = buildNewsGridHtml(articles);
         }
     }
 
@@ -1438,7 +1571,16 @@
         await renderFeaturedArticle();
         await renderNewsGrid3();
         await renderEconomyBusinessGrid();
-        await renderGeopoliticsGrid();
+        await renderSectionGrid('sverige-grid', 'sverige');
+        await renderSectionGrid('varlden-grid', 'varlden');
+        await renderSectionGrid('opinion-grid', 'opinion');
+        await renderSectionGrid('ekonomi-grid', 'ekonomi');
+        await renderSectionGrid('halsa-grid', 'halsa');
+        await renderSectionGrid('media-grid', 'media');
+        await renderSectionGrid('kultur-grid', 'kultur');
+        await renderSectionGrid('teknik-grid', 'teknik');
+        await renderSectionGrid('vardagstips-grid', 'vardagstips');
+        await renderSectionGrid('engelska-grid', 'engelska');
         await renderTopBannerSlot();
         await renderMiddleAd();
     }
