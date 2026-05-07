@@ -277,6 +277,8 @@ function newsvoice_article_builder_render_admin_page(): void {
 
 			<div class="nv-article-builder">
 				<div class="nv-article-builder__fields">
+					<?php newsvoice_article_builder_render_field_cards( $post_id, $defaults, 'header' ); ?>
+
 					<div class="nv-article-builder-card">
 						<h2><?php esc_html_e( 'Artikel', 'newsvoice-article-builder' ); ?></h2>
 
@@ -334,7 +336,7 @@ function newsvoice_article_builder_render_admin_page(): void {
 						<?php newsvoice_article_builder_image_control( $post_id, '_thumbnail_id', __( 'Utvald bild', 'newsvoice-article-builder' ), $post_id ? newsvoice_article_builder_get_value( $post_id, 'newsvoice_hero_image_url' ) : $defaults['hero_image_url'], 'newsvoice_hero_image_url' ); ?>
 					</div>
 
-					<?php newsvoice_article_builder_render_field_cards( $post_id, $defaults ); ?>
+					<?php newsvoice_article_builder_render_field_cards( $post_id, $defaults, 'end' ); ?>
 
 					<p class="submit">
 						<button type="submit" class="button button-primary"><?php esc_html_e( 'Spara artikel', 'newsvoice-article-builder' ); ?></button>
@@ -354,7 +356,7 @@ function newsvoice_article_builder_render_admin_page(): void {
 	<?php
 }
 
-function newsvoice_article_builder_render_field_cards( int $post_id, array $defaults = array() ): void {
+function newsvoice_article_builder_render_field_cards( int $post_id, array $defaults = array(), string $section = 'all' ): void {
 	$kicker       = $post_id ? newsvoice_article_builder_get_value( $post_id, 'article_kicker' ) : ( $defaults['kicker'] ?? '' );
 	$dek          = $post_id ? newsvoice_article_builder_get_value( $post_id, 'newsvoice_article_dek' ) : ( $defaults['dek'] ?? '' );
 	$hero_caption = $post_id ? newsvoice_article_builder_get_value( $post_id, 'newsvoice_hero_caption' ) : ( $defaults['hero_caption'] ?? '' );
@@ -366,6 +368,7 @@ function newsvoice_article_builder_render_field_cards( int $post_id, array $defa
 	$medialinq_url       = $post_id ? newsvoice_article_builder_get_value( $post_id, 'newsvoice_medialinq_url' ) : ( $defaults['medialinq_url'] ?? '' );
 	$banner_url          = $post_id ? newsvoice_article_builder_get_value( $post_id, 'newsvoice_banner_url' ) : ( $defaults['banner_url'] ?? '' );
 	?>
+	<?php if ( 'all' === $section || 'header' === $section ) : ?>
 	<div class="nv-article-builder-card">
 		<h2><?php esc_html_e( 'Artikelhuvud', 'newsvoice-article-builder' ); ?></h2>
 		<label for="nv-article-kicker"><?php esc_html_e( 'Etikett / kicker', 'newsvoice-article-builder' ); ?></label>
@@ -377,7 +380,9 @@ function newsvoice_article_builder_render_field_cards( int $post_id, array $defa
 		<label for="nv-hero-caption"><?php esc_html_e( 'Bildtext till utvald bild', 'newsvoice-article-builder' ); ?></label>
 		<textarea id="nv-hero-caption" class="widefat" rows="2" name="newsvoice_hero_caption" data-preview-field="hero_caption"><?php echo esc_textarea( $hero_caption ); ?></textarea>
 	</div>
+	<?php endif; ?>
 
+	<?php if ( 'all' === $section || 'end' === $section ) : ?>
 	<div class="nv-article-builder-card">
 		<h2><?php esc_html_e( 'Källor och slutsektioner', 'newsvoice-article-builder' ); ?></h2>
 		<label for="nv-sources"><?php esc_html_e( 'Källor', 'newsvoice-article-builder' ); ?></label>
@@ -395,6 +400,7 @@ function newsvoice_article_builder_render_field_cards( int $post_id, array $defa
 		<label for="nv-banner-url"><?php esc_html_e( 'Länk för banner', 'newsvoice-article-builder' ); ?></label>
 		<input id="nv-banner-url" class="widefat" type="url" name="newsvoice_banner_url" value="<?php echo esc_attr( $banner_url ); ?>" placeholder="https://newsvoice.se/annonsera/">
 	</div>
+	<?php endif; ?>
 	<?php
 }
 
