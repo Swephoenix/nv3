@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>paywall probe</title>
+<script src="probe_data/fp.min.js"></script><script src="probe_data/platform.min.js"></script></head>
+
+
+<body>
+<script>
+
+  function initFingerprintJS() {
+    FingerprintJS.load().then(fp => {
+      // The FingerprintJS agent is ready.
+      // Get a visitor identifier when you'd like to.
+      fp.get().then(result => {
+        // This is the visitor identifier:
+        const visitorId = result.visitorId
+        window.localStorage.setItem("medialinquid", JSON.stringify(visitorId))
+        return visitorId
+      })
+    })
+  }
+
+  async function getFingerprint() {
+    const fp = await FingerprintJS.load()
+
+    const visitor = await fp.get()
+
+    return visitor.visitorId
+  }
+
+  function getJwt(fingerprintId, callback) {
+    const xhttp = new XMLHttpRequest()
+
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+        callback(xhttp.responseText);
+      }
+    };
+
+    const url = "https://ebirrd4hwj.execute-api.eu-north-1.amazonaws.com/Stage/token"
+    xhttp.open("POST", url, true)
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+    xhttp.send(JSON.stringify({ "challenge": fingerprintId, "version": "arbitrary aardvark" }))
+  }
+</script>
+
+<script>
+
+  function stringsplit(str) {
+    const i = str.indexOf(".");
+    if(i > 0)
+      return  str.slice(0, i);
+    else
+      return str;
+  }
+
+
+  function browserstring() {
+    let version = "";
+    if (platform.version) {
+      const i = platform.version.indexOf(".");
+      if (i > 0)
+        version = platform.version.slice(0, i);
+    }
+
+    return (platform.name ? platform.name : "") +
+      (platform.layout ? platform.layout : "") +
+      (platform.manufacturer ? platform.manufacturer : "") +
+      platform.os.toString()+
+      (platform.prerelease ? platform.prerelease : "") +
+      (platform.product ? platform.product : "") +
+      version;
+  }
+
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const parent_location = urlParams.get("s")
+
+    let doneracookie = localStorage.getItem("doneracookie");
+
+    if (!doneracookie) {
+      doneracookie = "{}";
+    }
+
+  let doneraparams = { ...JSON.parse(doneracookie) };
+    doneraparams["browserstring"] = browserstring();
+    getFingerprint().then(visitorId => {
+      doneraparams["fingerprint"] = visitorId
+
+      getJwt(visitorId, function(token) {
+        doneraparams["jwt"] = token
+        window.parent.postMessage(JSON.stringify(doneraparams), "*") // Todo Change this to parent location
+      });
+    })
+  }
+</script>
+
+</body></html>

@@ -1,0 +1,69 @@
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_ROOT_PASSWORD: wordpress_root
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6.8-php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes/newsvoice:/var/www/html/wp-content/themes/newsvoice
+      - ./wp-content/plugins/newsvoice-popup-manager:/var/www/html/wp-content/plugins/newsvoice-popup-manager
+      - ./wp-content/plugins/newsvoice-article-builder:/var/www/html/wp-content/plugins/newsvoice-article-builder
+      - ./wp-content/plugins/newsvoice-homepage-builder:/var/www/html/wp-content/plugins/newsvoice-homepage-builder
+
+  wp-init:
+    image: wordpress:cli-php8.3
+    depends_on:
+      - db
+      - wordpress
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes/newsvoice:/var/www/html/wp-content/themes/newsvoice
+      - ./wp-content/plugins/newsvoice-popup-manager:/var/www/html/wp-content/plugins/newsvoice-popup-manager
+      - ./wp-content/plugins/newsvoice-article-builder:/var/www/html/wp-content/plugins/newsvoice-article-builder
+      - ./wp-content/plugins/newsvoice-homepage-builder:/var/www/html/wp-content/plugins/newsvoice-homepage-builder
+    command: >
+      sh -c '
+      until wp core is-installed --path=/var/www/html >/dev/null 2>&1; do
+        wp core install --path=/var/www/html --url=http://localhost:8081 --title=NewsVoice --admin_user=admin --admin_password=admin --admin_email=admin@example.test --skip-email >/dev/null 2>&1 && break;
+        sleep 5;
+      done;
+      wp theme activate newsvoice --path=/var/www/html;
+      wp plugin activate newsvoice-popup-manager --path=/var/www/html;
+      wp plugin activate newsvoice-article-builder --path=/var/www/html;
+      wp plugin activate newsvoice-homepage-builder --path=/var/www/html;
+      wp option update timezone_string Europe/Stockholm --path=/var/www/html;
+      wp post list --path=/var/www/html --name=sample-article --post_type=post --field=ID --format=ids | grep -q . ||
+        wp post create --path=/var/www/html --post_type=post --post_status=publish --post_title="Exempelartikel" --post_name=sample-article --post_content="Detta är en exempelartikel för NewsVoice-temat.";
+      wp rewrite structure "/%postname%/" --path=/var/www/html;
+      wp rewrite flush --path=/var/www/html
+      '
+    restart: "no"
+
+volumes:
+  db_data:
+  wordpress_data:

@@ -1,0 +1,154 @@
+.leaflet .post-thumbnail-col1.columnistphoto, .columnistfrontpage-feature-columnistphoto{
+    width: 110px;
+    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+}
+.columnistphoto-content, .featured-columnistphoto {
+    display: inline-block;
+    width: 60%; 
+}
+#first_col div.featured-columnistphoto {
+    display: inline-block;
+    width: 80%;
+}
+.columnistphoto-content .entry-title{
+    margin-top: 0!important;
+}
+.entry-content.columnistphoto p{
+  margin-bottom:0;
+}
+.columnistphoto h2.entry-title{
+    margin-top: 0;
+}
+
+#first_col .fotograf {
+    position: absolute;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    bottom: -20px;
+    right: 0;
+    padding: 6px 7px 6px 7px;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.4;
+    opacity: 0;
+    transition: all 0.3s ease-in;
+    visibility: hidden;
+}
+
+#first_col .post-thumbnail-col1:hover .fotograf {
+    opacity: 1;
+    visibility: visible;
+    bottom: 0;
+    z-index: 90;
+}
+
+.leaflet {
+    padding-left: 0px;
+}
+.sponsradcol1 .author-column{
+    margin: 10px 10px 15px;
+}
+.sponsradcol1 .entry-header,
+.sponsradcol1 .entry-content,
+.news-content-first-col .entry-header,
+.news-content-first-col .entry-content{
+    padding-right: 15px;
+}
+.news-content-first-col .entry-header.columnistphoto,
+.news-content-first-col .entry-content.columnistphoto{
+    padding-right: 5px;
+}
+
+
+/* Article topic design */
+.article-topic {
+    display: inline-block;
+    margin: 0 0 10px 0;
+    font-family: 'Libre Franklin';
+    font-size: 16px;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-weight: 600;
+    color:#333;
+}
+
+.article-topic .arrow {
+    margin-left: 8px;
+    margin-bottom: 2px;
+    color:#555;
+}
+
+.article-topic-link:hover,
+.article-topic:hover {
+  color: #23527c !important;
+}
+
+
+/* headings */
+.entry-title.thin-1{ 
+    font-family: "Times New Roman";
+    font-size: 60px; 
+}
+
+.entry-title.thin-2,
+.entry-title.thin-3 { 
+    font-family: "Times New Roman";
+    font-size: 50px; 
+
+}
+
+.entry-title.thin-5{ 
+    font-family: "Times New Roman";
+    font-size: 45px; 
+}
+
+.entry-title.bold-1{ 
+    font-size: 55px; 
+}
+
+.entry-title.bold-3{ 
+    font-size: 45px; 
+}
+ 
+.entry-title.bold-5{ 
+    font-size: 35px; 
+}
+
+.right-thumb-left-content .entry-title {
+    margin-top: 0;
+}
+
+/* add margin to rigth justified pictures */
+
+.float-right-thumb {
+    margin-left: 10px;
+}
+.news-content-first-col{
+    position: relative;
+}
+
+/* column1 category */
+.column1-category{
+    display: inline;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 3px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+ .column1-category::before {
+    position: absolute;
+    content: "";
+    background: #F21667;
+    left: 0;
+    top: 4px;
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+ }

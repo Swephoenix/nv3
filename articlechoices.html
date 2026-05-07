@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsVoice - Admin Startsida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f0f2f5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .article-card:hover { border-color: #007cba; }
+        .article-card.selected { border: 2px solid #007cba; background: #f0f8ff; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="p-6 border-b bg-gray-50">
+            <h1 class="text-2xl font-bold text-gray-800">NewsVoice Startsida</h1>
+            <p class="text-sm text-gray-500">Hantera layout och artiklar för förstasidan</p>
+        </div>
+
+        <!-- Sektioner -->
+        <div class="p-6 space-y-8" id="sections-container">
+            <!-- Sektion: Huvudartikel -->
+            <div class="section-block p-4 border rounded-lg bg-white" data-section="huvudartikel">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-lg font-semibold uppercase tracking-wider text-gray-700">Huvudartikel</h2>
+                        <p class="text-xs text-gray-400 italic active-status">Manuellt val: 1 artikel vald</p>
+                    </div>
+                    <div class="flex gap-2 mt-3 md:mt-0">
+                        <button onclick="openAlgoModal('huvudartikel')" class="px-4 py-2 bg-blue-50 text-blue-700 rounded border border-blue-200 hover:bg-blue-100 text-sm font-medium">✨ Algoritm</button>
+                        <button onclick="openManualModal('huvudartikel')" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm font-medium">🔍 Manuellt val</button>
+                    </div>
+                </div>
+                <div class="preview-area flex gap-4 overflow-x-auto py-2">
+                    <div class="flex-shrink-0 w-48 border rounded p-2 bg-gray-50 text-xs">
+                        <img src="https://picsum.photos/seed/news1/200/120" class="rounded mb-2">
+                        <p class="font-bold line-clamp-2">Israels och USA:s upptrappning mot Iran...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sektion: Redaktionens Utvalda -->
+            <div class="section-block p-4 border rounded-lg bg-white" data-section="redaktionens-utvalda">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-lg font-semibold uppercase tracking-wider text-gray-700">Redaktionens Utvalda</h2>
+                        <p class="text-xs text-gray-400 italic active-status">Algoritm: 4 Senaste (Trending)</p>
+                    </div>
+                    <div class="flex gap-2 mt-3 md:mt-0">
+                        <button onclick="openAlgoModal('redaktionens-utvalda')" class="px-4 py-2 bg-blue-50 text-blue-700 rounded border border-blue-200 hover:bg-blue-100 text-sm font-medium">✨ Algoritm</button>
+                        <button onclick="openManualModal('redaktionens-utvalda')" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm font-medium">🔍 Manuellt val</button>
+                    </div>
+                </div>
+                <div class="preview-area flex gap-3 overflow-x-auto py-2">
+                    <!-- Placeholder för preview -->
+                    <div class="flex-shrink-0 w-32 h-24 bg-gray-100 rounded border-dashed border-2 flex items-center justify-center text-gray-400 text-[10px]">Dynamiskt innehåll</div>
+                    <div class="flex-shrink-0 w-32 h-24 bg-gray-100 rounded border-dashed border-2 flex items-center justify-center text-gray-400 text-[10px]">Dynamiskt innehåll</div>
+                    <div class="flex-shrink-0 w-32 h-24 bg-gray-100 rounded border-dashed border-2 flex items-center justify-center text-gray-400 text-[10px]">Dynamiskt innehåll</div>
+                    <div class="flex-shrink-0 w-32 h-24 bg-gray-100 rounded border-dashed border-2 flex items-center justify-center text-gray-400 text-[10px]">Dynamiskt innehåll</div>
+                </div>
+            </div>
+
+            <!-- Fler sektioner kan läggas till här (Sverige, Världen etc) -->
+            <div class="text-center py-4">
+                <button class="text-blue-600 font-bold hover:underline">+ Lägg till sektion</button>
+            </div>
+        </div>
+
+        <div class="p-6 border-t bg-gray-50 text-right">
+            <button class="px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow hover:bg-green-700">Spara Startsida</button>
+        </div>
+    </div>
+
+    <!-- MODAL: ALGORITM -->
+    <div id="modal-algo" class="modal">
+        <div class="bg-white rounded-lg w-full max-w-md p-6 shadow-2xl">
+            <h3 class="text-xl font-bold mb-4">Välj algoritm</h3>
+            <p class="text-sm text-gray-600 mb-6">Sektionen kommer att uppdateras automatiskt baserat på ditt val.</p>
+            
+            <div class="space-y-3">
+                <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="algo" value="latest" class="w-4 h-4 text-blue-600" checked>
+                    <span class="ml-3 font-medium">Visa de 5 senaste artiklarna</span>
+                </label>
+                <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="algo" value="trending" class="w-4 h-4 text-blue-600">
+                    <span class="ml-3 font-medium">Visa de 5 mest populära (Trending)</span>
+                </label>
+                <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="algo" value="random" class="w-4 h-4 text-blue-600">
+                    <span class="ml-3 font-medium">Visa 5 slumpmässiga från kategorin</span>
+                </label>
+            </div>
+
+            <div class="mt-8 flex justify-end gap-3">
+                <button onclick="closeModals()" class="px-4 py-2 text-gray-500">Avbryt</button>
+                <button onclick="saveAlgoChoice()" class="px-4 py-2 bg-blue-600 text-white rounded font-bold">Verkställ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: MANUELLT GALLERI -->
+    <div id="modal-manual" class="modal">
+        <div class="bg-white rounded-lg w-full max-w-4xl p-6 shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Välj artiklar manuellt</h3>
+                <input type="text" placeholder="Sök artikel..." class="border px-3 py-1 rounded text-sm w-64">
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 overflow-y-auto p-2 border-y my-4" id="gallery-grid">
+                <!-- Genereras av JS -->
+            </div>
+
+            <div class="flex justify-between items-center mt-4">
+                <span class="text-sm text-gray-500"><span id="selected-count">0</span> artiklar valda</span>
+                <div class="flex gap-3">
+                    <button onclick="closeModals()" class="px-4 py-2 text-gray-500">Avbryt</button>
+                    <button onclick="saveManualChoice()" class="px-4 py-2 bg-blue-600 text-white rounded font-bold">Spara urval</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = '';
+        const modalAlgo = document.getElementById('modal-algo');
+        const modalManual = document.getElementById('modal-manual');
+
+        // Mock-data för galleriet
+        const articles = [
+            { id: 101, title: "Kommuner pressas av växande kostnader", img: "https://picsum.photos/seed/1/200/150" },
+            { id: 102, title: "Ny svensk beredskapsplan ska stärka livsmedel", img: "https://picsum.photos/seed/2/200/150" },
+            { id: 103, title: "Regioner varnar för längre vårdköer", img: "https://picsum.photos/seed/3/200/150" },
+            { id: 104, title: "Prepping i vardagen: Så bygger du lager", img: "https://picsum.photos/seed/4/200/150" },
+            { id: 105, title: "Syrien signalerar hårdare säkerhetslinje", img: "https://picsum.photos/seed/5/200/150" },
+            { id: 106, title: "Ny nordisk handelskorridor ska korta ledtider", img: "https://picsum.photos/seed/6/200/150" },
+            { id: 107, title: "Inflationen faller mer än väntat", img: "https://picsum.photos/seed/7/200/150" },
+            { id: 108, title: "Teknikjättar i nytt samarbete om AI", img: "https://picsum.photos/seed/8/200/150" }
+        ];
+
+        function openAlgoModal(sectionId) {
+            currentSection = sectionId;
+            modalAlgo.classList.add('active');
+        }
+
+        function openManualModal(sectionId) {
+            currentSection = sectionId;
+            renderGallery();
+            modalManual.classList.add('active');
+        }
+
+        function closeModals() {
+            modalAlgo.classList.remove('active');
+            modalManual.classList.remove('active');
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = articles.map(art => `
+                <div class="article-card p-2 border rounded cursor-pointer transition-all" onclick="this.classList.toggle('selected'); updateCount()">
+                    <img src="${art.img}" class="rounded mb-2 w-full object-cover h-24">
+                    <p class="text-[10px] font-bold leading-tight">${art.title}</p>
+                    <input type="checkbox" class="hidden">
+                </div>
+            `).join('');
+        }
+
+        function updateCount() {
+            const selected = document.querySelectorAll('.article-card.selected').length;
+            document.getElementById('selected-count').innerText = selected;
+        }
+
+        function saveAlgoChoice() {
+            const selectedAlgo = document.querySelector('input[name="algo"]:checked').nextElementSibling.innerText;
+            const statusEl = document.querySelector(`[data-section="${currentSection}"] .active-status`);
+            const previewEl = document.querySelector(`[data-section="${currentSection}"] .preview-area`);
+            
+            statusEl.innerText = "✨ Algoritm: " + selectedAlgo;
+            statusEl.classList.replace('text-gray-400', 'text-blue-600');
+            
+            // Simulerad preview update
+            previewEl.innerHTML = `<div class="p-3 bg-blue-50 border border-blue-100 rounded text-xs text-blue-800 w-full italic">Artiklar i denna sektion kommer nu att rotera automatiskt baserat på "${selectedAlgo}".</div>`;
+            
+            closeModals();
+        }
+
+        function saveManualChoice() {
+            const selectedCards = document.querySelectorAll('.article-card.selected');
+            const statusEl = document.querySelector(`[data-section="${currentSection}"] .active-status`);
+            const previewEl = document.querySelector(`[data-section="${currentSection}"] .preview-area`);
+            
+            statusEl.innerText = `🔍 Manuellt val: ${selectedCards.length} artiklar valda`;
+            statusEl.classList.replace('text-blue-600', 'text-gray-400');
+
+            // Uppdatera preview med de valda bilderna
+            let html = '';
+            selectedCards.forEach(card => {
+                html += `
+                    <div class="flex-shrink-0 w-32 border rounded p-1 bg-white text-[9px]">
+                        <img src="${card.querySelector('img').src}" class="rounded mb-1">
+                        <p class="font-bold line-clamp-1">${card.querySelector('p').innerText}</p>
+                    </div>
+                `;
+            });
+            previewEl.innerHTML = html || '<p class="text-xs text-red-500">Inga artiklar valda.</p>';
+            
+            closeModals();
+        }
+    </script>
+</body>
+</html>

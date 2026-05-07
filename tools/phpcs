@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if php -m 2>/dev/null | grep -Eq '^SimpleXML$' && php -m 2>/dev/null | grep -Eq '^xmlwriter$'; then
+	exec php "$project_dir/tools/phpcs.phar" "$@"
+fi
+
+exec docker run --rm \
+	-v "$project_dir:/workspace" \
+	-w /workspace \
+	wordpress:cli-php8.2 \
+	php tools/phpcs.phar "$@"
